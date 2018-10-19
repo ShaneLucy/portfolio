@@ -1,0 +1,144 @@
+#about {
+	background-color: #B2B4B3;
+	padding-top: 15vh;
+	padding-bottom: 20vh;
+}
+
+.navbar-nav .nav-item .nav-link {
+	color: gold;
+}
+
+#showcase {
+	background-color: #B2B4B3;
+	padding-top: 15vh;
+}
+
+#contact {
+	background-color: whitesmoke;
+	padding-top: 25vh;
+}
+
+#contact h4 {
+	font-weight: normal;
+	padding-left: 2vw;
+	line-height: 1.6;
+	color: black;
+}
+
+h4 {
+	font-weight: normal;
+	padding-left: 2vw;
+	line-height: 1.6;
+	color: black;
+}
+
+#padding {
+	padding-bottom: 5vh;
+}
+
+h3 {
+	padding-left: 2vw;
+	line-height: 1.6;
+	color: black;
+}
+
+span {
+	padding-left: 2vw;
+}
+
+.content {
+	overflow: hidden;
+}
+
+.right {
+	padding-left: 15px;
+}
+
+
+/*css for logo*/
+
+#logo {
+	position: absolute;
+	display: block;
+	top: 120px;
+	left: 45%;
+	margin-left: -250px;
+}
+
+.left,
+.right {
+	width: 49%;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.left:before,
+.right:before {
+	content: "";
+	width: 160px;
+	height: 270px;
+}
+
+.left:before {
+	float: right;
+	shape-outside: url(images/webdev.jpeg)
+}
+
+.right:before {
+	float: left;
+	shape-outside: url(images/webdev.jpeg)
+}
+
+@media only screen and (max-width: 994px) {
+	.desktop {
+		display: none;
+	}
+	.left {
+		display: none;
+	}
+	.right {
+		display: none;
+	}
+	#logo {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 994px) {
+	.mobile {
+		display: none;
+	}
+}
+
+#github {
+	padding-left: 10vw;
+	padding-right: 10vw;
+}
+
+#mobileno {
+	padding-bottom: 6vh;
+}
+
+#linkedin {
+	padding-left: 3vw;
+}
+
+.icons {
+	margin: 0px;
+	padding: 0px;
+	padding-right: 2vw;
+}
+
+#stackoverflow {
+	padding-left: 8vw;
+}
+
+.mobile {
+	padding-bottom: 7vh;
+}
