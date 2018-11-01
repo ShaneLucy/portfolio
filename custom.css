@@ -28,7 +28,7 @@ body {
  .hero-image {
      width: 100vw;
      height: 100vh;
-     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(http://shanelucy.pcriot.com/portfolio/images/hero.jpg);
+     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/hero.jpg);
      display: flex;
      justify-content: center;
      align-items: center;
@@ -82,7 +82,7 @@ body {
 }
 /*background portperties makes the nav bar blend into hero image*/
  .navbar {
-     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(http://shanelucy.pcriot.com/portfolio/images/hero.jpg);
+     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/hero.jpg);
      background-size: cover;
      background-position:center;
      background-repeat: no-repeat;
