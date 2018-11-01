@@ -12,6 +12,8 @@
       <link href="scripts/custom.css" rel="stylesheet" />
       <!-- Google Icons -->
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+      <!-- Font Awesome Icons -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous" />
       <!-- Linked In -->
       <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
       <!--Cookie Consent -->
@@ -22,7 +24,7 @@
    <body>
       <header>
          <!--Navigation-->
-         <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+         <nav class="navbar  navbar-expand-sm" id="home">
             <div class="navbar-header">
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
@@ -31,129 +33,146 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav ">
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Home
-                     <span class="sr-only">(current)</span>
-                     </a>
+                     <a class="nav-link" href="#showcase">My Work</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#about">About</a>
+                     <a class="nav-link" href="#contact">Contact Me</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#showcase">Showcase</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#contact">Contact</a>
+                     <a class="nav-link" href="#about">About Me</a>
                   </li>
                </ul>
             </div>
          </nav>
+         <div class="row">
+            <div class="desktop hero-image">
+               <div>
+                  <div class="hero-text1">
+                     <h1>Hello, I am <strong>Shane Lucy.</strong> I have a</h1>
+                  </div>
+                  <div class="hero-text2">
+                     <h1><strong>Passion</strong> for<strong> Web Development.</strong></h1>
+                  </div>
+                  <div class="hero-text3">
+                     <h1>I love creating <strong> Responsive</strong>  websites.</h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="mobile">
+            <div class="container-fluid">
+               <div class="row">
+                  <h1>Hello, I am <strong>Shane Lucy.</strong> I have a</h1>
+                  <h1><strong>Passion</strong> for<strong> Web Development.</strong></h1>
+                  <h1>I love creating <strong> Responsive</strong>  websites.</h1>
+               </div>
+            </div>
+         </div>
+         </div>
       </header>
-       <!--Content section-->
       <div class="content">
-         <section id="about">
-            <div class="row">
-               <svg id="logo" width="600" height="300">
-                  <defs>
-                     <clipPath id="circleView">
-                        <circle cx="300" cy="150" r="150" fill="#000000" />
-                     </clipPath>
-                  </defs>
-                  <image width="600" height="300" href="images/webdev.jpeg" clip-path="url(#circleView)" />
-               </svg>
-               <div class="left">
-                  <h4>Hello I am Shane Lucy I was born and raised in Ireland and am now living in Liverpool. Having graduated from university in the summer of 2018 with a 2:2 in computer science I am now excited to focus on my career.</h4>
-               </div>
-               <div class="right">
-                  <h4>I have a passion for web development and have experience working with Bootstrap, HTML, CSS, jQuery, Ajax and PHP. I am looking forward to adding new skills and improving on what I already know.</h4>
-               </div>
-            </div>
-            <div class="mobile">
-               <h4>Hello, I am Shane Lucy I was born and raised in Ireland and am now living in Liverpool. I have a passion for web development whether it's front-end or back-end. I have experience working with Twitter's Bootstrap, HTML, CSS, jQuery, Ajax and PHP. I am looking forward to adding new skills and improving on what I already know.</h4>
-            </div>
-         </section>
-          <!--portfolio section-->
          <section id="showcase">
-            <div class="row showcaseContent">
-               <div class="col-sm-4">
-                  <a href="http://shanelucy.pcriot.com/bookingtemplate/homepage.php" target="_blank">
-                  <img class="card-img-top rounded" src="images/dissertation.jpg" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" />
-                  </a>
-                  <div class="card-body">
-                     <h3 class="card-title">Garage Booking Template Website</h3>
-                     <h4 class="card-text">The website I built as part of my dissertation. It's a template garage booking website which I developed with Bootstrap, PHP and phpMyAdmin.</h4>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <a href="http://www.thewoodhill.uk" target="_blank">
-                  <img class="card-img-top rounded" src="images/huntinglodge.jpg" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" /></a>
-                  <div class="card-body">
-                     <h3 id="padding" class="card-title">Woodhill Hunting Lodge</h3>
-                     <h4 class="card-text">This is an informative and advertising website I developed for a client with Bootstrap, jQuery and PHP.</h4>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <a href="http://shanelucy.pcriot.com/cryptofolio/index.php" target="_blank">
-                  <img class="card-img-top rounded" src="images/crypfolio.jpg" data-toggle="tooltip" title="Click to visit me!" alt="My Dissertation Website" /></a>
-                  <div class="card-body">
-                     <h3 class="card-title">Crypto Currency Portfolio</h3>
-                     <span><progress value="15" max="100"></progress></span>    
-                     <h4 class="card-text">Still a work in progress, this website will allow users to create a cryptocurrency portfolio by intergrating with exchanges API's and uploading csv files.</h4>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-sm-4">
-               </div>
-               <div class="col-sm-4">
-                  <img class="card-img-top rounded" src="images/yourwebsite.jpg" alt="Your website placeholder" />
-                  <div class="card-body">
-                     <h3 class="card-title">Your Website</h3>
+            <div class="container">
+               <h2 class="text-center">My Work to Date</h2>
+               <div class="row">
+                  <div class="card-deck">
+                     <div class="card">
+                        <div class="card-body">
+                           <a href="http://shanelucy.pcriot.com/bookingtemplate/homepage.php" target="_blank">
+                           <img class="card-img-top" src="images/dissertation.jpg" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" />
+                           </a>
+                           <h4 class="card-title">Garage Booking Template Website</h4>
+                           <p class="card-text ">The website I built as part of my dissertation. It's a template garage booking website which I developed with Bootstrap, PHP and phpMyAdmin.</p>
+                        </div>
+                     </div>
+                     <div class="card">
+                        <div class="card-body">
+                           <a href="http://www.thewoodhill.uk" target="_blank">
+                           <img class="card-img-top" src="images/huntinglodge.jpg" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" /></a>
+                           <h4 class="card-title">The Woodhill Hunting Lodge</h4>
+                           <span><progress id="hide" value="15" max="100"></progress></span>
+                           <p class="card-text">This is an informative and advertising website I developed for a client with Bootstrap, jQuery and PHP.</p>
+                        </div>
+                     </div>
+                     <div class="card">
+                        <div class="card-body">
+                           <a href="http://shanelucy.pcriot.com/cryptofolio/index.php" target="_blank">
+                           <img class="card-img-top" src="images/crypfolio.jpg" data-toggle="tooltip" title="Click to visit me!" alt="My Dissertation Website" /></a>
+                           <h4 class="card-title">Crypto Currency Portfolio</h4>
+                           <span><progress value="15" max="100"></progress></span>    
+                           <p class="card-text">Still a work in progress, this website will allow users to import trades, csv files and access exchanges API's so they can visually check on their investment progress.</p>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
          </section>
-          <!--footer-->
-         <section id="contact">
+         <!--About me section-->
+         <section id="about">
             <div class="container">
-               <div class="row desktop">
-                  <div class="col-sm-4">
-                     <div>
-                        <h4 class="text-left details"><span class="icons material-icons">mail_outline</span>lucyshane57@gmail.com</h4>
+               <h2 class="text-center">About me</h2>
+               <div class="row">
+                  <div class="col-sm-8">
+                     <img class="me" src="images/me.jpg" alt="A photograph of me" />
+                  </div>
+                  <div class="col-sm-3">
+                     <p id="bio" class="text-center">I was born and raised in Ireland where I studied computer science at Ulster University Jordanstown. Along with hiking & kayaking in my spare time I also trade cryptocurrency.</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!--footer-->
+         <section id="footer">
+            <div class="container">
+               <div class="desktop">
+                  <div class="row">
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <a href="https://github.com/ShaneLucy" target="_blank"><img class="icons" src="images/github.png" alt="GitHub logo" /></a>
                      </div>
-                     <div id="mobileno">
-                        <h4> <span  class="icons material-icons">call</span>07784404618</h4>
+                     <div class="col-sm-4">
+                        <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank"><img class="icons" src="images/linkedin.png" alt="LinkedIn logo" /></a>
                      </div>
-                     <div id="linkedin" class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="horizontal" data-theme="dark" data-vanity="shane-lucy-4735b616a"><a class="LI-simple-link" href='https://uk.linkedin.com/in/shane-lucy-4735b616a?trk=profile-badge'>Shane Lucy</a></div>
+                     <div class="col-sm-4">
+                        <a href="https://stackoverflow.com/users/9612416/sabathaon" target="_blank"><img class="icons" src="images/stackoverflow.png" alt="Stackoverflow Logo" /></a>
+                     </div>
                   </div>
-                  <div class="col-sm-4">
-                     <!--github widget-->
-                     <div id="github" class="github-widget" data-username="ShaneLucy"></div>
-                  </div>
-                  <!--stackoverflow widget-->
-                  <div id="stackoverflow" class="col-sm-3">
-                     <a href="https://stackoverflow.com/users/9612416/sabathaon">
-                     <img src="https://stackoverflow.com/users/flair/9612416.png" width="208" height="58" alt="profile for Sabathaon at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Sabathaon at Stack Overflow, Q&amp;A for professional and enthusiast programmers" />
-                     </a>
-                  </div>
-               </div>
-               <div class="row mobile">
-                  <div>
-                     <h4 class="text-left details"><span class="icons material-icons">mail_outline</span>lucyshane57@gmail.com</h4>
-                  </div>
-                  <div>
-                     <h4 class="text-left details"> <span  class="icons material-icons">call</span>07784404618</h4>
+                  <div id="contact" class="row">
+                     <div class="col-sm-4">
+                        <h4 class="text-centre"><span class="icons material-icons">mail_outline</span>&nbsp;&nbsp;lucyshane57@gmail.com</h4>
+                     </div>
+                     <div class="col-sm-4">
+                        <h4 class="text-centre"><span class="icons material-icons">call</span>&nbsp;&nbsp;07784404618</h4>
+                     </div>
+                     <div class="col-sm-4">
+                        <a href="#home"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Back to Top" aria-hidden="true"></i></a> 
+                     </div>
                   </div>
                </div>
-               <div class="row mobile">
-                  <div class="col LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="horizontal" data-theme="dark" data-vanity="shane-lucy-4735b616a"><a class="LI-simple-link" href='https://uk.linkedin.com/in/shane-lucy-4735b616a?trk=profile-badge'>Shane Lucy</a></div>
-               </div>
-               <div class="row mobile">
-                  <div id="github" class="github-widget" data-username="ShaneLucy"></div>
-               </div>
-               <div class="row mobile">
-                  <a href="https://stackoverflow.com/users/9612416/sabathaon">
-                  <img src="https://stackoverflow.com/users/flair/9612416.png" width="208" height="58" alt="profile for Sabathaon at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Sabathaon at Stack Overflow, Q&amp;A for professional and enthusiast programmers" />
-                  </a>
+               <div class="mobile">
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <a href="https://github.com/ShaneLucy" target="_blank"><img class="icons" src="images/github.png" alt="GitHub logo" /></a>
+                     </div>
+                     <div class="col-sm-4">
+                        <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank"><img class="icons" src="images/linkedin.png" alt="LinkedIn logo" /></a>
+                     </div>
+                     <div class="col-sm-4">
+                        <a href="https://stackoverflow.com/users/9612416/sabathaon" target="_blank"><img class="icons" src="images/stackoverflow.png" alt="Stackoverflow Logo" /></a>
+                     </div>
+                  </div>
+                  <div id="contact" class="row">
+                     <div class="col-sm-4">
+                        <h4 class="text-centre"><span class="icons material-icons">mail_outline</span>&nbsp;&nbsp;lucyshane57@gmail.com</h4>
+                     </div>
+                     <div class="col-sm-4">
+                        <h4 class="text-centre"><span class="icons material-icons">call</span>&nbsp;&nbsp;07784404618</h4>
+                     </div>
+                     <div class="col-sm-4">
+                        <a href="#home"><i class="fa fa-arrow-up" data-toggle="tooltip" title="Back to Top" aria-hidden="true"></i></a> 
+                     </div>
+                  </div>
                </div>
             </div>
          </section>
@@ -163,7 +182,5 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
       <script src="scripts/tooltip.js"></script>
-      <!--Github widget script -->
-      <script src="https://unpkg.com/github-card@1.2.1/dist/widget.js"></script>
    </body>
 </html>
