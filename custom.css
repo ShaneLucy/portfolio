@@ -1,182 +1,316 @@
+/*importing font family from google fonts*/
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto');
 body {
-     height: 100%;
-     margin: 0;
-     background-color: gainsboro;
-     overflow-x: hidden;
+	height: 100%;
+	margin: 0;
+	background-color: gainsboro;
+	overflow-x: hidden;
+	font-family: 'Roboto', sans-serif;
 }
- p {
-     font-size: 1.2rem;
+
+strong {
+	font-family: 'Merriweather', serif;
 }
- h1 {
-     font-weight: lighter;
-     color: white;
-     border: 2px;
-     letter-spacing: 2px;
+
+p {
+	font-size: 1.2rem;
 }
-/*styles used for emphasising words in hero text*/
- strong {
-     color: ivory;
-     font-size: 125%;
-     font-weight: bold;
+
+h1 {
+	font-weight: lighter;
+	color: white;
+	border: 2px;
+	letter-spacing: 2px;
 }
- strong:hover {
-     color: gold;
-     font-size: 125%;
-     font-weight: bold;
+
+h3 {
+	padding-left: 2vw;
+	line-height: 1.6;
+	color: black;
 }
-/*styles for hero image */
- .hero-image {
-     width: 100vw;
-     height: 100vh;
-     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/hero.jpg);
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     overflow: hidden;
-     text-align: center;
-     background-size: cover;
-     background-position:center;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
+
+h4 {
+	font-weight: normal;
+	line-height: 1.6;
+	color: black;
+	text-align: center;
 }
-/*positioning of hero text*/
- .hero-text1 {
-     text-align: center;
-     position: absolute;
-     top: 30%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     margin: 0 auto;
-     overflow: auto;
-     white-space: nowrap;
-}
- .hero-text2 {
-     text-align: center;
-     position: absolute;
-     top: 45%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     margin: 0 auto;
-     overflow: auto;
-     white-space: nowrap;
-    
-}
- .hero-text3 {
-     text-align: center;
-     position: absolute;
-     top: 60%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     margin: 0 auto;
-     overflow: auto;
-     white-space: nowrap;
-}
+
+
 /*stlyes for navigational links*/
- .navbar-nav .nav-item .nav-link {
-     color: gold;
-     font-size: 1.4em;
+
+.navbar-nav .nav-item .nav-link {
+	color: gold;
+	font-size: 1.2rem;
 }
- .navbar-nav .nav-item .nav-link:hover {
-     color: ivory;
-     font-size: 1.4em;
+
+.navbar-nav .nav-item .nav-link:hover {
+	color: ivory;
+	font-size: 1.6rem;
+	text-decoration: underline;
 }
-/*background portperties makes the nav bar blend into hero image*/
- .navbar {
-     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/hero.jpg);
-     background-size: cover;
-     background-position:center;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
+
+.navbar-toggler-icon {
+	color: gold;
 }
+
+
 /*adds shadows to cards */
- .card-body {
-     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-     background-color: white;
+
+.card-body {
+	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: white;
 }
- #showcase {
-     padding-top: 10vh;
-     padding-bottom: 20vh;
+
+
+/*Adds shadow and a white background to about me section*/
+
+.white {
+	background-color: white;
+	padding-top: 5vh;
+	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
- #hide {
-     visibility: hidden;
+
+.me {
+	border-radius: 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
- h2 {
-     padding-bottom: 10vh;
+
+#bio {
+	padding-top: 5vh;
+	padding-bottom: 5vh;
+	padding-left: 5vw;
+	padding-right: 5vw;
 }
- #about {
-     padding-bottom: 15vh;
-}
- .me {
-     border-radius: 50%;
-}
-/*Positioning for bio*/
- #bio {
-     padding-top: 15vh;
-}
+
+
 /*styles for the footer of the webpage*/
- #footer {
-     padding-top: 30vh;
-     background-color: mediumslateblue;
-     padding-bottom: 10vh;
-     text-align: center;
+
+#footer {
+	background-color: mediumslateblue;
+	padding-top: 5vh;
+	padding-bottom: 5vh;
 }
-/*styling and aligning h4 and h3 */
- h4 {
-     font-weight: normal;
-     line-height: 1.6;
-     color: black;
-     text-align: center;
-}
- h3 {
-     padding-left: 2vw;
-     line-height: 1.6;
-     color: black;
-}
-/*Setting sizes of social media icons*/
- .icons {
-     max-height: 10vh;
-     max-width: 10vw;
-}
+
+
 /*styles for back to home arrow*/
- a > i {
-     font-size: 5em;
-     color: gold;
+
+a>i {
+	font-size: 4rem;
+	color: gold;
 }
- a > i:hover {
-     font-size: 5em;
-     color: ivory;
+
+a>i:hover {
+	color: ivory;
 }
-/*padding used for layout purposes*/
- #contact {
-     padding-top: 10vh;
+
+.pad-5 {
+	padding-top: 5vh;
+	padding-bottom: 5vh;
 }
- .mobile {
-     padding-bottom: 7vh;
+
+
+/*media query for styling & displaying portrait mobile content*/
+
+@media only screen and (max-width: 768px),
+(max-width: 767px) {
+	.desktop {
+		display: none;
+	}
+	.navbar-toggler .icon {
+		background-color: #gold;
+	}
+	.navbar {
+		background-color: gray;
+		background-image: none;
+	}
+	.navbar-nav .nav-item .nav-link {
+		font-size: 1em;
+	}
+	.hero-image {
+		padding-top: 15vh;
+		background-color: mediumslateblue;
+		padding-bottom: 15vh;
+	}
+	strong {
+		color: gold;
+		font-size: 3.5rem;
+		font-weight: bold;
+	}
+	.card-pad {
+		padding-top: 2.5vh;
+		padding-bottom: 2.5vh;
+	}
+	#about {
+		padding-top: 8vh;
+		padding-bottom: 8vh;
+	}
+	/*sizes and positions  my avatar */
+	.me {
+		height: 40vh;
+		width: 40vw;
+	}
+	.icons {
+		max-height: 15vh;
+		max-width: 15vw;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.mobile {
+		padding-bottom: 7vh;
+	}
+	a {
+		color: gold;
+	}
+	/*padding and positioning for footer elements on mobile devices 
+  .pad-5 {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  }*/
 }
-/*media query for displaying mobile content*/
- @media only screen and (max-width: 768px) {
-     .desktop {
-         display: none;
-    }
-     .navbar {
-         background-color: mediumslateblue;
-         background-image: none;
-    }
-     .navbar-nav .nav-item .nav-link {
-         font-size: 1em;
-    }
-     .icons {
-         max-height: 20vh;
-         max-width: 20vw;
-    }
-    .me {
-     max-height: 30vh;
-     max-width: 30vw;
+
+
+/*media query for styling and dislpaying landscape mobile content*/
+
+@media screen and (orientation:landscape) and (max-width: 768px) {}
+
+
+/*media query for styling and displaying desktop content */
+
+@media only screen and (min-width: 768px) {
+	.mobile {
+		display: none;
+	}
+	/*styles for hero image */
+	.hero-image {
+		width: 100vw;
+		height: 100vh;
+		background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(http://shanelucy.pcriot.com/portfolio/images/hero.jpg);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		text-align: center;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+	/*positioning of hero text*/
+	.hero-text1 {
+		text-align: center;
+		position: absolute;
+		top: 30%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0 auto;
+		overflow: auto;
+		white-space: nowrap;
+	}
+	.hero-text2 {
+		text-align: center;
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0 auto;
+		overflow: auto;
+		white-space: nowrap;
+	}
+	.hero-text3 {
+		text-align: center;
+		position: absolute;
+		top: 60%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0 auto;
+		overflow: auto;
+		white-space: nowrap;
+	}
+	strong {
+		color: gold;
+		font-size: 3.5rem;
+		font-weight: bold;
+	}
+	/*blends the nav bar into the hero image*/
+	.navbar {
+		background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(http://shanelucy.pcriot.com/portfolio/images/hero.jpg);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+	#showcase {
+		padding-top: 10vh;
+		padding-bottom: 20vh;
+	}
+	h2 {
+		padding-bottom: 10vh;
+	}
+	#about {
+		padding-bottom: 15vh;
+	}
+	/*positioning footer components*/
+	#footer {
+		padding-top: 10vh;
+		padding-bottom: 10vh;
+		text-align: center;
+	}
+	/*padding used for layout purposes*/
+	#contact {
+		padding-top: 10vh;
+	}
+	/*Setting sizes of social media icons*/
+	.icons {
+		max-height: 10vh;
+		max-width: 10vw;
+	}
 }
+
+
+/*prevents hero text from overflowing*/
+
+@media only screen and (max-width: 864px)
+/*and (min-width: 768px)*/
+
+{
+	h1 {
+		font-size: 2rem;
+	}
+	strong {
+		font-size: 3rem;
+	}
+	p {
+		font-size: 1rem;
+	}
+	.navbar-nav .nav-item .nav-link {
+		color: gold;
+		font-size: 1rem;
+	}
 }
-/*media query for displaying desktop content*/
- @media only screen and (min-width: 768px) {
-     .mobile {
-         display: none;
-    }
+
+
+/*The following media queries force responsive behaviour on the cards at various breakpoints*/
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+	.layout {
+		padding-top: 6vh;
+	}
+}
+
+@media only screen and (max-width: 767px) and (min-width: 576px) {
+	.layout2 {
+		padding-top: 6vh;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.layout {
+		padding-top: 6vh;
+	}
 }
