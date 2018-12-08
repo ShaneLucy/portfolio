@@ -1,320 +1,304 @@
 /*importing font family from google fonts*/
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Roboto');
-
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans|Josefin+Slab|Merriweather');
 /*Applying smooth scrolling to the document*/
-html {
-  scroll-behavior: smooth;
+ html {
+     scroll-behavior: smooth;
 }
-body {
-	height: 100%;
-	margin: 0;
-	overflow-x: hidden;
-	font-family: 'Roboto', sans-serif;
-	background-color: gainsboro;
+ body {
+     height: 100%;
+     margin: 0;
+     font-weight: 500;
+     letter-spacing: 2px;
+     overflow-x: hidden;
+     font-family: 'Open Sans', sans-serif;
+     background-color: #E8E8E8;
 }
-
-strong {
-	font-family: 'Merriweather', serif;
+ p {
+     font-size: 1.2rem;
 }
-
-p {
-	font-size: 1.2rem;
+ h1 {
+     font-weight: bold;
+     font-family: 'Merriweather', serif;
+     border: 2px;
+     color: white;
+     letter-spacing: 1px;
+     font-size: 3.4rem;
 }
-
-h1 {
-	font-weight: lighter;
-	color: white;
-	border: 2px;
-	letter-spacing: 2px;
+ h2 {
+     border-style: solid;
+     border-bottom-style: none;
+     font-family: 'Josefin Slab', serif;
 }
-
-h3 {
-	padding-left: 2vw;
-	line-height: 1.6;
-	color: black;
+ h3 {
+     font-family: 'Josefin Slab', serif;
+     padding-left: 2vw;
+     line-height: 1.6;
+     color: black;
+     font-weight: 700;
+     text-align: center;
 }
-
-h4 {
-	font-weight: normal;
-	line-height: 1.6;
-	color: black;
-	text-align: center;
-}
-
-
 /*stlyes for navigational links*/
-
-.navbar-nav .nav-item .nav-link {
-	color: gold;
-	font-size: 1.2rem;
+ .navbar-nav .nav-item .nav-link {
+     color: #EE6C4D;
+     font-size: 1.4rem;
+     font-weight: 600;
+     font-family: 'Josefin Slab', serif;
 }
-
-.navbar-nav .nav-item .nav-link:hover {
-	color: ivory;
-	font-size: 1.6rem;
-	text-decoration: underline;
+ .navbar-nav .nav-item .nav-link:hover {
+     color: #E8E8E8;
+     font-size: 1.6rem;
+     font-weight: 700;
+     text-decoration: underline;
+     font-family: 'Josefin Slab', serif;
 }
-
-.navbar-toggler-icon {
-	color: gold;
+ .navbar-toggler-icon {
+     color: #EE6C4D;
 }
-
-
 /*adds shadows to cards */
-
-.card-body {
-	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	background-color: white;
+ .card-body {
+     box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     background-color: white;
 }
-
-
 /*Adds shadow and a white background to about me section*/
-
-.white {
-	background-color: white;
-	padding-top: 5vh;
-	box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ .white {
+     background-color: white;
+     padding-top: 5vh;
+     box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-.me {
-	border-radius: 50%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
+ .me {
+     border-radius: 50%;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     width: 50%;
 }
-
-#bio {
-	padding-top: 5vh;
-	padding-bottom: 5vh;
-	padding-left: 5vw;
-	padding-right: 5vw;
+ #bio {
+     padding-top: 5vh;
+     padding-bottom: 5vh;
+     padding-left: 5vw;
+     padding-right: 5vw;
 }
-
-
 /*styles for the footer of the webpage*/
-
-#footer {
-	background-color: mediumslateblue;
-	padding-top: 5vh;
-	padding-bottom: 5vh;
+ svg {
+     border: 0;
+     width: 100%;
+     height: 10vw;
 }
-
-
+ footer {
+     background-color: #636974;
+     padding-bottom: 5vh;
+}
+ .pad-left {
+     padding-left: 7vw;
+}
+ .pad-left-5 {
+     padding-left: 5vw;
+}
 /*styles for back to home arrow*/
-
-a>i {
-	font-size: 4rem;
-	color: gold;
+ a>i {
+     font-size: 4rem;
+     color: #EE6C4D;
+     -webkit-text-stroke: 2px black;
+     text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-
-a>i:hover {
-	color: ivory;
+ a>i:hover {
+     color: #E8E8E8;
 }
-
-.pad-5 {
-	padding-top: 5vh;
-	padding-bottom: 5vh;
+ .pad-5 {
+     padding-top: 5vh;
+     padding-bottom: 5vh;
 }
-
-
+ .pad-top {
+     padding-top: 5vh;
+}
+ .card-1 {
+     display:none;
+}
+ .card-2 {
+     display:none;
+}
+ #card-footer {
+     position: absolute;
+}
+ .opq {
+     opacity: 0.4;
+}
+ .opq:hover {
+     background: rgba(0, 0, 0, 0.5);
+     opacity: 1;
+}
 /*media query for styling & displaying portrait mobile content*/
-
-@media only screen and (max-width: 768px),
-(max-width: 767px) {
-	.desktop {
-		display: none;
-	}
-	.navbar-toggler .icon {
-		background-color: #gold;
-	}
-	.navbar {
-		background-color: gray;
-		background-image: none;
-	}
-	.navbar-nav .nav-item .nav-link {
-		font-size: 1em;
-	}
-	.hero-image {
-		padding-top: 15vh;
-		background-color: mediumslateblue;
-		padding-bottom: 15vh;
-	}
-	strong {
-		color: gold;
-		font-size: 3.5rem;
-		font-weight: bold;
-	}
-	.card-pad {
-		padding-top: 2.5vh;
-		padding-bottom: 2.5vh;
-	}
-	#about {
-		padding-top: 8vh;
-		padding-bottom: 8vh;
-	}
-	/*sizes and positions  my avatar */
-	.me {
-		height: 40vh;
-		width: 40vw;
-	}
-	.icons {
-		max-height: 15vh;
-		max-width: 15vw;
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.mobile {
-		padding-bottom: 7vh;
-	}
-	a {
-		color: gold;
-	}
-	/*padding and positioning for footer elements on mobile devices 
-  .pad-5 {
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  }*/
+ @media only screen and (max-width: 768px), (max-width: 767px) {
+     .desktop {
+         display: none;
+    }
+     h1{
+         color: black;
+    }
+     .navbar-toggler .icon {
+         background-color: #EE6C4D;
+    }
+     .navbar {
+         background-color: ivory;
+         background-image: none;
+    }
+     .navbar-nav .nav-item .nav-link {
+         font-size: 1em;
+    }
+     header{
+         background-color: #636974;
+    }
+     .hero-image {
+         padding-top: 8vh;
+         padding-bottom: 8vh;
+    }
+     .card-pad {
+         padding-top: 2.5vh;
+         padding-bottom: 2.5vh;
+    }
+     #about {
+         padding-top: 8vh;
+         padding-bottom: 8vh;
+    }
+    /*sizes and positions my avatar */
+     .me {
+         height: 40vh;
+         width: 40vw;
+    }
+     .icons {
+         max-height: 15vh;
+         max-width: 15vw;
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
+    }
+     .mobile {
+         padding-bottom: 7vh;
+    }
+     a {
+         color: #EE6C4D;
+    }
+    /*padding and positioning for footer elements on mobile devices */
+     .pad-5 {
+         padding-top: 5vh;
+         padding-bottom: 5vh;
+    }
 }
-
-
 /*media query for styling and dislpaying landscape mobile content*/
-
-@media screen and (orientation:landscape) and (max-width: 768px) {}
-
-
+ @media screen and (orientation:landscape) and (max-width: 768px) {
+}
 /*media query for styling and displaying desktop content */
-
-@media only screen and (min-width: 768px) {
-	.mobile {
-		display: none;
-	}
-	/*styles for hero image */
-	.hero-image {
-		width: 100vw;
-		height: 100vh;
-		background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		overflow: hidden;
-		text-align: center;
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-	}
-	/*positioning of hero text*/
-	.hero-text1 {
-		text-align: center;
-		position: absolute;
-		top: 30%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		margin: 0 auto;
-		overflow: auto;
-		white-space: nowrap;
-	}
-	.hero-text2 {
-		text-align: center;
-		position: absolute;
-		top: 45%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		margin: 0 auto;
-		overflow: auto;
-		white-space: nowrap;
-	}
-	.hero-text3 {
-		text-align: center;
-		position: absolute;
-		top: 60%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		margin: 0 auto;
-		overflow: auto;
-		white-space: nowrap;
-	}
-	strong {
-		color: gold;
-		font-size: 3.5rem;
-		font-weight: bold;
-	}
-	/*blends the nav bar into the hero image*/
-	.navbar {
-		background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-	}
-	#showcase {
-		padding-top: 10vh;
-		padding-bottom: 20vh;
-	}
-	h2 {
-		padding-bottom: 10vh;
-	}
-	#about {
-		padding-bottom: 15vh;
-	}
-	/*positioning footer components*/
-	#footer {
-		padding-top: 10vh;
-		padding-bottom: 10vh;
-		text-align: center;
-	}
-	/*padding used for layout purposes*/
-	#contact {
-		padding-top: 10vh;
-	}
-	/*Setting sizes of social media icons*/
-	.icons {
-		max-height: 10vh;
-		max-width: 10vw;
-	}
+ @media only screen and (min-width: 768px) {
+     .mobile {
+         display: none;
+    }
+     h1 {
+         color: white;
+         text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+    /*styles for hero image */
+     .hero-image {
+         width: 100vw;
+         height: 100vh;
+         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         overflow: hidden;
+         text-align: center;
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+    }
+    /*positioning of hero text*/
+     .hero-text1 {
+         text-align: center;
+         position: absolute;
+         top: 30%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         margin: 0 auto;
+         overflow: auto;
+         white-space: nowrap;
+    }
+     .hero-text2 {
+         text-align: center;
+         position: absolute;
+         top: 45%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         margin: 0 auto;
+         overflow: auto;
+         white-space: nowrap;
+    }
+     .hero-text3 {
+         text-align: center;
+         position: absolute;
+         top: 60%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         margin: 0 auto;
+         overflow: auto;
+         white-space: nowrap;
+    }
+    /*blends the nav bar into the hero image*/
+     .navbar {
+         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+    }
+     #showcase {
+         padding-top: 10vh;
+         padding-bottom: 10vh;
+    }
+     h2 {
+         padding-bottom: 10vh;
+    }
+    /*positioning footer components*/
+     #footer {
+         padding-top: 10vh;
+         padding-bottom: 10vh;
+         text-align: center;
+    }
+    /*padding used for layout purposes*/
+     #contact {
+         padding-top: 10vh;
+    }
+    /*Setting sizes of social media icons*/
+     .icons {
+         max-height: 10vh;
+         max-width: 10vw;
+    }
 }
-
-
 /*prevents hero text from overflowing*/
-
-@media only screen and (max-width: 864px)
-
-
-{
-	h1 {
-		font-size: 2rem;
-	}
-	strong {
-		font-size: 3rem;
-	}
-	p {
-		font-size: 1rem;
-	}
-	.navbar-nav .nav-item .nav-link {
-		color: gold;
-		font-size: 1rem;
-	}
+ @media only screen and (max-width: 864px) {
+     h1 {
+         font-size: 2rem;
+    }
+     p {
+         font-size: 1rem;
+    }
+     .navbar-nav .nav-item .nav-link {
+         color: #EE6C4D;
+         font-size: 1rem;
+    }
 }
-
-
 /*The following media queries force responsive behaviour on the cards at various breakpoints*/
-
-@media only screen and (max-width: 991px) and (min-width: 768px) {
-	.layout {
-		padding-top: 6vh;
-	}
+ @media only screen and (max-width: 991px) and (min-width: 768px) {
+     .layout {
+         padding-top: 6vh;
+    }
 }
-
-@media only screen and (max-width: 767px) and (min-width: 576px) {
-	.layout2 {
-		padding-top: 6vh;
-	}
+ @media only screen and (max-width: 767px) and (min-width: 576px) {
+     .layout2 {
+         padding-top: 6vh;
+    }
 }
-
-@media only screen and (min-width: 1200px) {
-	.layout {
-		padding-top: 6vh;
-	}
+ @media only screen and (min-width: 1200px) {
+     .layout {
+         padding-top: 6vh;
+    }
 }
