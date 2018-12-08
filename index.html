@@ -19,7 +19,7 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
       <script src="scripts/cookie.js"></script>
       <!--Styles for Animate on Scroll effect-->
-       <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
    </head>
    <body>
       <header>
@@ -48,13 +48,13 @@
             <div class="desktop hero-image">
                <div>
                   <div class="hero-text1">
-                     <h1>Hello, I am <strong>Shane Lucy.</strong> I have</h1>
+                     <h1>Hello, I am Shane Lucy. I have</h1>
                   </div>
                   <div class="hero-text2">
-                     <h1>a <strong>Passion</strong> for Web Development.</h1>
+                     <h1>a passion for web development.</h1>
                   </div>
                   <div class="hero-text3">
-                     <h1>I love creating <strong> Responsive</strong>  websites.</h1>
+                     <h1>I love creating responsive websites.</h1>
                   </div>
                </div>
             </div>
@@ -63,114 +63,124 @@
             <div class="hero-image">
                <div class="container-fluid">
                   <div class="row">
-                     <h1>Hello, I am <strong>Shane Lucy.</strong> I have a
-                        <strong>Passion</strong> for Web Development.
-                        I love creating <strong> Responsive</strong>  websites.
-                     </h1>
+                     <div class="hero-text1">
+                        <h1>Hello, I am Shane Lucy. I have</h1>
+                     </div>
+                     <div class="hero-text2">
+                        <h1>a passion for web development.</h1>
+                     </div>
+                     <div class="hero-text3">
+                        <h1>I love creating responsive websites.</h1>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
       </header>
+      <div class="mobile">
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon fill="#636974" points="0,100 100,0 0,-10"/>
+         </svg>
+      </div>
       <div class="content">
-         <section id="showcase">
-            <div class="container">
-               <h2 class="text-center display-4 pad-5">My Work to Date</h2>
-               <div class="row">
-                  <div class="card-deck">
-                     <div class="card-pad"></div>
-                     <div class="card" data-aos="fade-right" data-aos-delay="100" data-aos-duration="2000">
-                        <div class="card-body rounded">
-                           <a href="http://shanelucy.pcriot.com/bookingtemplate/homepage.php" target="_blank">
-                           <img class="card-img-top" src="https://shanelucy.me/images/dissertation.jpg" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" />
-                           </a>
-                           <h4 class="card-title">Garage Booking Template Website</h4>
-                           <p class="card-text">The website I built as part of my dissertation. It's a template garage booking website which I developed with Bootstrap, PHP and JavaScript.</p>
-                        </div>
+      <section id="showcase">
+         <div class="container">
+            <h2 class="text-center display-4 pad-5">My Work to Date</h2>
+            <div class="row pad-top">
+               <div class="card-deck">
+                  <div class="card" data-aos="fade-right" data-aos-delay="100" data-aos-duration="2000">
+                     <div class="card-body rounded">
+                        <a href="http://shanelucy.pcriot.com/bookingtemplate/homepage.php" target="_blank">
+                        <img class="card-img-top opq" id="card-img-1" src="https://shanelucy.me/images/dissertation.png" alt="My Dissertation Website" data-toggle="tooltip" title="Click to visit me!" />
+                        </a>
+                        <h3 class="card-title card-2">The Woodhill Huntinglodge</h3>
+                        <p class="card-text card-2">This is a brochure style website I developed for a bar & restaurant with Bootstrap, JavaScript and PHP.</p>
                      </div>
-                     <div class="card-pad"></div>
-                     <div class="card rounded" data-aos="fade-down" data-aos-delay="100" data-aos-duration="2000">
-                        <div class="card-body rounded">
-                           <a href="http://www.thewoodhill.uk" target="_blank">
-                           <img class="card-img-top" src="https://shanelucy.me/images/huntinglodge.jpg" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" /></a>
-                           <h4 class="card-title">The Woodhill Hunting Lodge</h4>
-                           <p class="card-text layout">This is a brochure style website I developed for a bar & restaurant with Bootstrap, JavaScript and PHP.</p>
-                        </div>
+                  </div>
+                  <div class="card rounded d-flex justify-content-end" data-aos="fade-left" data-aos-delay="100" data-aos-duration="2000">
+                     <div class="card-body rounded">
+                        <a href="http://www.thewoodhill.uk" target="_blank">
+                        <img class="card-img-top opq" id="card-img-2" src="https://shanelucy.me/images/huntinglodge.png" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" /></a>
+                        <h3 class="card-title card-1">Garage Booking Template Website</h3>
+                        <p class="card-text card-1">
+                           The website I built as part of my dissertation. It'<!--'-->s a template garage booking website which I developed with Bootstrap, PHP and JavaScript.
+                        </p>
                      </div>
-                     <div class="card-pad"></div>
-                     <div class="card rounded" data-aos="fade-left" data-aos-delay="100" data-aos-duration="2000">
-                        <div class="card-body rounded">
-                           <a href="http://shanelucy.pcriot.com/cryptofolio/index.php" target="_blank">
-                           <img class="card-img-top" src="https://shanelucy.me/images/cryptoportfolio.jpg" data-toggle="tooltip" title="Click to visit me!" alt="My current project" /></a>
-                           <h4 class="card-title">Crypto Currency Portfolio</h4>
-                           <p class="card-text layout layout2">Still a work in progress, this website will allow users to import trades, csv files and access exchanges API's so they can visually check on their investment progress.</p>
-                        </div>
-                     </div>
-                     <div class="card-pad"></div>
                   </div>
                </div>
             </div>
-         </section>
-         <!--About me section-->
-         <section id="about">
-            <div class="container">
-               <h2 class="text-center display-4 pad-5">About me</h2>
-               <div class="row">
-             <div class="col-sm-3"></div>
-               <div class="col-sm-6 white rounded" data-aos="fade-up" data-aos-delay="50" data-aos-duration="2000"> 
-                  <img class="me" src="images/me.jpg" alt="A photograph of me" />
-                  <p id="bio" class="text-center">Shane was born and raised in Ireland where he graduated in 2018 from Ulster University Jordanstown with a BSc in Computing Science. He is currently enrolled in a JavaScript course with Udemy. His favourite hobbies are kayaking, hiking, researching and trading cryptocurrency.</p>
-                  </div>
+         </div>
+      </section>
+      <!--About me section-->
+      <section id="about">
+         <div class="container">
+            <h2 class="text-center display-4 pad-5">About me</h2>
+            <div class="row pad-top">
+               <div class="col-sm-3"></div>
+               <div class="col-sm-6 white rounded" data-aos="fade-up" data-aos-delay="50" data-aos-duration="2000">
+                  <img class="img-fluid me" src="images/me.jpg" alt="A photograph of me" />
+                  <p id="bio" class="text-center">Shane was born and raised in Ireland where he graduated in 2018 from Ulster University Jordanstown with a BSc in Computing Science. He is currently transitioning from procedural to object orientated PHP. His favourite hobbies are kayaking, hiking, researching and trading cryptocurrency.</p>
                </div>
             </div>
-         </section>
-         <!--footer-->
-         <section id="footer">
+         </div>
+      </section>
+      <footer>
+         <!--SVG creates diagonal section divider-->
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <polygon fill="#E8E8E8" points="100,0 0,100 0,-10"/>
+         </svg>
+         <div class="container text-center">
             <h2 class="text-center display-4 pad-5">Contact me</h2>
-            <div class="container">
-               <div class="desktop">
-                  <div class="row pad-5">
-                     <div class="col-sm-4">
-                        <a href="https://github.com/ShaneLucy" target="_blank"><img class="icons" src="images/github.png" alt="GitHub logo" /></a>
-                     </div>
-                     <div class="col-sm-4">
-                        <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank"><img class="icons" src="images/linkedin.png" alt="LinkedIn logo" /></a>
-                     </div>
-                     <div class="col-sm-4">
-                        <a href="#home"><i class="fas fa-arrow-up"></i></a>
-                     </div>
+            <div class="desktop">
+               <div class="row pad-5 text-center">
+                  <div class="col-sm-4">
+                     <a href="https://github.com/ShaneLucy"  target="_blank"><img class="icons" src="images/github.png" alt="GitHub logo" /></a>
                   </div>
-                  <div id="contact" class="row pad-5">
-                     <div class="col-sm-7">
-                        <h4 class="text-center"><span class="icons material-icons">mail_outline</span>&nbsp;lucyshane57@gmail.com</h4>
-                     </div>
-                     <div class="col-sm-4">
-                        <h4 class="text-center"><span class="icons material-icons">call</span>&nbsp;07784404618</h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="mobile">
-                  <div class="row pad-5 ">
-                     <a class="text-center" href="https://github.com/ShaneLucy" target="_blank"><img class="icons text-center" src="images/github.png" alt="GitHub logo" /></a>
-                  </div>
-                  <div class="row pad-5">
+                  <div class="col-sm-4">
                      <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank"><img class="icons" src="images/linkedin.png" alt="LinkedIn logo" /></a>
                   </div>
-                  <div class="row pad-5">
-                     <a class="text-center" href="#home"><i class="text-center fas fa-arrow-up"></i></a>
+                  <div class="col-sm-4">
+                     <a href="#home"><i class="fas fa-arrow-up"  data-toggle="tooltip" title="Beam me up"></i></a>
                   </div>
-                  <div id="contact" class="row pad-5">
-                     <div class="col-sm-7">
-                        <h4><span class="icons material-icons">mail_outline</span>&nbsp;lucyshane57@gmail.com</h4>
-                     </div>
-                     <div class="col-sm-4">
-                        <h4><span class="icons material-icons">call</span>&nbsp;07784404618</h4>
-                     </div>
+               </div>
+               <div id="contact" class="row pad-5">
+                  <div class="col-sm-7">
+                     <p class="text-center"><span class="icons material-icons">mail_outline</span>&nbsp;lucyshane57@gmail.com</p>
+                  </div>
+                  <div class="col-sm-4">
+                     <p class="text-center"><span class="icons material-icons">call</span>&nbsp;07784404618</p>
                   </div>
                </div>
             </div>
-         </section>
-      </div>      
+            <div class="mobile text-center">
+               <div class="row pad-5 text-center ">
+                  <div class="col-sm-6">
+                     <a  href="https://github.com/ShaneLucy" target="_blank"><img class="icons" src="images/github.png" alt="GitHub logo" /></a>
+                  </div>
+               </div>
+               <div class="row pad-5">
+                  <div class="col-sm-6">
+                     <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank"><img class="icons" src="images/linkedin.png" alt="LinkedIn logo" /></a>
+                  </div>
+               </div>
+               <div class="row pad-5">
+                  <div class="col-sm-6">
+                     <a class="text-center" href="#home"><i class="text-center fas fa-arrow-up"></i></a>
+                  </div>
+               </div>
+               <div id="contact" class="row pad-5">
+                  <div class="col-sm-6">
+                     <h4><span class="icons material-icons">mail_outline</span>&nbsp;lucyshane57@gmail.com</h4>
+                  </div>
+               </div>
+               <div class="row pad-5">
+                  <div class="col-sm-6">
+                     <h4><span class="icons material-icons">call</span>&nbsp;07784404618</h4>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
       <!--Bootstrap Scripts-->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -179,10 +189,8 @@
       <script src="scripts/tooltip.js"></script>
       <!--Initialise Animate on Scroll-->
       <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-  
+      <script>
+         AOS.init();
+      </script>
    </body>
-
 </html>
