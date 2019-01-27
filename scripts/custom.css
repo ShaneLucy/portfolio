@@ -11,16 +11,14 @@
      letter-spacing: 2px;
      overflow-x: hidden;
      font-family: 'Open Sans', sans-serif;
-     background-color: #E8E8E8;
 }
  p {
-     font-size: 1.2rem;
+     font-size: 1.1rem;
 }
  h1 {
      font-weight: bold;
+     color: black;
      font-family: 'Merriweather', serif;
-     border: 2px;
-     color: white;
      letter-spacing: 1px;
      font-size: 3.4rem;
 }
@@ -37,55 +35,31 @@
      font-weight: 700;
      text-align: center;
 }
-/*stlyes for navigational links*/
+/*styles for hero image */
+ .hero-image {
+     width: 100vw;
+     height: 90vh;
+     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/background.svg);
+     overflow: hidden;
+     background-position: center;
+     background-repeat: no-repeat;
+}
+/*stlyes for nav bar*/
  .navbar-nav .nav-item .nav-link {
-     color: #EE6C4D;
-     font-size: 1.4rem;
-     font-weight: 600;
-     font-family: 'Josefin Slab', serif;
-}
- .navbar-nav .nav-item .nav-link:hover {
-     color: #E8E8E8;
-     font-size: 1.6rem;
-     font-weight: 700;
-     text-decoration: underline;
-     font-family: 'Josefin Slab', serif;
-}
- .navbar-toggler-icon {
-     color: #EE6C4D;
-}
-/*adds shadows to cards */
- .card-body {
-     box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-     background-color: white;
-}
-/*Adds shadow and a white background to about me section*/
- .white {
-     background-color: white;
-     padding-top: 5vh;
-     box-shadow: 5px 5px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
- .me {
-     border-radius: 50%;
-     display: block;
-     margin-left: auto;
-     margin-right: auto;
-     width: 50%;
+     color: #FFFFFF;
+     font-size: 1.8rem;
+     font-family: 'Open Sans', sans-serif;
 }
  #bio {
-     padding-top: 5vh;
-     padding-bottom: 5vh;
-     padding-left: 5vw;
-     padding-right: 5vw;
+     padding: 5vh;
 }
-/*styles for the footer of the webpage*/
  svg {
      border: 0;
      width: 100%;
      height: 10vw;
 }
  footer {
-     background-color: #636974;
+     background: linear-gradient(180deg, rgba(255,234,145,1) 15%, rgba(254,173,22,1) 67%);
      padding-bottom: 5vh;
 }
  .pad-left {
@@ -97,12 +71,11 @@
 /*styles for back to home arrow*/
  a>i {
      font-size: 4rem;
-     color: #EE6C4D;
-     -webkit-text-stroke: 2px black;
-     text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+     color: #FFFFFF;
+     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
  a>i:hover {
-     color: #E8E8E8;
+     color: #000000;
 }
  .pad-5 {
      padding-top: 5vh;
@@ -111,59 +84,55 @@
  .pad-top {
      padding-top: 5vh;
 }
- .card-1 {
-     display:none;
-}
- .card-2 {
-     display:none;
-}
  #card-footer {
      position: absolute;
 }
- .opq {
-     opacity: 0.4;
+ #ghost-nav {
+     display: none;
 }
- .opq:hover {
-     background: rgba(0, 0, 0, 0.5);
-     opacity: 1;
-}
-/*media query for styling & displaying portrait mobile content*/
+/*media query for styling & displaying mobile content*/
  @media only screen and (max-width: 768px), (max-width: 767px) {
      .desktop {
          display: none;
     }
-     h1{
-         color: black;
+     h1 {
+         font-size: 2rem;
     }
-     .navbar-toggler .icon {
-         background-color: #EE6C4D;
-    }
-     .navbar {
-         background-color: ivory;
-         background-image: none;
-    }
-     .navbar-nav .nav-item .nav-link {
-         font-size: 1em;
-    }
-     header{
-         background-color: #636974;
+     .hero-text {
+         padding-top: 10vh;
     }
      .hero-image {
+         background-size: cover;
+         background-repeat: repeat;
          padding-top: 8vh;
          padding-bottom: 8vh;
     }
-     .card-pad {
-         padding-top: 2.5vh;
-         padding-bottom: 2.5vh;
+     .navbar {
+         background-color: #4169E1;
     }
-     #about {
+     .navbar-nav .nav-item .nav-link {
+         font-size: 1.8rem;
+    }
+     #ghost-nav {
+        /*The use of important here is to prevent the style {
+            display inline
+        }
+         from being applied to the navbar as part of the sticky navbar functionality*/
+         display: none !important;
+    }
+     .about {
          padding-top: 8vh;
          padding-bottom: 8vh;
     }
-    /*sizes and positions my avatar */
-     .me {
-         height: 40vh;
-         width: 40vw;
+     .yellow-shadow {
+         border-color: #fead16;
+         border-width: 2px;
+         box-shadow: 0px 5px 15px 5px #fead16;
+    }
+     .blue-shadow {
+         box-shadow: 0px 5px 15px 5px royalblue;
+         border-color: royalblue;
+         border-width: 2px;
     }
      .icons {
          max-height: 15vh;
@@ -176,16 +145,9 @@
          padding-bottom: 7vh;
     }
      a {
-         color: #EE6C4D;
+         color: #FFFFFF;
+         font-size: 2rem;
     }
-    /*padding and positioning for footer elements on mobile devices */
-     .pad-5 {
-         padding-top: 5vh;
-         padding-bottom: 5vh;
-    }
-}
-/*media query for styling and dislpaying landscape mobile content*/
- @media screen and (orientation:landscape) and (max-width: 768px) {
 }
 /*media query for styling and displaying desktop content */
  @media only screen and (min-width: 768px) {
@@ -193,69 +155,57 @@
          display: none;
     }
      h1 {
-         color: white;
-         text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+         font-size: 3.8rem;
     }
-    /*styles for hero image */
-     .hero-image {
-         width: 100vw;
-         height: 100vh;
-         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         overflow: hidden;
-         text-align: center;
-         background-size: cover;
-         background-position: center;
-         background-repeat: no-repeat;
-         background-attachment: fixed;
-    }
-    /*positioning of hero text*/
-     .hero-text1 {
-         text-align: center;
-         position: absolute;
+     .hero-text {
          top: 30%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         margin: 0 auto;
-         overflow: auto;
-         white-space: nowrap;
+         left: 20%;
     }
-     .hero-text2 {
-         text-align: center;
-         position: absolute;
-         top: 45%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         margin: 0 auto;
-         overflow: auto;
-         white-space: nowrap;
+     .hero-image{
+         background-attachment: fixed;
     }
-     .hero-text3 {
-         text-align: center;
-         position: absolute;
-         top: 60%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         margin: 0 auto;
-         overflow: auto;
-         white-space: nowrap;
-    }
-    /*blends the nav bar into the hero image*/
-     .navbar {
-         background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://shanelucy.me/images/background.jpg);
-         background-size: cover;
+     .navbar-fixed {
+         background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/background.svg);
          background-position: center;
          background-repeat: no-repeat;
          background-attachment: fixed;
     }
-     #showcase {
+     .navbar-scroll {
+         z-index: 1;
+         position: fixed;
+         top: 0;
+         width: 100%;
+         background-color: #4169E1;
+    }
+     .navbar-nav .nav-item .nav-link {
+         border-style: solid;
+         border-bottom-style: none;
+         border-color : transparent ;
+    }
+     .navbar-nav .nav-item .nav-link:hover {
+         border-color: #000000;
+         color: #000000;
+    }
+     .inline{
+         visibility:none;
+         display:inline;
+    }
+     .showcase {
          padding-top: 10vh;
          padding-bottom: 10vh;
     }
      h2 {
          padding-bottom: 10vh;
+    }
+     .yellow-shadow {
+         border-color: #fead16;
+         border-width: 2px;
+         box-shadow: 0px 5px 40px 15px #fead16;
+    }
+     .blue-shadow {
+         box-shadow: 0px 5px 40px 15px royalblue;
+         border-color: royalblue;
+         border-width: 2px;
     }
     /*positioning footer components*/
      #footer {
@@ -273,32 +223,4 @@
          max-width: 10vw;
     }
 }
-/*prevents hero text from overflowing*/
- @media only screen and (max-width: 864px) {
-     h1 {
-         font-size: 2rem;
-    }
-     p {
-         font-size: 1rem;
-    }
-     .navbar-nav .nav-item .nav-link {
-         color: #EE6C4D;
-         font-size: 1rem;
-    }
-}
-/*The following media queries force responsive behaviour on the cards at various breakpoints*/
- @media only screen and (max-width: 991px) and (min-width: 768px) {
-     .layout {
-         padding-top: 6vh;
-    }
-}
- @media only screen and (max-width: 767px) and (min-width: 576px) {
-     .layout2 {
-         padding-top: 6vh;
-    }
-}
- @media only screen and (min-width: 1200px) {
-     .layout {
-         padding-top: 6vh;
-    }
-}
+ 
