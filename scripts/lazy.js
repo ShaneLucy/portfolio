@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 
 			//once all images are loaded event listeners are removed
-			if (lazyImages.length == 0) {
+			if (lazyImages.length === 0) {
 				document.removeEventListener("scroll", lazyload);
 				window.removeEventListener("resize", lazyload);
 				window.removeEventListener("orientationChange", lazyload);
