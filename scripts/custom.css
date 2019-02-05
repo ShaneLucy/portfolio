@@ -163,12 +163,14 @@
     }
      .hero-image{
          background-attachment: fixed;
+         background-size: cover;
     }
      .navbar-fixed {
          background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/background.svg);
          background-position: center;
          background-repeat: no-repeat;
          background-attachment: fixed;
+         background-size: cover;
     }
      .navbar-scroll {
          z-index: 1;
