@@ -1,3 +1,4 @@
+<?php
 class Token{
 
     private $csrfToken;
