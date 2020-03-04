@@ -17,7 +17,7 @@ class EnquiryEmail extends Validation
         ) {
             $message = $this->enquiry . "\r\n Reply to " . $this->email;
             mail(
-                'shanelucy01@protonmail.com',
+                'email@mail.com',
                 $this->name . " Web Developer Request",
                 $message
             );
