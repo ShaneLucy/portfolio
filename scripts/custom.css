@@ -1,11 +1,42 @@
+
+Code Beautifier
+CSS Formatter and Optimiser based on csstidy 1.3
+
+Language: EN DE FR PT
+
+CSS Input
+CSS-Code:
 /*importing font family from google fonts*/
  @import url('https://fonts.googleapis.com/css?family=Open+Sans|Josefin+Slab|Merriweather');
 /*Applying smooth scrolling to the document*/
  html {
      scroll-behavior: smooth;
 }
+
+
+
+.cookie-consent{
+    animation: fadein 2s;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://shanelucy.me/images/heroImage.png);
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-size: cover;
+         color: whitesmoke;
+        top:0;
+        left:0;
+        position:absolute;
+    
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
  body {
-     height: 100%;
+/*     height: 100%;*/
      margin: 0;
      font-weight: 500;
      letter-spacing: 2px;
@@ -26,6 +57,7 @@
      border-style: solid;
      border-bottom-style: none;
      font-family: 'Josefin Slab', serif;
+     color: #000000;
 }
  h3 {
      font-family: 'Josefin Slab', serif;
@@ -39,10 +71,11 @@
  .hero-image {
      width: 100vw;
      height: 90vh;
-     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/background.svg);
+     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/heroImage.png);
      overflow: hidden;
      background-position: center;
      background-repeat: no-repeat;
+   
 }
 /*stlyes for nav bar*/
  .navbar-nav .nav-item .nav-link {
@@ -59,7 +92,7 @@
      height: 10vw;
 }
  footer {
-     background: linear-gradient(180deg, rgba(255,234,145,1) 15%, rgba(254,173,22,1) 67%);
+     background-color: #686868;
      padding-bottom: 5vh;
 }
  .pad-left {
@@ -67,6 +100,20 @@
 }
  .pad-left-5 {
      padding-left: 5vw;
+}
+
+a {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fead16;
+    
+         
+}
+
+a:hover{
+    
+         color: #000000;
+         text-decoration: none;
 }
 /*styles for back to home arrow*/
  a>i {
@@ -77,6 +124,8 @@
  a>i:hover {
      color: #000000;
 }
+
+
  .pad-5 {
      padding-top: 5vh;
      padding-bottom: 5vh;
@@ -87,11 +136,45 @@
  #card-footer {
      position: absolute;
 }
- #ghost-nav {
+
+ 
+
+input {
+    -webkit-appearance: none;
+  appearance: none;
+  
+}
+
+
+
+.valid {
+   
+    border-width:medium;
+     border-color: #00d900 ;
+     webkit-box-shadow: 0 0 10px 3px #00d900;
+-moz-box-shadow:    0 0 10px 3px #00d900;
+box-shadow:         0 0 10px 3px #00d900;
+}
+
+.invalid {
+    border-width: medium;
+    border-color: #ff0000;
+    -webkit-box-shadow: 0 0 10px 3px #ff0000;
+-moz-box-shadow:    0 0 10px 3px #ff0000;
+box-shadow:         0 0 10px 3px #ff0000;
+    
+}
+
+
+#mobile-number{
+    display:none;
+}
+
+#ghost-nav {
      display: none;
 }
 /*media query for styling & displaying mobile content*/
- @media only screen and (max-width: 768px), (max-width: 767px) {
+ @media only screen and  (max-width: 767px) {
      .desktop {
          display: none;
     }
@@ -101,6 +184,7 @@
      .hero-text {
          padding-top: 10vh;
     }
+    
      .hero-image {
          background-size: cover;
          background-repeat: repeat;
@@ -108,12 +192,24 @@
          padding-bottom: 8vh;
     }
      .navbar {
-         background-color: #4169E1;
+         background-color: #585858;
+         
+    }
+    
+     .navbar-toggler-icon{
+            background-image: url("https://shanelucy.me/images/hamburger.png")!important;
+            background-color: #585858;
+            
+            
+            
+
     }
      .navbar-nav .nav-item .nav-link {
          font-size: 1.8rem;
+         color: #fead16;
     }
-     #ghost-nav {
+   
+   #ghost-nav {
         /*The use of important here is to prevent the style {
             display inline
         }
@@ -127,10 +223,10 @@
      .yellow-shadow {
          border-color: #fead16;
          border-width: 2px;
-         box-shadow: 0px 5px 15px 5px #fead16;
+         box-shadow: 0 5px 15px 5px #fead16;
     }
      .blue-shadow {
-         box-shadow: 0px 5px 15px 5px royalblue;
+         box-shadow: 0 5px 15px 5px royalblue;
          border-color: royalblue;
          border-width: 2px;
     }
@@ -165,31 +261,37 @@
          background-attachment: fixed;
          background-size: cover;
     }
+    
+   
      .navbar-fixed {
-         background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(https://shanelucy.me/images/background.svg);
+         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://shanelucy.me/images/heroImage.png);
          background-position: center;
          background-repeat: no-repeat;
          background-attachment: fixed;
          background-size: cover;
     }
+    
+    
      .navbar-scroll {
          z-index: 1;
          position: fixed;
          top: 0;
          width: 100%;
-         background-color: #4169E1;
+         background-color: #404040;
     }
+ 
      .navbar-nav .nav-item .nav-link {
          border-style: solid;
          border-bottom-style: none;
-         border-color : transparent ;
+         border-color: transparent;
+         color: #fead16;
+         
     }
      .navbar-nav .nav-item .nav-link:hover {
          border-color: #000000;
          color: #000000;
     }
      .inline{
-         visibility:none;
          display:inline;
     }
      .showcase {
@@ -198,14 +300,15 @@
     }
      h2 {
          padding-bottom: 10vh;
+        
     }
      .yellow-shadow {
          border-color: #fead16;
          border-width: 2px;
-         box-shadow: 0px 5px 40px 15px #fead16;
+         box-shadow: 0 5px 10px 15px #fead16;
     }
      .blue-shadow {
-         box-shadow: 0px 5px 40px 15px royalblue;
+         box-shadow: 0 5px 10px 15px royalblue;
          border-color: royalblue;
          border-width: 2px;
     }
@@ -226,3 +329,430 @@
     }
 }
  
+
+
+CSS from URL:
+Code Layout
+Compression (code layout):
+Custom template
+Options
+Preserve CSS
+Sort Selectors (caution)
+Sort Properties
+Regroup selectors
+Optimise shorthands
+Compress colors
+Compress font-weight
+Lowercase selectors
+Case for properties:
+None
+Lowercase
+Uppercase
+Remove unnecessary backslashes
+Remove last ;
+Discard invalid properties
+Add timestamp
+Output as file
+ 
+Messages
+
+5
+    Invalid property in CSS2.1: scroll-behavior
+11
+    Invalid property in CSS2.1: animation
+16
+    Invalid property in CSS2.1: background-size
+17
+    Fixed invalid color name: Changed "whitesmoke" to "#F5F5F5"
+24
+    Invalid @-rule: keyframes (removed)
+25
+    Invalid property in CSS2.1: fromopacity
+26
+    Invalid property in CSS2.1: opacity
+35
+    Invalid property in CSS2.1: overflow-x
+42
+    Optimised font-weight: Changed "bold" to "700"
+43
+    Optimised color: Changed "black" to "#000"
+52
+    Optimised color: Changed "#000000" to "#000"
+58
+    Optimised color: Changed "black" to "#000"
+74
+    Optimised color: Changed "#FFFFFF" to "#FFF"
+107
+    Optimised color: Changed "#000000" to "#000"
+113
+    Optimised color: Changed "#FFFFFF" to "#FFF"
+114
+    Invalid property in CSS2.1: text-shadow
+117
+    Optimised color: Changed "#000000" to "#000"
+135
+    Invalid property in CSS2.1: -webkit-appearance
+136
+    Invalid property in CSS2.1: appearance
+146
+    Invalid property in CSS2.1: webkit-box-shadow
+147
+    Invalid property in CSS2.1: -moz-box-shadow
+148
+    Invalid property in CSS2.1: box-shadow
+153
+    Optimised color: Changed "#ff0000" to "red"
+154
+    Optimised color: Changed "#ff0000" to "red"
+    Invalid property in CSS2.1: -webkit-box-shadow
+155
+    Optimised color: Changed "#ff0000" to "red"
+    Invalid property in CSS2.1: -moz-box-shadow
+156
+    Optimised color: Changed "#ff0000" to "red"
+    Invalid property in CSS2.1: box-shadow
+181
+    Invalid property in CSS2.1: background-size
+218
+    Invalid property in CSS2.1: box-shadow
+221
+    Fixed invalid color name: Changed "royalblue" to "#4169E1"
+    Invalid property in CSS2.1: box-shadow
+222
+    Fixed invalid color name: Changed "royalblue" to "#4169E1"
+236
+    Optimised color: Changed "#FFFFFF" to "#FFF"
+254
+    Invalid property in CSS2.1: background-size
+263
+    Invalid property in CSS2.1: background-size
+283
+    Optimised color: Changed "#000000" to "#000"
+284
+    Optimised color: Changed "#000000" to "#000"
+300
+    Invalid property in CSS2.1: box-shadow
+303
+    Fixed invalid color name: Changed "royalblue" to "#4169E1"
+    Invalid property in CSS2.1: box-shadow
+304
+    Fixed invalid color name: Changed "royalblue" to "#4169E1"
+
+Input: 7.008KB, Output:4.321KB, Compression Ratio: 38.3%(-2687 Bytes)
+Select or Copy to Clipboard
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans|Josefin+Slab|Merriweather);
+
+html {
+scroll-behavior:smooth;
+}
+
+.cookie-consent {
+animation:fadein 2s;
+background-image:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://shanelucy.me/images/heroImage.png);
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-size:cover;
+color:#F5F5F5;
+top:0;
+left:0;
+position:absolute;
+}
+
+to {
+opacity:1;
+}
+
+body {
+font-weight:500;
+letter-spacing:2px;
+overflow-x:hidden;
+font-family:'Open Sans', sans-serif;
+margin:0;
+}
+
+p {
+font-size:1.1rem;
+}
+
+h1 {
+font-weight:700;
+color:#000;
+font-family:Merriweather, serif;
+letter-spacing:1px;
+font-size:3.4rem;
+}
+
+h2 {
+font-family:'Josefin Slab', serif;
+color:#000;
+border-style:solid solid none;
+}
+
+h3 {
+font-family:'Josefin Slab', serif;
+padding-left:2vw;
+line-height:1.6;
+color:#000;
+font-weight:700;
+text-align:center;
+}
+
+.hero-image {
+width:100vw;
+height:90vh;
+background-image:linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(https://shanelucy.me/images/heroImage.png);
+overflow:hidden;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.navbar-nav .nav-item .nav-link {
+color:#FFF;
+font-size:1.8rem;
+font-family:'Open Sans', sans-serif;
+}
+
+#bio {
+padding:5vh;
+}
+
+svg {
+border:0;
+width:100%;
+height:10vw;
+}
+
+footer {
+background-color:#686868;
+padding-bottom:5vh;
+}
+
+.pad-left {
+padding-left:7vw;
+}
+
+.pad-left-5 {
+padding-left:5vw;
+}
+
+a {
+font-size:1.5rem;
+font-weight:500;
+color:#fead16;
+}
+
+a:hover {
+color:#000;
+text-decoration:none;
+}
+
+a>i {
+font-size:4rem;
+color:#FFF;
+text-shadow:1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+a>i:hover {
+color:#000;
+}
+
+.pad-5 {
+padding-top:5vh;
+padding-bottom:5vh;
+}
+
+.pad-top {
+padding-top:5vh;
+}
+
+#card-footer {
+position:absolute;
+}
+
+input {
+-webkit-appearance:none;
+appearance:none;
+}
+
+.valid {
+webkit-box-shadow:0 0 10px 3px #00d900;
+-moz-box-shadow:0 0 10px 3px #00d900;
+box-shadow:0 0 10px 3px #00d900;
+border-color:#00d900;
+border-width:medium;
+}
+
+.invalid {
+-webkit-box-shadow:0 0 10px 3px red;
+-moz-box-shadow:0 0 10px 3px red;
+box-shadow:0 0 10px 3px red;
+border-color:red;
+border-width:medium;
+}
+
+#mobile-number,#ghost-nav {
+display:none;
+}
+
+@media only screen and max-width 767px{
+.desktop {
+display:none;
+}
+
+h1 {
+font-size:2rem;
+}
+
+.hero-text {
+padding-top:10vh;
+}
+
+.hero-image {
+background-size:cover;
+background-repeat:repeat;
+padding-top:8vh;
+padding-bottom:8vh;
+}
+
+.navbar {
+background-color:#585858;
+}
+
+.navbar-toggler-icon {
+background-image:url(https://shanelucy.me/images/hamburger.png)!important;
+background-color:#585858;
+}
+
+.navbar-nav .nav-item .nav-link {
+font-size:1.8rem;
+color:#fead16;
+}
+
+#ghost-nav {
+display:none!important;
+}
+
+.about {
+padding-top:8vh;
+padding-bottom:8vh;
+}
+
+.yellow-shadow {
+box-shadow:0 5px 15px 5px #fead16;
+border-color:#fead16;
+border-width:2px;
+}
+
+.blue-shadow {
+box-shadow:0 5px 15px 5px #4169E1;
+border-color:#4169E1;
+border-width:2px;
+}
+
+.icons {
+max-height:15vh;
+max-width:15vw;
+display:block;
+margin-left:auto;
+margin-right:auto;
+}
+
+.mobile {
+padding-bottom:7vh;
+}
+
+a {
+color:#FFF;
+font-size:2rem;
+}
+}
+
+@media only screen and min-width 768px{
+.mobile {
+display:none;
+}
+
+h1 {
+font-size:3.8rem;
+}
+
+.hero-text {
+top:30%;
+left:20%;
+}
+
+.hero-image {
+background-attachment:fixed;
+background-size:cover;
+}
+
+.navbar-fixed {
+background-image:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://shanelucy.me/images/heroImage.png);
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-size:cover;
+}
+
+.navbar-scroll {
+z-index:1;
+position:fixed;
+top:0;
+width:100%;
+background-color:#404040;
+}
+
+.navbar-nav .nav-item .nav-link {
+color:#fead16;
+border-color:transparent;
+border-style:solid solid none;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+color:#000;
+border-color:#000;
+}
+
+.inline {
+display:inline;
+}
+
+.showcase {
+padding-top:10vh;
+padding-bottom:10vh;
+}
+
+h2 {
+padding-bottom:10vh;
+}
+
+.yellow-shadow {
+box-shadow:0 5px 10px 15px #fead16;
+border-color:#fead16;
+border-width:2px;
+}
+
+.blue-shadow {
+box-shadow:0 5px 10px 15px #4169E1;
+border-color:#4169E1;
+border-width:2px;
+}
+
+#footer {
+padding-top:10vh;
+padding-bottom:10vh;
+text-align:center;
+}
+
+#contact {
+padding-top:10vh;
+}
+
+.icons {
+max-height:10vh;
+max-width:10vw;
+}
+}
+
