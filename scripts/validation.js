@@ -83,7 +83,7 @@ form.addEventListener('submit', function(event) {
 function validateName() {
     if (name.validity.valueMissing) {
         nameError.textContent = 'Enter your name.';
-      
+
     } else if (name.validity.patternMismatch) {
         nameError.textContent = "Only use letters.";
 
@@ -100,7 +100,9 @@ function validateEmail() {
 
     } else if (email.validity.typeMismatch) {
         emailError.textContent = "Enter a valid email address.";
-      
+    }
+    if (email.validity.patternMismatch) {
+        emailError.textContent = "Enter a valid email address."
     }
     email.classList.remove("valid");
     email.classList.add("invalid");
