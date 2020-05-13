@@ -1,27 +1,15 @@
-$(function () {
+window.onscroll = function() {myFunction()};
 
+var navbar = document.getElementById("navbar");
 
-	//applies bootstrap css to tooltips
-	$('[data-toggle="tooltip"]').tooltip();
+var sticky = navbar.offsetTop;
 
-	$(window).scroll(function () {
-		//inverses scrollTop method    
-		var scrollBottom = $(window).height() - $(window).scrollTop();
-		//gets nav bar height 
-		var navHeight = $("#navbar").innerHeight();
-		//changes navbar styles depending on scroll position
-		if (scrollBottom < navHeight) {
-			$("#navbar").addClass("inline");
-			$("#navbar").removeClass("navbar-fixed");
-			$("#navbar").addClass("navbar-scroll");
-		} else {
-			$("#navbar").removeClass("inline");
-			$("#ghost-nav").css("display", "none");
-			$("#navbar").removeClass("navbar-scroll");
-			$("#navbar").addClass("navbar-fixed");
-
-		}
-
-	});
-
-});
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky");
+    navbar.classList.remove("navbar-fixed")
+  } else {
+    navbar.classList.remove("sticky");
+    navbar.classList.add("navbar-fixed");
+  }
+}
