@@ -336,7 +336,7 @@ $pageView->terminateConnections();
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-outline-light">Submit</button>
+                            <button type="submit" class="btn btn-dark">Submit</button>
                         </div>
                     </div>
                 </form>
