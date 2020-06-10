@@ -57,6 +57,21 @@
      font-weight: 700;
      text-align: center;
 }
+
+label {
+    color: #0f0f0f;
+    font-weight: bold;
+}
+
+small {
+    color: #0f0f0f;
+    font-weight: bold;
+}
+
+span {
+    color: #0f0f0f;
+    font-weight: bold;
+}
 /*styles for hero image */
  .hero-image {
      width: 100vw;
@@ -94,7 +109,7 @@
      height: 10vw;
 }
  footer {
-     background-color: #686868;
+     background-color: #868686;
      padding-bottom: 5vh;
 }
  .pad-left {
