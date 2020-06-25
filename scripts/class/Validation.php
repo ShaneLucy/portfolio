@@ -42,7 +42,6 @@ class Validation
     public function verifyCsrfToken()
     {
         $token = $_POST["token"];
-        //echo $_SESSION['csrfToken']; not working in class scope
         if ($_SESSION['csrfToken'] == $token) {
             $this->csrfToken = $token;
         }
