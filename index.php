@@ -14,7 +14,6 @@ $pageView->terminateConnections();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, minimum-scale=0" />
@@ -32,36 +31,26 @@ $pageView->terminateConnections();
     <meta property="og:image:alt" content="A man designing and developing a website on a laptop" />
     <meta property="og:description" content="I am a web developer with a real passion in building optimised websites. Need a website? Lets get in contact!" />
     <meta property="og:locale" content="en_GB" />
-    <!--pre connecting/fetching external links -->
-
-    <link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" as="style">
-
+    <!--pre connecting external links -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="preload" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" as="style" >
     <!--Bootstrap css cdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Custom style sheet -->
     <link href="scripts/custom.css" rel="stylesheet" />
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab&family=Open+Sans&display=swap" rel="stylesheet"> 
 </head>
-
 <body>
     <!--Fallback for clients with Javascript disabled-->
     <noscript>This website requires Javascript to function properly. Please turn it on and refresh the page for the best experience!</noscript>
     <header>
-
         <div id="home">
             <div class="text-center">
                 <div class="hero-image">
                     <div id="cookie-consent" class="cookie-consent">
                         <p>This website uses cookies which are <strong>essential</strong> for this website to function. I don't use any tracking, analytical or marketing cookies because I believe privacy online is a fundamental right. <button type="button" class="btn btn-light" id="cookie-dismiss">Dismiss</button></p>
-
                     </div>
-
                     <div class="col-sm-8 desktop hero-text">
                         <h1>Hi, I'm Shane Lucy, I have a passion for web development. I'd love to work with you.</h1>
-
                     </div>
                     <div class="mobile hero-text">
                         <h1>Hi, I'm Shane Lucy,</h1>
@@ -69,15 +58,14 @@ $pageView->terminateConnections();
                         <h1>web development.</h1>
                         <h1>I'd love to work</h1>
                         <h1>with you.</h1>
-
                     </div>
                 </div>
             </div>
         </div>
 
     </header>
-
     <script nonce="<?php echo $nonce;?>" src="scripts/cookie.js"></script>
+    <div>
     <!--Navigation-->
     <nav class="navbar navbar-dark navbar-expand-sm navbar-fixed" id="navbar">
         <div class="navbar-header">
@@ -112,7 +100,7 @@ $pageView->terminateConnections();
                         <div class="col-sm-6 text-center">
                             <div class="card yellow-shadow">
                                 <div class="card-body rounded">
-                                    <img class="lazy" data-src="https://shanelucy.me/images/creativity.png" src="images/placeholder.png" alt="A lightbulb, cloud and pen merging inside a box surrounded by stars" data-toggle="tooltip" title="Icons made by https://www.freepik.com/" />
+                                    <img loading="lazy" src="images/creativity.png" alt="A lightbulb, cloud and pen merging inside a box surrounded by stars" data-toggle="tooltip" title="Icons made by https://www.freepik.com/" />
                                 </div>
                             </div>
                         </div>
@@ -129,7 +117,7 @@ $pageView->terminateConnections();
                         <div class="col-sm-6 text-center">
                             <div class="card blue-shadow">
                                 <div class="card-body rounded">
-                                    <img class="lazy" data-src="https://shanelucy.me/images/thinking.png" src="images/placeholder.png" alt="A lightbulb inside a head" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/eucalyp" />
+                                    <img loading="lazy" src="images/thinking.png" alt="A lightbulb inside a head" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/eucalyp" />
                                 </div>
                             </div>
                         </div>
@@ -138,7 +126,7 @@ $pageView->terminateConnections();
                         <div class="col-sm-6 text-center">
                             <div class="card yellow-shadow">
                                 <div class="card-body rounded">
-                                    <img class="lazy" data-src="https://shanelucy.me/images/launch.png" src="images/placeholder.png" alt="A rocket flying upwards" data-toggle="tooltip" title="Icons made by https://www.freepik.com/ from https://www.flaticon.com/" />
+                                    <img loading="lazy" src="images/launch.png" alt="A rocket flying upwards" data-toggle="tooltip" title="Icons made by https://www.freepik.com/ from https://www.flaticon.com/" />
                                 </div>
                             </div>
                         </div>
@@ -159,7 +147,7 @@ $pageView->terminateConnections();
                         <div class="col-sm-6 text-center">
                             <div class="card blue-shadow">
                                 <div class="card-body rounded">
-                                    <img class="lazy" data-src="https://shanelucy.me/images/lock.png" src="images/placeholder.png" alt="A lock" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
+                                    <img loading="lazy"  src="images/lock.png" alt="A lock" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
                                 </div>
                             </div>
                         </div>
@@ -170,7 +158,7 @@ $pageView->terminateConnections();
                     <div class="row pad-top">
                         <div class="card yellow-shadow">
                             <div class="card-body rounded">
-                                <img class="lazy" data-src="https://shanelucy.me/images/creativity.png" src="images/placeholder.png" alt="A lightbulb, cloud and pen merging inside a box surrounded by stars" data-toggle="tooltip" title="Icons made by https://www.freepik.com/" />
+                                <img loading="lazy" src="images/creativity.png" alt="A lightbulb, cloud and pen merging inside a box surrounded by stars" data-toggle="tooltip" title="Icons made by https://www.freepik.com/" />
                                 <h3 class="card-title pad-top">Design</h3>
                                 <p class="card-text">First and foremost, I will find out the exact requirements. From this I will draw up an initial design, select an appropriate colour scheme and typography. Following a sign off from you on the design I can then move onto development.</p>
                             </div>
@@ -179,7 +167,7 @@ $pageView->terminateConnections();
                     <div class="row pad-top">
                         <div class="card blue-shadow">
                             <div class="card-body rounded">
-                                <img class="lazy" data-src="https://shanelucy.me/images/thinking.png" src="images/placeholder.png" alt="A lightbulb inside a head" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/eucalyp" />
+                                <img loading="lazy" src="images/thinking.png" alt="A lightbulb inside a head" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/eucalyp" />
                                 <h3 class="card-title pad-top">Development</h3>
                                 <p class="card-text">This is the fun part. Now I will take the final design and with lots of coffee, I will transform it into a fully functioning product.</p>
                             </div>
@@ -188,7 +176,7 @@ $pageView->terminateConnections();
                     <div class="row pad-top">
                         <div class="card yellow-shadow">
                             <div class="card-body rounded">
-                                <img class="lazy" data-src="https://shanelucy.me/images/launch.png" src="images/placeholder.png" alt="A rocket flying upwards" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
+                                <img loading="lazy" src="images/launch.png" alt="A rocket flying upwards" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
                                 <h3 class="card-title pad-top">Optimisation</h3>
                                 <p class="card-text">Although optimisation begins in the development phase, through the use of a variety of tools, I will now enhance the performance to keep your site visitors engaged and interested. </p>
                             </div>
@@ -197,7 +185,7 @@ $pageView->terminateConnections();
                     <div class="row pad-top">
                         <div class="col-sm-12 card blue-shadow">
                             <div class="card-body rounded">
-                                <img class="lazy" data-src="https://shanelucy.me/images/lock.png" src="images/placeholder.png" alt="A lock" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
+                                <img loading="lazy" src="images/lock.png" alt="A lock" data-toggle="tooltip" title="Icon made by https://www.flaticon.com/authors/pixel-perfect" />
                                 <h3 class="card-title pad-top">Other Services</h3>
                                 <ul class="card-text">
                                     <li>TLS certificates</li>
@@ -221,12 +209,11 @@ $pageView->terminateConnections();
                             This website was developed to automate the process of tracking member participation within the clan. I used PHP and bootstrap to develop this website.
                         </p>
                     </div>
-
                     <div class="col-sm-6">
                         <div class="card yellow-shadow">
                             <div class="card-body rounded">
                                 <a href="https://sundayroasts.xyz/" target="_blank" rel="noopener">
-                                    <img class="card-img-top lazy" data-src="https://shanelucy.me/images/sundayRoastsDesktop.png" src="images/placeholder.png" alt="A website I developed for a clan in the game Clash Royale" data-toggle="tooltip" title="Click to visit me!" />
+                                    <img class="card-img-top" loading="lazy" src="images/sundayRoastsDesktop.png" alt="A website I developed for a clan in the game Clash Royale" data-toggle="tooltip" title="Click to visit me!" />
                                 </a>
                             </div>
                         </div>
@@ -237,7 +224,7 @@ $pageView->terminateConnections();
                         <div class="card blue-shadow">
                             <div class="card-body rounded">
                                 <a href="http://www.thewoodhill.uk" target="_blank" rel="noopener">
-                                    <img class="card-img-top lazy" data-src="https://shanelucy.me/images/huntingLodgeDesktop.png" src="images/placeholder.png" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" /></a>
+                                    <img class="card-img-top" loading="lazy" src="images/huntingLodgeDesktop.png" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" /></a>
                             </div>
                         </div>
                     </div>
@@ -249,12 +236,11 @@ $pageView->terminateConnections();
             </div>
             <div class="container mobile">
                 <h2 class="text-center display-4 pad-5">My Work</h2>
-
                 <div class="row pad-top">
                     <div class="col-sm-12 card yellow-shadow">
                         <div class="card-body rounded">
                             <a href="https://sundayroasts.xyz/" target="_blank" rel="noopener">
-                                <img class="card-img-top lazy" data-src="https://shanelucy.me/images/sundayRoastsMobile.png" src="images/placeholder.png" alt="A website I developed for a clan in the game Clash Royale" data-toggle="tooltip" title="Click to visit me!" />
+                                <img class="card-img-top" loading="lazy" src="images/sundayRoastsMobile.png" alt="A website I developed for a clan in the game Clash Royale" data-toggle="tooltip" title="Click to visit me!" />
                             </a>
                             <h3 class="card-title">Sunday Roasts</h3>
                             <p class="card-text">
@@ -267,7 +253,7 @@ $pageView->terminateConnections();
                     <div class="col-sm-12 card blue-shadow">
                         <div class="card-body rounded ">
                             <a href="http://www.thewoodhill.uk" target="_blank" rel="noopener">
-                                <img class="card-img-top lazy" data-src="https://shanelucy.me/images/huntingLodgeMobile.png" src="images/placeholder.png" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" />
+                                <img class="card-img-top" loading="lazy" src="images/huntingLodgeMobile.png" alt="The Woodhill Hunting Lodge" data-toggle="tooltip" title="Click to visit me!" />
                             </a>
                             <h3 class="card-title">The Woodhill Huntinglodge</h3>
                             <p class="card-text">This is a brochure style website I developed for a bar & restaurant with Bootstrap, JavaScript and PHP.</p>
@@ -299,41 +285,33 @@ $pageView->terminateConnections();
                 <div class="mobile pad-5"></div>
                 <h2 class="text-center display-4 pad-5">Contact me</h2>
                 <form nonce="<?php echo $nonce;?>" novalidate>
-
                     <div class="row pad-top">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="name">Name: *</label>
                                 <input required type="text" pattern="^[a-zA-Z ]+$" class="form-control" name="name" minlength="3" id="name">
                                 <span id="name-error" aria-live="polite"></span>
-
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-
                                 <label for="email">Email: *</label>
                                 <input type="email" name="email" required class="form-control" id="email">
                                 <span id="email-error" aria-live="polite"></span>
-
                                 <input type="hidden" name="token" id="token" value="<?php echo $_SESSION['csrfToken'];?>">
                                 <input type="number" name="mobile-number" id="mobile-number" required value="0">
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-
                             <div class="form-group">
                                 <label for="enquiry">Enquiry: *</label>
                                 <input type="text" class="form-control" name="enquiry" id="enquiry" pattern="^[a-zA-Z0-9£$&.\\/+=: \-]+$" required minlength="20">
                                 <span id="enquiry-error" aria-live="polite"></span>
                             </div>
-
                             <small>* indicates a required field</small>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-center">
@@ -341,7 +319,6 @@ $pageView->terminateConnections();
                         </div>
                     </div>
                 </form>
-
                 <div class="container text-center pad-5">
                     <details>
                         <summary>Value privacy and security? Click to get my PGP public key</summary>
@@ -398,58 +375,36 @@ rj9A//Gu+dbPMQpscg==
 -----END PGP PUBLIC KEY BLOCK-----</code></pre>
                     </details>
                 </div>
-
-                <script nonce="<?php echo $nonce;?>" src="scripts/validation.js">
-                </script>
-
             </div>
             <div class="container text-center pad-top">
-
                 <div class="desktop">
                     <div class="row pad-top text-center">
                         <div class="col-sm-4">
-                            <a href="https://github.com/ShaneLucy" target="_blank" rel="noopener"><img class="icons lazy" data-src="images/github.png" src="images/placeholder.png" alt="GitHub logo" /></a>
+                            <a href="https://github.com/ShaneLucy" target="_blank" rel="noopener"><img class="icons" loading="lazy"  src="images/github.png" alt="GitHub logo" /></a>
                         </div>
                         <div class="col-sm-4">
-                            <a href="#home"><i class="fas fa-arrow-up"  data-toggle="tooltip" title="Beam me up"></i></a>
-                            <a class="sr-only" href="#home">Home</a>
+                         
                         </div>
                         <div class="col-sm-4">
-
-                            <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank" rel="noopener"><img class="icons lazy" data-src="images/linkedin.png" src="images/placeholder.png" alt="LinkedIn logo" /></a>
-
+                            <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank" rel="noopener"><img class="icons" loading="lazy" src="images/linkedin.png" alt="LinkedIn logo" /></a>
                         </div>
                     </div>
                     <div class="row pad-5">
                     </div>
                 </div>
+                
                 <div class="mobile text-center">
                     <div class="row pad-5">
                         <div class="col-sm-12">
-
-                            <a href="https://github.com/ShaneLucy" target="_blank" rel="noopener"><img class="icons lazy float-left" data-src="images/github.png" src="images/placeholder.png" alt="GitHub logo" /></a>
-                            <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank" rel="noopener"><img class="icons lazy float-right" data-src="images/linkedin.png" src="images/placeholder.png" alt="LinkedIn logo" /></a>
-                            <a href="#home"><i class="text-center fas fa-arrow-up" data-toggle="tooltip" title="Beam me up" ></i></a>
-                            <a class="sr-only" href="#home">Home</a>
+                            <a href="https://github.com/ShaneLucy" target="_blank" rel="noopener"><img loading="lazy" class="icons float-left"  src="images/github.png" alt="GitHub logo" /></a>
+                            <a href="https://www.linkedin.com/in/shane-lucy-4735b616a/" target="_blank" rel="noopener"><img loading="lazy" class="icons float-right"  src="images/linkedin.png" alt="LinkedIn logo" /></a>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </footer>
     </main>
-
-    <script nonce="<?php echo $nonce;?>" src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script nonce="<?php echo $nonce;?>" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script nonce="<?php echo $nonce;?>" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script nonce="<?php echo $nonce;?>" src="scripts/lazy.js"></script>
-    <script nonce="<?php echo $nonce;?>" src="scripts/sticky.js"></script>
-    <script nonce="<?php echo $nonce;?>">
-        $(function () {
-    	$('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
+</div>
+       <script nonce="<?php echo $nonce;?>" src="scripts/validation.js"></script>
 </body>
-
 </html>
