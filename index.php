@@ -404,7 +404,10 @@ rj9A//Gu+dbPMQpscg==
             </div>
         </footer>
     </main>
-</div>
-       <script nonce="<?php echo $nonce;?>" src="scripts/validation.js"></script>
+</div>    
+    <script nonce="<?php echo $nonce;?>" src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script nonce="<?php echo $nonce;?>" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script nonce="<?php echo $nonce;?>" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script nonce="<?php echo $nonce;?>" src="scripts/validation.js"></script>
 </body>
 </html>
