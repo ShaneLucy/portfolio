@@ -15,7 +15,7 @@
   <div class="start">
     <p>Activities</p>
   </div>
-  <span>
+  <div>
     <p>
       {date.toLocaleString(navigator.language, {
         day: 'numeric',
@@ -26,7 +26,7 @@
         minute: '2-digit'
       })}
     </p>
-  </span>
+  </div>
   <div class="end">
     <svg
       fill="none"
