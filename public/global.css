@@ -87,8 +87,8 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -104,9 +104,6 @@ menu,
 nav,
 section {
   display: block;
-}
-body {
-  line-height: 1;
 }
 ol,
 ul {
@@ -135,7 +132,21 @@ table {
   --secondary: #e95420;
 }
 
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 body {
   color: var(--font);
   font-family: 'Ubuntu', sans-serif;
+  line-height: 1;
+}
+
+@media (max-width: 400px) {
+  .hidden {
+    display: none;
+  }
 }
