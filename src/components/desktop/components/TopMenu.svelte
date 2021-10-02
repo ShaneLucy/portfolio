@@ -1,11 +1,6 @@
 <script lang="ts">
   let date = new Date();
 
-  const i = new Intl.DateTimeFormat('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  }).format(date);
   function updateTime() {
     date = new Date();
     setTimeout(() => {
@@ -20,8 +15,7 @@
   <div class="start">
     <p>Activities</p>
   </div>
-  <div>
-    {i}
+  <span>
     <p>
       {date.toLocaleString(navigator.language, {
         day: 'numeric',
@@ -32,12 +26,13 @@
         minute: '2-digit'
       })}
     </p>
-  </div>
+  </span>
   <div class="end">
     <svg
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      class="hidden"
       xmlns="http://www.w3.org/2000/svg"
       ><path
         stroke-linecap="round"
@@ -50,6 +45,7 @@
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      class="hidden"
       xmlns="http://www.w3.org/2000/svg"
       ><path
         stroke-linecap="round"
@@ -84,8 +80,6 @@
 <style>
   header {
     background-color: var(--background-secondary);
-    width: 100%;
-    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,8 +89,6 @@
     display: flex;
     padding-top: 0.35rem;
     padding-bottom: 0.15rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     border-bottom: 0.2rem solid var(--background-secondary);
   }
 
@@ -105,7 +97,6 @@
   }
 
   .start {
-    justify-content: space-between;
     margin-left: 1rem;
   }
 
