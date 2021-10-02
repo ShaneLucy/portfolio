@@ -1,3 +1,3 @@
 module.exports = {
-  extends: "typescript-airbnb-prettier-svelte",
+  extends: 'typescript-airbnb-prettier-svelte'
 };
