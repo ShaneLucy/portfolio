@@ -12,7 +12,7 @@
 </script>
 
 <header>
-  <div class="start">
+  <div>
     <p>Activities</p>
   </div>
   <div>
@@ -90,19 +90,21 @@
     padding-top: 0.35rem;
     padding-bottom: 0.15rem;
     border-bottom: 0.2rem solid var(--background-secondary);
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 
   div:hover {
     border-bottom: 0.2rem solid var(--secondary);
   }
 
-  .start {
-    margin-left: 1rem;
-  }
-
   .end {
     column-gap: 0.8rem;
-    margin-right: 1rem;
+  }
+
+  p {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
   }
 
   svg {
