@@ -130,6 +130,7 @@ table {
   --background-secondary: #202020;
   --font: #ffffff;
   --secondary: #e95420;
+  --side-menu: rgba(40, 40, 40, 0.5);
 }
 
 html,
