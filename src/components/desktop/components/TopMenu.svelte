@@ -109,7 +109,7 @@
   }
 
   div:hover {
-    border-bottom: 0.2rem solid var(--secondary);
+    border-bottom: 0.2rem solid var(--active);
   }
 
   .end {

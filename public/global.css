@@ -127,10 +127,16 @@ table {
 
 :root {
   --background-primary: #333333;
-  --background-secondary: #202020;
-  --font: #ffffff;
-  --secondary: #e95420;
+  --background-secondary: #292929;
+  --background-tertiary: #ffffff;
+  --background-quaternary: rgb(243, 243, 243);
+  --font-primary: #ffffff;
+  --font-secondary: #202020;
+  --active: #e95420;
   --side-menu: rgba(40, 40, 40, 0.5);
+
+  --border-dark: #202020;
+  --border-light: lightgray;
 }
 
 html,
@@ -141,7 +147,7 @@ body {
 }
 
 body {
-  color: var(--font);
+  color: var(--font-primary);
   font-family: 'Ubuntu', sans-serif;
   line-height: 1;
 }
