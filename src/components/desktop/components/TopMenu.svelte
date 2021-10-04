@@ -1,11 +1,25 @@
 <script lang="ts">
   let date = new Date();
+  const oneSecond = 1_000;
+  const halfMonths = 6;
+
+  function isDST(d: Date) {
+    const jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
+    const jul = new Date(d.getFullYear(), halfMonths, 1).getTimezoneOffset();
+    return Math.max(jan, jul) !== d.getTimezoneOffset();
+  }
+
+  const dst = isDST(date);
 
   function updateTime() {
     date = new Date();
+    if (!dst) {
+      date.setHours(date.getHours() + 1);
+    }
+
     setTimeout(() => {
       updateTime();
-    }, 1_000);
+    }, oneSecond);
   }
 
   updateTime();
