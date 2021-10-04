@@ -45,10 +45,8 @@
 <style>
   aside {
     height: 100%;
-    width: max-content;
-    left: 0;
     background-color: var(--side-menu);
-    overflow: hidden;
+    z-index: 9999;
   }
 
   nav {
