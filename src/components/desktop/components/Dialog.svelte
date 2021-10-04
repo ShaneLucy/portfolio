@@ -1,16 +1,21 @@
 <script lang="ts">
   import SvgLoader from './SVGLoader.svelte';
   const menuItems = ['home', 'projects', 'about'];
+  let maximise = false;
 
   const switchTabs = (): void => {};
 
   const isActive = (): boolean => {
     // return true;
   };
+
+  const maximiseContainer = (): void => {
+    maximise = !maximise;
+  };
 </script>
 
-<div class="container">
-  <header>
+<div class="container" class:normal={!maximise} class:max-container={maximise}>
+  <header class:max-header={maximise}>
     <div>
       <div>
         <div>
@@ -27,7 +32,7 @@
       </div>
       <div>
         <SvgLoader svg={'minimise'} />
-        <SvgLoader svg={'maximise'} />
+        <SvgLoader svg={'maximise'} on:click={maximiseContainer} />
         <SvgLoader svg={'exit'} />
       </div>
     </div>
@@ -54,16 +59,33 @@
 
 <style>
   .container {
+    z-index: 50;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     border: solid 1px black;
+  }
+
+  .normal {
     left: 50%;
     top: 50%;
     position: absolute;
-    z-index: 50;
+
     transform: translate(-50%, -50%);
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+
     width: 60%;
     height: 60%;
+  }
+
+  .max-container {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .max-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   header {

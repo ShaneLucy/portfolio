@@ -6,14 +6,14 @@
 
 <TopMenu />
 
-<div>
+<div class="desktop">
   <SideMenu />
 
   <Dialog />
 </div>
 
 <style>
-  div {
+  .desktop {
     width: 100%;
     height: 100%;
     background-image: url('images/focal-fossa.webp');
@@ -21,5 +21,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    display: flex;
   }
 </style>
