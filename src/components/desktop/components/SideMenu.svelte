@@ -46,7 +46,6 @@
   aside {
     height: 100%;
     width: max-content;
-    top: 1.95rem;
     left: 0;
     background-color: var(--side-menu);
     overflow: hidden;
