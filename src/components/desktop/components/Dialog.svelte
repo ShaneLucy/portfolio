@@ -5,7 +5,7 @@
   const switchTabs = (): void => {};
 
   const isActive = (): boolean => {
-    return true;
+    // return true;
   };
 </script>
 
@@ -124,6 +124,7 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    border-bottom: 1px solid var(--border-light);
   }
 
   main {
@@ -151,9 +152,17 @@
     padding-bottom: 1rem;
   }
 
+  nav span:hover {
+    background-color: var(--border-light);
+  }
+
   span.active {
     background-color: var(--active);
     color: var(--font-primary);
+  }
+
+  span.active:hover {
+    background-color: var(--active);
   }
 
   span.active a {
