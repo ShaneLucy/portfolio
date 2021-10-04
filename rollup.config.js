@@ -55,7 +55,7 @@ export default {
     // a separate file - better for performance
     css({ output: 'bundle.css' }),
     copy({
-      targets: [{ src: 'src/images', dest: 'public/build/' }]
+      targets: [{ src: 'images', dest: 'public/build/' }]
     }),
 
     // If you have external dependencies installed from
