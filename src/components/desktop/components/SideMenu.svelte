@@ -23,24 +23,21 @@
     }
   ];
 
-  const openFileExplorer = (): void => {
-    
-  }
+  const openFileExplorer = (): void => {};
 </script>
 
 <aside>
   <nav>
     {#each menuItems as menuItem}
-    {#if menuItem.href === 'dialog'}
-    <a href={menuItem.href} on:click|preventDefault={openFileExplorer} >
-        <img src={menuItem.src} alt={menuItem.name} />
-      </a>
+      {#if menuItem.href === 'dialog'}
+        <a href={menuItem.href} on:click|preventDefault={openFileExplorer}>
+          <img src={menuItem.src} alt={menuItem.name} />
+        </a>
       {:else}
-      <a href={menuItem.href} target="_blank" rel="noopener">
-        <img src={menuItem.src} alt={menuItem.name} />
-      </a>
-    {/if}
-      
+        <a href={menuItem.href} target="_blank" rel="noopener">
+          <img src={menuItem.src} alt={menuItem.name} />
+        </a>
+      {/if}
     {/each}
   </nav>
 </aside>
