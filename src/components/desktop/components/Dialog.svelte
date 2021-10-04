@@ -86,6 +86,10 @@
     column-gap: 0.5rem;
   }
 
+  header div div:nth-child(2) {
+    column-gap: 1.5rem;
+  }
+
   header div div:hover {
     background-color: var(--background-secondary);
   }
