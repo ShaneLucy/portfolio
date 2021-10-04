@@ -2,7 +2,7 @@
   const menuItems = [
     {
       href: 'https://github.com/shanelucy/',
-      src: 'assets/github.png'
+      src: 'build/images/github.png'
     }
   ];
 </script>
