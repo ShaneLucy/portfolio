@@ -9,12 +9,16 @@
       src: 'build/images/json.png'
     }
   ];
+
+  const openNewDialog = (): void => {
+    // do something
+  };
 </script>
 
 <nav>
   {#each menuItems as menuItem}
     <div>
-      <a href={menuItem.name} on:click|preventDefault>
+      <a href={menuItem.name} on:click|preventDefault={openNewDialog}>
         <img src={menuItem.src} alt={menuItem.name} />
       </a>
       <p>{menuItem.name}</p>
