@@ -1,37 +1,100 @@
 <script lang="ts">
   import SvgLoader from './SVGLoader.svelte';
-  const menuItems = ['home', 'projects', 'about'];
+  import About from './About.svelte';
+  import Home from './Home.svelte';
+  import Projects from './Projects.svelte';
+
+  type MenuItems = {
+    name: string;
+    active: boolean;
+    component: typeof Home | Projects | About;
+  };
+
+  const menuItems: Array<MenuItems> = [
+    {
+      name: 'home',
+      active: true,
+      component: Home
+    },
+    {
+      name: 'projects',
+      active: false,
+      component: Projects
+    },
+    {
+      name: 'about',
+      active: false,
+      component: About
+    }
+  ];
   let maximise = false;
+  let minimise = false;
 
-  const switchTabs = (): void => {};
-
-  const isActive = (): boolean => {
-    // return true;
+  const minimiseContainer = (): void => {
+    minimise = !minimise;
+    // Add minimised container to a store
   };
 
   const maximiseContainer = (): void => {
     maximise = !maximise;
   };
+
+  const switchTabs = (name: string): void => {
+    menuItems.forEach((menuItem, index) => {
+      if (menuItem.name === name) {
+        menuItems[index].active = true;
+      } else {
+        menuItems[index].active = false;
+      }
+    });
+  };
+
+  const previousTab = (): void => {
+    const index = menuItems.findIndex((x) => x.active === true);
+
+    if (index > 0) {
+      menuItems[index].active = false;
+      menuItems[index - 1].active = true;
+    }
+  };
+
+  const nextTab = (): void => {
+    const index = menuItems.findIndex((x) => x.active === true);
+
+    if (index + 1 < menuItems.length) {
+      menuItems[index].active = false;
+      menuItems[index + 1].active = true;
+    }
+  };
 </script>
 
-<div class="container" class:normal={!maximise} class:max-container={maximise}>
+<div
+  class="container"
+  class:normal={!maximise}
+  class:max-container={maximise}
+  class:min-container={minimise}
+>
   <header class:max-header={maximise}>
     <div>
       <div>
         <div>
-          <SvgLoader svg={'chevron-left'} />
+          <SvgLoader svg={'chevron-left'} on:click={previousTab} />
 
-          <SvgLoader svg={'chevron-right'} />
+          <SvgLoader svg={'chevron-right'} on:click={nextTab} />
         </div>
         <div>
-          <span
-            ><SvgLoader svg={'home'} />
-            <p>Home</p></span
-          >
+          {#each menuItems as menuItem}
+            {#if menuItem.active}
+              <span
+                ><SvgLoader svg={menuItem.name} />
+                <p>{menuItem.name}</p></span
+              >
+            {/if}
+          {/each}
         </div>
       </div>
       <div>
-        <SvgLoader svg={'minimise'} />
+        <SvgLoader svg={'minimise'} on:click={minimiseContainer} />
         <SvgLoader svg={'maximise'} on:click={maximiseContainer} />
         <SvgLoader svg={'exit'} />
       </div>
@@ -42,18 +105,27 @@
     <aside>
       <nav>
         {#each menuItems as menuItem}
-          <span class:active={isActive()}>
-            <SvgLoader svg={menuItem} --margin="0 0 0 0.5rem" />
-            <a href={menuItem} on:click|preventDefault={switchTabs}>
-              {menuItem}
+          <span
+            class:active={menuItem.active}
+            on:click={() => switchTabs(menuItem.name)}
+          >
+            <SvgLoader svg={menuItem.name} --margin="0 0 0 0.5rem" />
+            <a href={menuItem.name} on:click|preventDefault>
+              {menuItem.name}
             </a>
           </span>
         {/each}
       </nav>
     </aside>
-    <main>
-      <slot />
-    </main>
+    <div>
+      <main>
+        {#each menuItems as menuItem}
+          {#if menuItem.active}
+            <svelte:component this={menuItem.component} />
+          {/if}
+        {/each}
+      </main>
+    </div>
   </div>
 </div>
 
@@ -62,16 +134,13 @@
     z-index: 50;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    border: solid 1px black;
   }
 
   .normal {
     left: 50%;
     top: 50%;
     position: absolute;
-
     transform: translate(-50%, -50%);
-
     width: 60%;
     height: 60%;
   }
@@ -88,6 +157,10 @@
     border-top-right-radius: 0;
   }
 
+  .min-container {
+    display: none;
+  }
+
   header {
     background-color: var(--background-secondary);
     border-top-left-radius: 0.5rem;
@@ -95,6 +168,10 @@
     border-bottom: solid 1px var(--border-dark);
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+  }
+
+  p {
+    text-transform: capitalize;
   }
 
   header div {
@@ -112,16 +189,11 @@
     column-gap: 1.5rem;
   }
 
-  header div div:hover {
-    background-color: var(--background-secondary);
-  }
-
   header div div div {
     margin-left: 0.5rem;
     border-radius: 0.25rem;
     border: solid 1px var(--border-dark);
     background-color: var(--background-primary);
-    display: flex;
     padding: 0.4rem;
   }
 
@@ -149,9 +221,17 @@
     border-bottom: 1px solid var(--border-light);
   }
 
-  main {
+  aside + div {
     background-color: var(--background-tertiary);
     width: 100%;
+    height: 100%;
+  }
+
+  main {
+    width: calc(100% - 1.5rem);
+    height: calc(100% - 1.5rem);
+    display: flex;
+    margin: 0.75rem;
   }
 
   a {
@@ -172,6 +252,7 @@
     width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    cursor: pointer;
   }
 
   nav span:hover {
