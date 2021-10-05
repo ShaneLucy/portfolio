@@ -22,7 +22,17 @@
     {
       href: 'dialog',
       src: 'build/images/folder.png',
+      name: 'explore'
+    },
+    {
+      href: 'dialog',
+      src: 'build/images/about-me.png',
       name: 'about me'
+    },
+    {
+      href: 'dialog',
+      src: 'build/images/projects.png',
+      name: 'projects'
     }
   ];
 
@@ -34,8 +44,6 @@
         display: 'default'
       }
     ]);
-
-    console.log($dialogState);
   };
 </script>
 
@@ -43,9 +51,12 @@
   <nav>
     {#each menuItems as menuItem}
       {#if menuItem.href === 'dialog'}
-        <a href={menuItem.href} on:click|preventDefault={openFileExplorer}>
-          <img src={menuItem.src} alt={menuItem.name} />
-        </a>
+        <span>
+          <div class="active" />
+          <a href={menuItem.href} on:click|preventDefault={openFileExplorer}>
+            <img src={menuItem.src} alt={menuItem.name} />
+          </a>
+        </span>
       {:else}
         <a href={menuItem.href} target="_blank" rel="noopener">
           <img src={menuItem.src} alt={menuItem.name} />
@@ -74,5 +85,19 @@
     width: 3.5rem;
     cursor: pointer;
     object-fit: contain;
+  }
+
+  span {
+    position: relative;
+  }
+
+  .active {
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--active);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0.5rem;
+    left: -0.75rem;
   }
 </style>
