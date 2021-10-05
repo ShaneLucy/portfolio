@@ -1,4 +1,7 @@
 <script lang="ts">
+  import dialogState from '../../../state/dialog-state';
+  import FileExplorer from '../components/dialog/FileExplorer.svelte';
+
   type MenuItems = {
     href: string;
     src: string;
@@ -23,7 +26,17 @@
     }
   ];
 
-  const openFileExplorer = (): void => {};
+  const openFileExplorer = (): void => {
+    dialogState.set([
+      {
+        component: FileExplorer,
+        openingActiveTab: 0,
+        display: 'default'
+      }
+    ]);
+
+    console.log($dialogState);
+  };
 </script>
 
 <aside>

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import fileExplorerMenu from '../../../state/file-explorer-state';
+  import dialogState from '../../../state/dialog-state';
   import SvgLoader from '../SVGLoader.svelte';
 
   import FileExplorer from './dialog/FileExplorer.svelte';
 
   export let openingActiveTab: 0 | 1;
+  export let index: number;
   let maximise = false;
   let minimise = false;
 
@@ -19,7 +21,7 @@
   };
 
   const closeContainer = (): void => {
-    minimise = true;
+    dialogState.update((value) => value.splice(index, 0));
   };
 
   export const previousTab = (): void => {
