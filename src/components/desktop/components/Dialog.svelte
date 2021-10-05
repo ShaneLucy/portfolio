@@ -2,21 +2,16 @@
   import { onMount } from 'svelte';
   import SvgLoader from './SVGLoader.svelte';
   import About from './About.svelte';
-  import Home from './Home.svelte';
+
   import Projects from './Projects.svelte';
 
   type MenuItems = {
     name: string;
     active: boolean;
-    component: typeof Home | Projects | About;
+    component: typeof Projects | About;
   };
 
   const menuItems: Array<MenuItems> = [
-    {
-      name: 'home',
-      active: false,
-      component: Home
-    },
     {
       name: 'projects',
       active: false,
@@ -29,7 +24,7 @@
     }
   ];
 
-  export let openingActiveTab: number;
+  export let openingActiveTab: 0 | 1;
   let maximise = false;
   let minimise = false;
 
@@ -241,7 +236,6 @@
   main {
     width: calc(100% - 1.5rem);
     height: calc(100% - 1.5rem);
-    display: flex;
     margin: 0.75rem;
   }
 
