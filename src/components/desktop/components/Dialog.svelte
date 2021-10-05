@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import SvgLoader from './SVGLoader.svelte';
   import About from './About.svelte';
   import Home from './Home.svelte';
@@ -13,7 +14,7 @@
   const menuItems: Array<MenuItems> = [
     {
       name: 'home',
-      active: true,
+      active: false,
       component: Home
     },
     {
@@ -27,6 +28,8 @@
       component: About
     }
   ];
+
+  export let openingActiveTab: number;
   let maximise = false;
   let minimise = false;
 
@@ -37,6 +40,10 @@
 
   const maximiseContainer = (): void => {
     maximise = !maximise;
+  };
+
+  const closeContainer = (): void => {
+    minimise = true;
   };
 
   const switchTabs = (name: string): void => {
@@ -66,6 +73,10 @@
       menuItems[index + 1].active = true;
     }
   };
+
+  onMount(() => {
+    menuItems[openingActiveTab].active = true;
+  });
 </script>
 
 <div
@@ -96,7 +107,7 @@
       <div>
         <SvgLoader svg={'minimise'} on:click={minimiseContainer} />
         <SvgLoader svg={'maximise'} on:click={maximiseContainer} />
-        <SvgLoader svg={'exit'} />
+        <SvgLoader svg={'exit'} on:click={closeContainer} />
       </div>
     </div>
   </header>

@@ -9,7 +9,7 @@
 <div class="desktop">
   <SideMenu />
 
-  <Dialog />
+  <Dialog openingActiveTab={0} />
 </div>
 
 <style>
