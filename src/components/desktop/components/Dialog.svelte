@@ -31,7 +31,7 @@
     dialogState.update((value) => value.splice(index));
   };
 
-  export const previousTab = (): void => {
+  const previousTab = (): void => {
     const index = $fileExplorerState.findIndex((x) => x.active === true);
 
     if (index > 0) {
@@ -40,7 +40,7 @@
     }
   };
 
-  export const nextTab = (): void => {
+  const nextTab = (): void => {
     const index = $fileExplorerState.findIndex((x) => x.active === true);
 
     if (index + 1 < $fileExplorerState.length) {
@@ -100,10 +100,8 @@
   }
 
   .normal {
-    left: 50%;
-    top: 50%;
+    left: 12.5%;
     position: absolute;
-    transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
   }
