@@ -1,13 +1,19 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import fileExplorerMenu from '../../../state/file-explorer-state';
-  import dialogState from '../../../state/dialog-state';
+  import { writable } from 'svelte/store';
+  import type { FileExplorerMenu } from '../../../types';
+  import dialogState from '../../../state';
   import SvgLoader from '../SVGLoader.svelte';
-
   import FileExplorer from './dialog/FileExplorer.svelte';
 
-  export let openingActiveTab: 0 | 1;
+  export let openingActiveTab: number;
   export let index: number;
+  export let initialFileExplorerState: Array<FileExplorerMenu>;
+
+  const fileExplorerState = writable<Array<FileExplorerMenu>>(
+    initialFileExplorerState
+  );
+
   let maximise = false;
   let minimise = false;
 
@@ -21,29 +27,29 @@
   };
 
   const closeContainer = (): void => {
-    dialogState.update((value) => value.splice(index, 0));
+    dialogState.update((value) => value.splice(index));
   };
 
   export const previousTab = (): void => {
-    const index = $fileExplorerMenu.findIndex((x) => x.active === true);
+    const index = $fileExplorerState.findIndex((x) => x.active === true);
 
     if (index > 0) {
-      $fileExplorerMenu[index].active = false;
-      $fileExplorerMenu[index - 1].active = true;
+      $fileExplorerState[index].active = false;
+      $fileExplorerState[index - 1].active = true;
     }
   };
 
   export const nextTab = (): void => {
-    const index = $fileExplorerMenu.findIndex((x) => x.active === true);
+    const index = $fileExplorerState.findIndex((x) => x.active === true);
 
-    if (index + 1 < $fileExplorerMenu.length) {
-      $fileExplorerMenu[index].active = false;
-      $fileExplorerMenu[index + 1].active = true;
+    if (index + 1 < $fileExplorerState.length) {
+      $fileExplorerState[index].active = false;
+      $fileExplorerState[index + 1].active = true;
     }
   };
 
   onMount(() => {
-    $fileExplorerMenu[openingActiveTab].active = true;
+    $fileExplorerState[openingActiveTab].active = true;
   });
 </script>
 
@@ -61,7 +67,7 @@
           <SvgLoader svg={'chevron-right'} on:click={nextTab} />
         </div>
         <div>
-          {#each $fileExplorerMenu as menuItem}
+          {#each $fileExplorerState as menuItem}
             {#if menuItem.active}
               <span
                 ><SvgLoader svg={menuItem.name} />
@@ -80,7 +86,7 @@
   </header>
 
   <div class="inner-container">
-    <FileExplorer />
+    <FileExplorer fileExplorerState={$fileExplorerState} />
   </div>
 </div>
 

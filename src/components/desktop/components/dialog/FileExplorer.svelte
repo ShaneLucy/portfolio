@@ -1,13 +1,16 @@
 <script lang="ts">
-  import fileExplorerMenu from '../../../../state/file-explorer-state';
+  // import fileExplorerMenu from '../../../../state/file-explorer-state';
+  import type { FileExplorerMenu } from '../../../../types';
   import SvgLoader from '../../SVGLoader.svelte';
 
+  export let fileExplorerState: Array<FileExplorerMenu>;
+
   const switchTabs = (name: string): void => {
-    $fileExplorerMenu.forEach((menuItem, index) => {
+    fileExplorerState.forEach((menuItem, index) => {
       if (menuItem.name === name) {
-        $fileExplorerMenu[index].active = true;
+        fileExplorerState[index].active = true;
       } else {
-        $fileExplorerMenu[index].active = false;
+        fileExplorerState[index].active = false;
       }
     });
   };
@@ -15,7 +18,7 @@
 
 <aside>
   <nav>
-    {#each $fileExplorerMenu as menuItem}
+    {#each fileExplorerState as menuItem}
       <span
         class:active={menuItem.active}
         on:click={() => switchTabs(menuItem.name)}
@@ -30,7 +33,7 @@
 </aside>
 <div>
   <main>
-    {#each $fileExplorerMenu as menuItem}
+    {#each fileExplorerState as menuItem}
       {#if menuItem.active}
         <svelte:component this={menuItem.component} />
       {/if}

@@ -2,7 +2,7 @@
   import TopMenu from './components/TopMenu.svelte';
   import SideMenu from './components/SideMenu.svelte';
   import Dialog from './components/Dialog.svelte';
-  import dialogState from '../../state/dialog-state';
+  import dialogState from '../../state';
 </script>
 
 <TopMenu />
@@ -11,7 +11,11 @@
   <SideMenu />
 
   {#each $dialogState as dialog, index}
-    <Dialog openingActiveTab={dialog.openingActiveTab} {index} />
+    <Dialog
+      openingActiveTab={dialog.openingActiveTab}
+      {index}
+      initialFileExplorerState={dialog.fileExplorerState}
+    />
   {/each}
 </div>
 
