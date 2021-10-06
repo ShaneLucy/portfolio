@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
+  import { draggable } from 'svelte-drag';
   import type { FileExplorerMenu } from '../../../types';
   import dialogState from '../../../state';
   import SvgLoader from '../SVGLoader.svelte';
@@ -54,6 +55,7 @@
 </script>
 
 <div
+  use:draggable
   class="container"
   class:normal={!maximise}
   class:max-container={maximise}
