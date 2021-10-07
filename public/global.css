@@ -151,9 +151,3 @@ body {
   font-family: 'Ubuntu', sans-serif;
   line-height: 1;
 }
-
-@media (max-width: 400px) {
-  .hidden {
-    display: none;
-  }
-}

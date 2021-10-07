@@ -94,7 +94,7 @@
 
     {#each internalMenuItems as menuItem, index}
       <span>
-        {#each $dialogState as dialog, idx}
+        {#each $dialogState as dialog}
           {#if dialog.isOpen && dialog.openingActiveTab === index}
             <span class="active" />
           {/if}
@@ -119,10 +119,8 @@
   }
 
   nav {
-    margin: 2.5rem 1.25rem;
     display: flex;
     flex-direction: column;
-    row-gap: 2.5rem;
   }
 
   img {
@@ -130,6 +128,7 @@
     width: 3.5rem;
     cursor: pointer;
     object-fit: contain;
+    transform: scale(0.5);
   }
 
   span {
@@ -144,5 +143,18 @@
     position: absolute;
     bottom: 0.5rem;
     left: -0.75rem;
+  }
+
+  @media (min-width: 500px) {
+    @media (orientation: portrait) {
+      img {
+        transform: scale(1);
+      }
+
+      nav {
+        margin: 2.5rem 1.25rem;
+        row-gap: 2.5rem;
+      }
+    }
   }
 </style>

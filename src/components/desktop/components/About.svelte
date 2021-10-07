@@ -29,7 +29,15 @@
 <style>
   nav {
     display: flex;
-    column-gap: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  img {
+    height: 3.5rem;
+    width: 3.5rem;
+    cursor: pointer;
+    object-fit: contain;
   }
 
   div {

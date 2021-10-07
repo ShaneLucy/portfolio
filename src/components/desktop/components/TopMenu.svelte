@@ -101,8 +101,8 @@
 
   div {
     display: flex;
-    padding-top: 0.35rem;
-    padding-bottom: 0.15rem;
+    padding-top: 0.15rem;
+    padding-bottom: 0.05rem;
     border-bottom: 0.2rem solid var(--background-secondary);
     padding-right: 1rem;
     padding-left: 1rem;
@@ -117,12 +117,28 @@
   }
 
   p {
+    font-size: 0.75rem;
     padding-top: 0.125rem;
     padding-bottom: 0.125rem;
   }
 
   svg {
-    height: 1.25rem;
+    height: 0.78rem;
     width: auto;
+  }
+
+  @media (min-width: 500px) {
+    @media (orientation: portrait) {
+      div {
+        padding-top: 0.35rem;
+        padding-bottom: 0.15rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      svg {
+        height: 1.25rem;
+      }
+    }
   }
 </style>
