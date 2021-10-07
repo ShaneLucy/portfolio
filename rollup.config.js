@@ -38,8 +38,8 @@ function serve() {
 export default {
   input: 'src/main.ts',
   output: {
-    sourcemap: true,
-    format: 'iife',
+    sourcemap: production ? false : true,
+    format: production ? 'es' : 'iife',
     name: 'app',
     file: 'public/build/bundle.js'
   },
