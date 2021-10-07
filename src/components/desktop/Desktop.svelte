@@ -3,15 +3,26 @@
   import SideMenu from './components/SideMenu.svelte';
   import Dialog from './components/Dialog.svelte';
   import dialogState from '../../state';
+  import findActive from '../../helpers';
+
+  const toggleActive = (): void => {
+    $dialogState[findActive($dialogState)].isActive = false;
+  };
+
+  const setActive = (index: number): void => {
+    toggleActive();
+    $dialogState[index].isActive = true;
+  };
 </script>
 
 <TopMenu />
 
-<div class="desktop">
+<div class="desktop" on:click|self={toggleActive}>
   <SideMenu />
 
   {#each $dialogState as dialog, index}
     <Dialog
+      on:click={() => setActive(index)}
       openingActiveTab={dialog.openingActiveTab}
       {index}
       initialFileExplorerState={dialog.fileExplorerState}

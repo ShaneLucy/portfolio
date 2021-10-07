@@ -14,4 +14,6 @@ export interface Dialog {
   openingActiveTab: number;
   display: 'min' | 'default' | 'max';
   fileExplorerState: Array<FileExplorerMenu>;
+  isActive: boolean;
+  isOpen: true;
 }

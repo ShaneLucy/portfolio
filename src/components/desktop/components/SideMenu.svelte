@@ -1,6 +1,7 @@
 <script lang="ts">
   import dialogState from '../../../state';
   import type { Dialog } from '../../../types';
+  import findActive from '../../../helpers';
   import FileExplorer from '../components/dialog/FileExplorer.svelte';
   import Home from './Home.svelte';
   import About from './About.svelte';
@@ -43,7 +44,15 @@
     }
   ];
 
+  /**
+   * Creates a new dialog configured as a file explorer
+   * @param openingActiveTab
+   */
   const openFileExplorer = (openingActiveTab: number): void => {
+    if ($dialogState.length > 0) {
+      $dialogState[findActive($dialogState)].isActive = false;
+    }
+
     const nextState: Array<Dialog> = [
       {
         component: FileExplorer,
@@ -65,7 +74,9 @@
             active: false,
             component: Projects
           }
-        ]
+        ],
+        isActive: true,
+        isOpen: true
       }
     ];
 
@@ -83,7 +94,12 @@
 
     {#each internalMenuItems as menuItem, index}
       <span>
-        <div class="active" />
+        {#each $dialogState as dialog, idx}
+          {#if dialog.isOpen && dialog.openingActiveTab === index}
+            <span class="active" />
+          {/if}
+        {/each}
+
         <a
           href={menuItem.href}
           on:click|preventDefault={() => openFileExplorer(index)}

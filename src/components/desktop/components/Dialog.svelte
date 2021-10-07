@@ -28,7 +28,12 @@
   };
 
   const closeContainer = (): void => {
-    dialogState.update((value) => value.splice(index));
+    const intermediary = $dialogState;
+
+    if (intermediary[index].isActive) {
+      intermediary.splice(index, 1);
+      dialogState.set(intermediary);
+    }
   };
 
   const previousTab = (): void => {
@@ -60,8 +65,12 @@
   class:normal={!maximise}
   class:max-container={maximise}
   class:min-container={minimise}
+  on:click
 >
-  <header class:max-header={maximise}>
+  <header
+    class:max-header={maximise}
+    class:active={$dialogState[index].isActive}
+  >
     <div>
       <div>
         <div>
@@ -123,12 +132,16 @@
   }
 
   header {
-    background-color: var(--background-secondary);
+    background-color: var(--background-primary);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     border-bottom: solid 1px var(--border-dark);
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+  }
+
+  header.active {
+    background-color: var(--background-secondary);
   }
 
   p {
