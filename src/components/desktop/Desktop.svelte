@@ -17,7 +17,7 @@
 
 <TopMenu />
 
-<div class="desktop" on:click|self={toggleActive}>
+<div on:click|self={toggleActive}>
   <SideMenu />
 
   {#each $dialogState as dialog, index}
@@ -31,7 +31,7 @@
 </div>
 
 <style>
-  .desktop {
+  div {
     width: 100%;
     height: 100%;
     background-image: url('images/focal-fossa.webp');
@@ -40,5 +40,6 @@
     background-size: cover;
     position: relative;
     display: flex;
+    overflow: hidden;
   }
 </style>
