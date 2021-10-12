@@ -2,7 +2,7 @@
   import dialogState from '../../../state';
   import type { Dialog } from '../../../types';
   import findActive from '../../../helpers';
-  import FileExplorer from '../components/dialog/FileExplorer.svelte';
+  import FileExplorer from '../components/FileExplorer.svelte';
   import Home from './Home.svelte';
   import About from './About.svelte';
   import Projects from './Projects.svelte';
@@ -50,7 +50,7 @@
    */
   const openFileExplorer = (openingActiveTab: number): void => {
     if ($dialogState.length > 0) {
-      $dialogState[findActive($dialogState)].isActive = false;
+      $dialogState[findActive($dialogState)].active = false;
     }
 
     const nextState: Array<Dialog> = [
@@ -75,8 +75,9 @@
             component: Projects
           }
         ],
-        isActive: true,
-        isOpen: true
+        active: true,
+        open: true,
+        title: ''
       }
     ];
 
@@ -95,7 +96,7 @@
     {#each internalMenuItems as menuItem, index}
       <span>
         {#each $dialogState as dialog}
-          {#if dialog.isOpen && dialog.openingActiveTab === index}
+          {#if dialog.open && dialog.openingActiveTab === index}
             <span class="active" />
           {/if}
         {/each}
