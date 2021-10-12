@@ -6,12 +6,15 @@
   import findActive from '../../helpers';
 
   const toggleActive = (): void => {
-    $dialogState[findActive($dialogState)].isActive = false;
+    if ($dialogState.length > 0) {
+      $dialogState[findActive($dialogState)].isActive = false;
+    }
   };
 
   const setActive = (index: number): void => {
-    toggleActive();
-    $dialogState[index].isActive = true;
+    if (!$dialogState[index].isActive) {
+      $dialogState[index].isActive = true;
+    }
   };
 </script>
 
