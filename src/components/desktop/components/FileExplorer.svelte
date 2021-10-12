@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { FileExplorerMenu } from '../../../../types';
-  import SvgLoader from '../../SVGLoader.svelte';
+  import type { FileExplorerMenu } from '../../../types';
+  import SvgLoader from '../SVGLoader.svelte';
 
   export let fileExplorerState: Array<FileExplorerMenu>;
 
@@ -18,6 +18,24 @@
   function setSvgMargin() {
     svgMargin = window.innerWidth < 400 ? '0' : '0 0 0 0.5rem';
   }
+
+  //   const previousTab = (): void => {
+  //   const index = $fileExplorerState.findIndex((x) => x.active === true);
+
+  //   if (index > 0) {
+  //     $fileExplorerState[index].active = false;
+  //     $fileExplorerState[index - 1].active = true;
+  //   }
+  // };
+
+  // const nextTab = (): void => {
+  //   const index = $fileExplorerState.findIndex((x) => x.active === true);
+
+  //   if (index + 1 < $fileExplorerState.length) {
+  //     $fileExplorerState[index].active = false;
+  //     $fileExplorerState[index + 1].active = true;
+  //   }
+  // };
 
   setSvgMargin();
   window.addEventListener('resize', setSvgMargin);
