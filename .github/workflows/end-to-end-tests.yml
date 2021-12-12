@@ -1,11 +1,10 @@
-name: Lint
+name: End-to-End Tests
 
 on:
-  push:
   pull_request:
 
 jobs:
-  lint:
+  e2e-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,5 +16,9 @@ jobs:
           node-version: "lts/*"
       - name: Install dependencies
         run: npm i
-      - name: Lint
-        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Install operating system dependencies
+        run: npx playwright install-deps
+      - name: Run your tests
+        run: npm run test:e2e:headless
