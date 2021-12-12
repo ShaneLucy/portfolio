@@ -2,4 +2,4 @@
 rollup.config.js
 public/build/**
 node_modules/**
-playwright/**
+playwright-report/**
