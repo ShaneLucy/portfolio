@@ -1,23 +1,23 @@
 <script lang="ts">
-  import type { Dialog } from '../../../types';
-  import { dialogState, totalCreatedDialogs } from '../../../state';
-  import AboutMeTXT from './about-me/AboutMeTXT.svelte';
-  import AboutMeJSON from './about-me/AboutMeJSON.svelte';
-  import AboutMeYAML from './about-me/AboutMeYAML.svelte';
+  import type { Dialog } from "../../../types";
+  import { dialogState, totalCreatedDialogs } from "../../../state";
+  import AboutMeTXT from "./about-me/AboutMeTXT.svelte";
+  import AboutMeJSON from "./about-me/AboutMeJSON.svelte";
+  import AboutMeYAML from "./about-me/AboutMeYAML.svelte";
 
   const menuItems = [
     {
-      name: 'about-me.txt',
-      src: 'build/images/txt.png'
+      name: "about-me.txt",
+      src: "build/images/txt.png",
     },
     {
-      name: 'about-me.yml',
-      src: 'build/images/yaml.png'
+      name: "about-me.yml",
+      src: "build/images/yaml.png",
     },
     {
-      name: 'about-me.json',
-      src: 'build/images/json.png'
-    }
+      name: "about-me.json",
+      src: "build/images/json.png",
+    },
   ];
 
   const setComponent = (index: number): any => {
@@ -47,13 +47,13 @@
       {
         component: setComponent(index),
         openingActiveTab: index,
-        display: 'default',
+        display: "default",
         fileExplorerState: [],
         active: true,
         open: true,
         title: name,
-        id: $totalCreatedDialogs
-      }
+        id: $totalCreatedDialogs,
+      },
     ];
 
     dialogState.update((val) => [...val, ...nextState]);

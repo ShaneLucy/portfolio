@@ -1,5 +1,5 @@
 <script lang="ts">
-  import YAML from './AboutMeYAML.md';
+  import YAML from "./AboutMeYAML.md";
 </script>
 
 <div>

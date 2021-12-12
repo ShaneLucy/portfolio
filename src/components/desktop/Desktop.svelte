@@ -1,8 +1,8 @@
 <script lang="ts">
-  import TopMenu from './components/TopMenu.svelte';
-  import SideMenu from './components/SideMenu.svelte';
-  import Dialog from './components/Dialog.svelte';
-  import { dialogState } from '../../state';
+  import TopMenu from "./components/TopMenu.svelte";
+  import SideMenu from "./components/SideMenu.svelte";
+  import Dialog from "./components/Dialog.svelte";
+  import { dialogState } from "../../state";
 
   const toggleActive = (): void => {
     if ($dialogState.length > 0) {
@@ -15,7 +15,7 @@
 
   const setActive = (event: Event, index: number): void => {
     toggleActive();
-    if ((<HTMLElement>event.target).tagName !== 'IMG') {
+    if ((<HTMLElement>event.target).tagName !== "IMG") {
       if (!$dialogState[index].active) {
         $dialogState[index].active = true;
       }
@@ -44,7 +44,7 @@
   div {
     width: 100%;
     height: 100%;
-    background-image: url('images/focal-fossa.webp');
+    background-image: url("images/focal-fossa.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { dialogState, totalCreatedDialogs } from '../../../state';
-  import type { Dialog } from '../../../types';
-  import FileExplorer from './FileExplorer.svelte';
-  import Home from './Home.svelte';
-  import About from './About.svelte';
-  import Projects from './Projects.svelte';
+  import { dialogState, totalCreatedDialogs } from "../../../state";
+  import type { Dialog } from "../../../types";
+  import FileExplorer from "./FileExplorer.svelte";
+  import Home from "./Home.svelte";
+  import About from "./About.svelte";
+  import Projects from "./Projects.svelte";
 
   type MenuItems = {
     href: string;
@@ -14,33 +14,33 @@
 
   const externalMenuItems: Array<MenuItems> = [
     {
-      href: 'https://github.com/shanelucy/',
-      src: 'build/images/github.png',
-      name: 'github'
+      href: "https://github.com/shanelucy/",
+      src: "build/images/github.png",
+      name: "github",
     },
     {
-      href: 'https://uk.linkedin.com/in/shane-lucy-4735b616a',
-      src: 'build/images/linkedin.png',
-      name: 'linkedin'
-    }
+      href: "https://uk.linkedin.com/in/shane-lucy-4735b616a",
+      src: "build/images/linkedin.png",
+      name: "linkedin",
+    },
   ];
 
   const internalMenuItems: Array<MenuItems> = [
     {
-      href: 'dialog',
-      src: 'build/images/folder.png',
-      name: 'home'
+      href: "dialog",
+      src: "build/images/folder.png",
+      name: "home",
     },
     {
-      href: 'dialog',
-      src: 'build/images/about-me.png',
-      name: 'about'
+      href: "dialog",
+      src: "build/images/about-me.png",
+      name: "about",
     },
     {
-      href: 'dialog',
-      src: 'build/images/projects.png',
-      name: 'projects'
-    }
+      href: "dialog",
+      src: "build/images/projects.png",
+      name: "projects",
+    },
   ];
 
   /**
@@ -60,28 +60,28 @@
         component: FileExplorer,
         openingActiveTab,
         id: $totalCreatedDialogs,
-        display: 'default',
+        display: "default",
         fileExplorerState: [
           {
-            name: 'home',
+            name: "home",
             active: false,
-            component: Home
+            component: Home,
           },
           {
-            name: 'about',
+            name: "about",
             active: false,
-            component: About
+            component: About,
           },
           {
-            name: 'projects',
+            name: "projects",
             active: false,
-            component: Projects
-          }
+            component: Projects,
+          },
         ],
         active: true,
         open: true,
-        title: ''
-      }
+        title: "",
+      },
     ];
 
     dialogState.update((val) => [...val, ...nextState]);

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { writable } from 'svelte/store';
-  import { draggable } from 'svelte-drag';
-  import type { FileExplorerMenu } from '../../../types';
-  import { dialogState } from '../../../state';
-  import SvgLoader from '../SVGLoader.svelte';
+  import { onMount } from "svelte";
+  import { writable } from "svelte/store";
+  import { draggable } from "svelte-drag";
+  import type { FileExplorerMenu } from "../../../types";
+  import { dialogState } from "../../../state";
+  import SvgLoader from "../SVGLoader.svelte";
 
   export let openingActiveTab: number;
   export let index: number;
@@ -45,8 +45,8 @@
 
     if ($dialogState.length > 0) {
       dialogState.update((value) => {
-        value[index].open = false;
-        // value.splice(index, 1); not working correctly, sometimes throws an error
+        // value[index].open = false;
+        value.splice(index, 1); // not working correctly, sometimes throws an error
         return value;
       });
     }
@@ -90,8 +90,8 @@
       <div>
         {#if $fileExplorerState.length > 0}
           <div>
-            <SvgLoader svg={'chevron-left'} on:click={previousTab} />
-            <SvgLoader svg={'chevron-right'} on:click={nextTab} />
+            <SvgLoader svg={"chevron-left"} on:click={previousTab} />
+            <SvgLoader svg={"chevron-right"} on:click={nextTab} />
           </div>
         {/if}
         <div>
@@ -114,9 +114,9 @@
         </div>
       </div>
       <div>
-        <SvgLoader svg={'minimise'} on:click={minimiseContainer} />
-        <SvgLoader svg={'maximise'} on:click={maximiseContainer} />
-        <SvgLoader svg={'exit'} on:click={(event) => closeContainer(event)} />
+        <SvgLoader svg={"minimise"} on:click={minimiseContainer} />
+        <SvgLoader svg={"maximise"} on:click={maximiseContainer} />
+        <SvgLoader svg={"exit"} on:click={(event) => closeContainer(event)} />
       </div>
     </div>
   </header>

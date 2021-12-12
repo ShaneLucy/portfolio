@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { FileExplorerMenu } from '../../../types';
-  import SvgLoader from '../SVGLoader.svelte';
+  import type { FileExplorerMenu } from "../../../types";
+  import SvgLoader from "../SVGLoader.svelte";
 
   export let fileExplorerState: Array<FileExplorerMenu>;
 
@@ -16,7 +16,7 @@
 
   let svgMargin: string;
   function setSvgMargin() {
-    svgMargin = window.innerWidth < 400 ? '0' : '0 0 0 0.5rem';
+    svgMargin = window.innerWidth < 400 ? "0" : "0 0 0 0.5rem";
   }
 
   //   const previousTab = (): void => {
@@ -38,7 +38,7 @@
   // };
 
   setSvgMargin();
-  window.addEventListener('resize', setSvgMargin);
+  window.addEventListener("resize", setSvgMargin);
 </script>
 
 <aside>

@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -91,6 +91,7 @@ video {
   font-size: 100%;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -105,36 +106,39 @@ nav,
 section {
   display: block;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
 :root {
-  --background-primary: #333333;
+  --background-primary: #333;
   --background-secondary: #292929;
-  --background-tertiary: #ffffff;
-  --background-quaternary: rgb(231, 231, 231);
-  --font-primary: #ffffff;
+  --background-tertiary: #fff;
+  --background-quaternary: rgb(231 231 231);
+  --font-primary: #fff;
   --font-secondary: #202020;
   --active: #e95420;
-  --side-menu: rgba(40, 40, 40, 0.5);
-
+  --side-menu: rgb(40 40 40 / 50%);
   --border-dark: #202020;
   --border-light: lightgray;
 }
@@ -148,7 +152,7 @@ body {
 
 body {
   color: var(--font-primary);
-  font-family: 'Ubuntu', sans-serif;
+  font-family: Ubuntu, sans-serif;
   line-height: 1;
 }
 
@@ -156,10 +160,10 @@ body {
  * VS theme by Andrew Lock (https://andrewlock.net)
  * Inspired by Visual Studio syntax coloring
  */
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*="language-"],
+pre[class*="language-"] {
   color: #393a34;
-  font-family: 'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+  font-family: Consolas, "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -167,36 +171,23 @@ pre[class*='language-'] {
   word-break: normal;
   font-size: 0.9em;
   line-height: 1.2em;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
   tab-size: 4;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
   hyphens: none;
 }
 
-pre > code[class*='language-'] {
+pre > code[class*="language-"] {
   font-size: 1em;
 }
 
-pre[class*='language-']::-moz-selection,
-pre[class*='language-'] ::-moz-selection,
-code[class*='language-']::-moz-selection,
-code[class*='language-'] ::-moz-selection {
-  background: #c1def1;
-}
-
-pre[class*='language-']::selection,
-pre[class*='language-'] ::selection,
-code[class*='language-']::selection,
-code[class*='language-'] ::selection {
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
   background: #c1def1;
 }
 
 /* Code blocks */
+
 /* pre[class*='language-'] {
   padding: 1em;
   margin: 0.5em 0;
@@ -206,6 +197,7 @@ code[class*='language-'] ::selection {
 } */
 
 /* Inline code */
+
 /* :not(pre) > code[class*='language-'] {
   padding: 0.2em;
   padding-top: 1px;
@@ -224,6 +216,10 @@ code[class*='language-'] ::selection {
 
 .token.namespace {
   opacity: 0.7;
+}
+
+.token.selector {
+  color: #800000;
 }
 
 .token.string {
@@ -251,12 +247,16 @@ code[class*='language-'] ::selection {
 .language-autohotkey .token.selector,
 .language-json .token.boolean,
 .language-json .token.number,
-code[class*='language-css'] {
-  color: #0000ff;
+code[class*="language-css"] {
+  color: #00f;
 }
 
 .token.function {
   color: #393a34;
+}
+
+.token.tag {
+  color: #800000;
 }
 
 .token.deleted,
@@ -264,8 +264,8 @@ code[class*='language-css'] {
   color: #9a050f;
 }
 
-.token.selector,
-.language-autohotkey .token.keyword {
+.language-autohotkey,
+.token.selector .token.keyword {
   color: #00009f;
 }
 
@@ -282,25 +282,20 @@ code[class*='language-css'] {
   font-style: italic;
 }
 
+.token.attr-name,
+.token.property,
+.token.regex,
+.token.entity {
+  color: #f00;
+}
+
 .token.class-name,
 .language-json .token.property {
   color: #2b91af;
 }
 
-.token.tag,
-.token.selector {
-  color: #800000;
-}
-
-.token.attr-name,
-.token.property,
-.token.regex,
-.token.entity {
-  color: #ff0000;
-}
-
 .token.directive.tag .tag {
-  background: #ffff00;
+  background: #ff0;
   color: #393a34;
 }
 
@@ -311,7 +306,7 @@ code[class*='language-css'] {
   border-right-color: #a5a5a5;
 }
 
-.line-numbers .line-numbers-rows > span:before {
+.line-numbers .line-numbers-rows > span::before {
   color: #2b91af;
 }
 
@@ -319,7 +314,7 @@ code[class*='language-css'] {
 * http://prismjs.com/plugins/line-highlight/
 */
 .line-highlight.line-highlight {
-  background: rgba(193, 222, 241, 0.2);
-  background: -webkit-linear-gradient(left, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));
-  background: linear-gradient(to right, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));
+  background: rgb(193 222 241 / 20%);
+  background: linear-gradient(to left, rgb(193 222 241 / 20%) 70%, rgb(221 222 241 / 0%));
+  background: linear-gradient(to right, rgb(193 222 241 / 20%) 70%, rgb(221 222 241 / 0%));
 }
