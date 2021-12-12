@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Dialog } from '../../../types';
-  import dialogState from '../../../state';
-  import findActive from '../../../helpers';
+  import { dialogState, totalCreatedDialogs } from '../../../state';
   import AboutMeTXT from './about-me/AboutMeTXT.svelte';
   import AboutMeJSON from './about-me/AboutMeJSON.svelte';
   import AboutMeYAML from './about-me/AboutMeYAML.svelte';
@@ -39,8 +38,9 @@
   };
 
   const openNewDialog = (index: number, name: string): void => {
-    if (findActive($dialogState) !== -1) {
-      $dialogState[findActive($dialogState)].active = false;
+    const ACTIVE_INDEX = $dialogState.findIndex((x) => x.active);
+    if (ACTIVE_INDEX !== -1) {
+      $dialogState[ACTIVE_INDEX].active = false;
     }
 
     const nextState: Array<Dialog> = [
@@ -51,11 +51,13 @@
         fileExplorerState: [],
         active: true,
         open: true,
-        title: name
+        title: name,
+        id: $totalCreatedDialogs
       }
     ];
 
     dialogState.update((val) => [...val, ...nextState]);
+    totalCreatedDialogs.update((n) => n + 1);
   };
 </script>
 

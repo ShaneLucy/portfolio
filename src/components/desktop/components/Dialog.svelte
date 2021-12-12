@@ -3,17 +3,29 @@
   import { writable } from 'svelte/store';
   import { draggable } from 'svelte-drag';
   import type { FileExplorerMenu } from '../../../types';
-  import dialogState from '../../../state';
+  import { dialogState } from '../../../state';
   import SvgLoader from '../SVGLoader.svelte';
-  import FileExplorer from './dialog/FileExplorer.svelte';
 
   export let openingActiveTab: number;
   export let index: number;
   export let initialFileExplorerState: Array<FileExplorerMenu>;
 
-  const fileExplorerState = writable<Array<FileExplorerMenu>>(
-    initialFileExplorerState
-  );
+  const fileExplorerState = writable<Array<FileExplorerMenu>>(initialFileExplorerState);
+
+  const toggleActive = (): void => {
+    if ($dialogState.length > 0) {
+      if (index !== -1) {
+        $dialogState[index].active = false;
+      }
+    }
+  };
+
+  const setActive = (i: number): void => {
+    toggleActive();
+    if (!$dialogState[i].active && $dialogState[i] !== undefined) {
+      $dialogState[i].active = true;
+    }
+  };
 
   let maximise = false;
   let minimise = false;
@@ -27,35 +39,41 @@
     maximise = !maximise;
   };
 
-  const closeContainer = (): void => {
-    const intermediary = $dialogState;
+  const closeContainer = (event: Event): void => {
+    event.stopPropagation();
+    setActive(index);
 
-    if (intermediary[index].isActive) {
-      intermediary.splice(index, 1);
-      dialogState.set(intermediary);
+    if ($dialogState.length > 0) {
+      dialogState.update((value) => {
+        value[index].open = false;
+        // value.splice(index, 1); not working correctly, sometimes throws an error
+        return value;
+      });
     }
   };
 
   const previousTab = (): void => {
-    const index = $fileExplorerState.findIndex((x) => x.active === true);
+    const currentIndex = $fileExplorerState.findIndex((x) => x.active === true);
 
-    if (index > 0) {
-      $fileExplorerState[index].active = false;
-      $fileExplorerState[index - 1].active = true;
+    if (currentIndex > 0) {
+      $fileExplorerState[currentIndex].active = false;
+      $fileExplorerState[currentIndex - 1].active = true;
     }
   };
 
   const nextTab = (): void => {
-    const index = $fileExplorerState.findIndex((x) => x.active === true);
+    const currentIndex = $fileExplorerState.findIndex((x) => x.active === true);
 
-    if (index + 1 < $fileExplorerState.length) {
-      $fileExplorerState[index].active = false;
-      $fileExplorerState[index + 1].active = true;
+    if (currentIndex + 1 < $fileExplorerState.length) {
+      $fileExplorerState[currentIndex].active = false;
+      $fileExplorerState[currentIndex + 1].active = true;
     }
   };
 
   onMount(() => {
-    $fileExplorerState[openingActiveTab].active = true;
+    if ($fileExplorerState.length > 0) {
+      $fileExplorerState[openingActiveTab].active = true;
+    }
   });
 </script>
 
@@ -67,37 +85,48 @@
   class:min-container={minimise}
   on:click
 >
-  <header
-    class:max-header={maximise}
-    class:active={$dialogState[index].isActive}
-  >
+  <header class:max-header={maximise} class:active={$dialogState[index].active}>
     <div>
       <div>
+        {#if $fileExplorerState.length > 0}
+          <div>
+            <SvgLoader svg={'chevron-left'} on:click={previousTab} />
+            <SvgLoader svg={'chevron-right'} on:click={nextTab} />
+          </div>
+        {/if}
         <div>
-          <SvgLoader svg={'chevron-left'} on:click={previousTab} />
-          <SvgLoader svg={'chevron-right'} on:click={nextTab} />
-        </div>
-        <div>
-          {#each $fileExplorerState as menuItem}
-            {#if menuItem.active}
-              <span
-                ><SvgLoader svg={menuItem.name} />
-                <p>{menuItem.name}</p></span
-              >
-            {/if}
-          {/each}
+          {#if $fileExplorerState.length > 0}
+            {#each $fileExplorerState as menuItem}
+              {#if menuItem.active}
+                <span
+                  ><SvgLoader svg={menuItem.name} />
+                  <p>{menuItem.name}</p></span
+                >
+              {/if}
+            {/each}
+          {:else}
+            {#each $dialogState as dialog}
+              {#if dialog.active}
+                <span> <p>{dialog.title}</p></span>
+              {/if}
+            {/each}
+          {/if}
         </div>
       </div>
       <div>
         <SvgLoader svg={'minimise'} on:click={minimiseContainer} />
         <SvgLoader svg={'maximise'} on:click={maximiseContainer} />
-        <SvgLoader svg={'exit'} on:click={closeContainer} />
+        <SvgLoader svg={'exit'} on:click={(event) => closeContainer(event)} />
       </div>
     </div>
   </header>
 
   <div class="inner-container">
-    <FileExplorer fileExplorerState={$fileExplorerState} />
+    {#each $dialogState as dialog, dialogIndex}
+      {#if index === dialogIndex}
+        <svelte:component this={dialog.component} fileExplorerState={$fileExplorerState} />
+      {/if}
+    {/each}
   </div>
 </div>
 

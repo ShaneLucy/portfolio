@@ -1,7 +1,6 @@
 <script lang="ts">
-  import dialogState from '../../../state';
+  import { dialogState, totalCreatedDialogs } from '../../../state';
   import type { Dialog } from '../../../types';
-  import findActive from '../../../helpers';
   import FileExplorer from './FileExplorer.svelte';
   import Home from './Home.svelte';
   import About from './About.svelte';
@@ -50,13 +49,17 @@
    */
   const openFileExplorer = (openingActiveTab: number): void => {
     if ($dialogState.length > 0) {
-      $dialogState[findActive($dialogState)].active = false;
+      const ACTIVE_INDEX = $dialogState.findIndex((x) => x.active);
+      if (ACTIVE_INDEX !== -1) {
+        $dialogState[ACTIVE_INDEX].active = false;
+      }
     }
 
     const nextState: Array<Dialog> = [
       {
         component: FileExplorer,
         openingActiveTab,
+        id: $totalCreatedDialogs,
         display: 'default',
         fileExplorerState: [
           {
@@ -82,6 +85,7 @@
     ];
 
     dialogState.update((val) => [...val, ...nextState]);
+    totalCreatedDialogs.update((value) => value + 1);
   };
 </script>
 
@@ -101,10 +105,7 @@
           {/if}
         {/each}
 
-        <a
-          href={menuItem.href}
-          on:click|preventDefault={() => openFileExplorer(index)}
-        >
+        <a href={menuItem.href} on:click|preventDefault={() => openFileExplorer(index)}>
           <img src={menuItem.src} alt={menuItem.name} />
         </a>
       </span>
