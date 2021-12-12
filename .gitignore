@@ -1,4 +1,4 @@
 /node_modules/
 /public/build/
-playwrght-report/**
+playwright-report/**
 .DS_Store
