@@ -44,10 +44,7 @@
 <aside>
   <nav>
     {#each fileExplorerState as menuItem}
-      <div
-        class:active={menuItem.active}
-        on:click={() => switchTabs(menuItem.name)}
-      >
+      <div class:active={menuItem.active} on:click={() => switchTabs(menuItem.name)}>
         <SvgLoader svg={menuItem.name} --margin={svgMargin} />
         <a href={menuItem.name} on:click|preventDefault>
           {menuItem.name}
