@@ -2,7 +2,7 @@
   import dialogState from '../../../state';
   import type { Dialog } from '../../../types';
   import findActive from '../../../helpers';
-  import FileExplorer from '../components/FileExplorer.svelte';
+  import FileExplorer from './FileExplorer.svelte';
   import Home from './Home.svelte';
   import About from './About.svelte';
   import Projects from './Projects.svelte';

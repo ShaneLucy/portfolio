@@ -1,7 +1,7 @@
 <script lang="ts">
+  import type { Dialog } from '../../../types';
   import dialogState from '../../../state';
   import findActive from '../../../helpers';
-  import type { Dialog } from '../../../types';
   import AboutMeTXT from './about-me/AboutMeTXT.svelte';
   import AboutMeJSON from './about-me/AboutMeJSON.svelte';
   import AboutMeYAML from './about-me/AboutMeYAML.svelte';
