@@ -3,11 +3,7 @@
 </script>
 
 {#if svg === 'home'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
     ><path
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -18,11 +14,7 @@
 {/if}
 
 {#if svg === 'projects'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
     ><path
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -33,11 +25,7 @@
 {/if}
 
 {#if svg === 'about'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
     ><path
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -48,44 +36,19 @@
 {/if}
 
 {#if svg === 'chevron-left'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    on:click
-    ><path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M15 19l-7-7 7-7"
-    /></svg
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" on:click
+    ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg
   >
 {/if}
 
 {#if svg === 'chevron-right'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    on:click
-    xmlns="http://www.w3.org/2000/svg"
-    ><path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M9 5l7 7-7 7"
-    /></svg
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" on:click xmlns="http://www.w3.org/2000/svg"
+    ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg
   >
 {/if}
 
 {#if svg === 'exit'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    on:click
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" on:click
     ><path
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -110,18 +73,8 @@
 {/if}
 
 {#if svg === 'minimise'}
-  <svg
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    on:click
-    ><path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M20 12H4"
-    /></svg
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" on:click
+    ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg
   >
 {/if}
 
