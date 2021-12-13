@@ -21,6 +21,8 @@
     if (value[index].active) {
       zIndex = value.length;
       zIndex += 1;
+    } else {
+      zIndex = index;
     }
   });
   const minimiseDialog = (): void => {
