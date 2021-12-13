@@ -3,35 +3,18 @@
   import SideMenu from "./components/SideMenu.svelte";
   import Dialog from "./components/Dialog.svelte";
   import { dialogState } from "../../state";
-
-  const toggleActive = (): void => {
-    if ($dialogState.length > 0) {
-      const ACTIVE_INDEX = $dialogState.findIndex((x) => x.active);
-      if (ACTIVE_INDEX !== -1) {
-        $dialogState[ACTIVE_INDEX].active = false;
-      }
-    }
-  };
-
-  const setActive = (event: Event, index: number): void => {
-    toggleActive();
-    if ((<HTMLElement>event.target).tagName !== "IMG") {
-      if (!$dialogState[index].active) {
-        $dialogState[index].active = true;
-      }
-    }
-  };
+  import { setDialogAsInactive, setDialogAsActive } from "../../helpers";
 </script>
 
 <TopMenu />
 
-<div on:click|self={toggleActive}>
+<div on:click|self={setDialogAsInactive}>
   <SideMenu />
 
   {#each $dialogState as dialog, index (dialog.id)}
     {#if $dialogState[index].open}
       <Dialog
-        on:click={(event) => setActive(event, index)}
+        on:click={(event) => setDialogAsActive(event, index)}
         openingActiveTab={dialog.openingActiveTab}
         {index}
         initialFileExplorerState={dialog.fileExplorerState}

@@ -5,27 +5,13 @@
   import type { FileExplorerMenu } from "../../../types";
   import { dialogState } from "../../../state";
   import SvgLoader from "../SVGLoader.svelte";
+  import { setDialogAsActive } from "../../../helpers";
 
   export let openingActiveTab: number;
   export let index: number;
   export let initialFileExplorerState: Array<FileExplorerMenu>;
 
   const fileExplorerState = writable<Array<FileExplorerMenu>>(initialFileExplorerState);
-
-  const toggleActive = (): void => {
-    if ($dialogState.length > 0) {
-      if (index !== -1) {
-        $dialogState[index].active = false;
-      }
-    }
-  };
-
-  const setActive = (i: number): void => {
-    toggleActive();
-    if (!$dialogState[i].active && $dialogState[i] !== undefined) {
-      $dialogState[i].active = true;
-    }
-  };
 
   let maximise = false;
   let minimise = false;
@@ -41,7 +27,7 @@
 
   const closeContainer = (event: Event): void => {
     event.stopPropagation();
-    setActive(index);
+    setDialogAsActive(event, index);
 
     if ($dialogState.length > 0) {
       dialogState.update((value) => {
