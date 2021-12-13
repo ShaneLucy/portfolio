@@ -45,8 +45,7 @@
 
     if ($dialogState.length > 0) {
       dialogState.update((value) => {
-        // value[index].open = false;
-        value.splice(index, 1); // not working correctly, sometimes throws an error
+        value.splice(index, 1);
         return value;
       });
     }
