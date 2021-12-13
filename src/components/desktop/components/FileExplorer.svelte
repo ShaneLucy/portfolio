@@ -1,41 +1,22 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { FileExplorerMenu } from "../../../types";
   import SvgLoader from "../SVGLoader.svelte";
 
   export let fileExplorerState: Array<FileExplorerMenu>;
 
-  const switchTabs = (name: string): void => {
-    fileExplorerState.forEach((menuItem, index) => {
-      if (menuItem.name === name) {
-        fileExplorerState[index].active = true;
-      } else {
-        fileExplorerState[index].active = false;
-      }
-    });
-  };
-
+  const dispatch = createEventDispatcher();
   let svgMargin: string;
+
+  function dispatchActiveTab(index: number) {
+    dispatch("message", {
+      index,
+    });
+  }
+
   function setSvgMargin() {
     svgMargin = window.innerWidth < 400 ? "0" : "0 0 0 0.5rem";
   }
-
-  //   const previousTab = (): void => {
-  //   const index = $fileExplorerState.findIndex((x) => x.active === true);
-
-  //   if (index > 0) {
-  //     $fileExplorerState[index].active = false;
-  //     $fileExplorerState[index - 1].active = true;
-  //   }
-  // };
-
-  // const nextTab = (): void => {
-  //   const index = $fileExplorerState.findIndex((x) => x.active === true);
-
-  //   if (index + 1 < $fileExplorerState.length) {
-  //     $fileExplorerState[index].active = false;
-  //     $fileExplorerState[index + 1].active = true;
-  //   }
-  // };
 
   setSvgMargin();
   window.addEventListener("resize", setSvgMargin);
@@ -43,8 +24,8 @@
 
 <aside>
   <nav>
-    {#each fileExplorerState as menuItem}
-      <div class:active={menuItem.active} on:click={() => switchTabs(menuItem.name)}>
+    {#each fileExplorerState as menuItem, index}
+      <div class:active={menuItem.active} on:click={() => dispatchActiveTab(index)}>
         <SvgLoader svg={menuItem.name} --margin={svgMargin} />
         <a href={menuItem.name} on:click|preventDefault>
           {menuItem.name}

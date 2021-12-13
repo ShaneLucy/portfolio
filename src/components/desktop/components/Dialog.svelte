@@ -69,6 +69,13 @@
     }
   };
 
+  const setActiveTab = (event: Event): void => {
+    $fileExplorerState.forEach((fileExplorer, i) => {
+      $fileExplorerState[i].active = false;
+    });
+    $fileExplorerState[(<CustomEvent>event).detail.index].active = true;
+  };
+
   onMount(() => {
     if ($fileExplorerState.length > 0) {
       $fileExplorerState[openingActiveTab].active = true;
@@ -123,7 +130,11 @@
   <div class="inner-container">
     {#each $dialogState as dialog, dialogIndex}
       {#if index === dialogIndex}
-        <svelte:component this={dialog.component} fileExplorerState={$fileExplorerState} />
+        <svelte:component
+          this={dialog.component}
+          fileExplorerState={$fileExplorerState}
+          on:message={setActiveTab}
+        />
       {/if}
     {/each}
   </div>
