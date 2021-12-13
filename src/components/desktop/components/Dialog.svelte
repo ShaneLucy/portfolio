@@ -16,16 +16,16 @@
   let maximise = false;
   let minimise = false;
 
-  const minimiseContainer = (): void => {
+  const minimiseDialog = (): void => {
     minimise = !minimise;
     // Add minimised container to a store
   };
 
-  const maximiseContainer = (): void => {
+  const maximiseDialog = (): void => {
     maximise = !maximise;
   };
 
-  const closeContainer = (event: Event): void => {
+  const closeDialog = (event: Event): void => {
     event.stopPropagation();
     setDialogAsActive(event, index);
 
@@ -106,9 +106,9 @@
         </div>
       </div>
       <div>
-        <SvgLoader svg={"minimise"} on:click={minimiseContainer} />
-        <SvgLoader svg={"maximise"} on:click={maximiseContainer} />
-        <SvgLoader svg={"exit"} on:click={(event) => closeContainer(event)} />
+        <SvgLoader svg={"minimise"} on:click={minimiseDialog} />
+        <SvgLoader svg={"maximise"} on:click={maximiseDialog} />
+        <SvgLoader svg={"exit"} on:click={(event) => closeDialog(event)} />
       </div>
     </div>
   </header>
