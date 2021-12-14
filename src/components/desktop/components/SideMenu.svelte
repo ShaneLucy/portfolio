@@ -81,6 +81,7 @@
         active: true,
         open: true,
         title: "",
+        zIndex: $totalCreatedDialogs,
       },
     ];
 

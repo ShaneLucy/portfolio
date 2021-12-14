@@ -19,4 +19,5 @@ export interface Dialog {
   open: boolean;
   title: string;
   id: number;
+  zIndex: number;
 }

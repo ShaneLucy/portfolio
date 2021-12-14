@@ -3,7 +3,7 @@
   import SideMenu from "./components/SideMenu.svelte";
   import Dialog from "./components/Dialog.svelte";
   import { dialogState } from "../../state";
-  import { setDialogAsInactive, setDialogAsActive } from "../../helpers";
+  import { setDialogAsInactive, toggleActiveDialog } from "../../helpers";
 </script>
 
 <TopMenu />
@@ -14,7 +14,7 @@
   {#each $dialogState as dialog, index (dialog.id)}
     {#if $dialogState[index].open}
       <Dialog
-        on:click={(event) => setDialogAsActive(event, index)}
+        on:click={(event) => toggleActiveDialog(event, index)}
         openingActiveTab={dialog.openingActiveTab}
         {index}
         initialFileExplorerState={dialog.fileExplorerState}

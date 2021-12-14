@@ -15,16 +15,7 @@
 
   let maximise = false;
   let minimise = false;
-  let zIndex = index;
 
-  dialogState.subscribe((value) => {
-    if (value[index].active) {
-      zIndex = value.length;
-      zIndex += 1;
-    } else {
-      zIndex = index;
-    }
-  });
   const minimiseDialog = (): void => {
     minimise = !minimise;
     // Add minimised container to a store
@@ -81,7 +72,7 @@
 <div
   use:draggable
   class="container"
-  style="z-index: {zIndex};"
+  style="z-index: {$dialogState[index].zIndex};"
   class:normal={!maximise}
   class:max-container={maximise}
   class:min-container={minimise}
@@ -138,7 +129,6 @@
 
 <style>
   .container {
-    /* z-index: 50; */
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
   }

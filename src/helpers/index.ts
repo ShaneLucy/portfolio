@@ -15,10 +15,28 @@ export const setDialogAsInactive = (): void => {
   }
 };
 
+export const updateDialogZIndex = (): void => {
+  if (currentDialog.length > 0) {
+    currentDialog.forEach((dialog, index) => {
+      if (dialog.active) {
+        currentDialog[index].zIndex = currentDialog.length;
+        currentDialog[index].zIndex += 1;
+      } else {
+        currentDialog[index].zIndex = currentDialog[index].id;
+      }
+    });
+  }
+};
+
 export const setDialogAsActive = (event: Event, index: number): void => {
-  setDialogAsInactive();
   if ((<HTMLElement>event.target).tagName !== "IMG" && !currentDialog[index].active) {
     currentDialog[index].active = true;
   }
   dialogState.set(currentDialog);
+};
+
+export const toggleActiveDialog = (event: Event, index: number): void => {
+  setDialogAsInactive();
+  setDialogAsActive(event, index);
+  updateDialogZIndex();
 };
