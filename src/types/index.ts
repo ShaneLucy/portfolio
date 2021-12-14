@@ -1,4 +1,4 @@
-import FileExplorer from "../components/desktop/components/FileExplorer.svelte";
+import type FileExplorer from "../components/desktop/components/FileExplorer.svelte";
 import type About from "../components/desktop/components/About.svelte";
 import type Projects from "../components/desktop/components/Projects.svelte";
 import type Home from "../components/desktop/components/Home.svelte";
