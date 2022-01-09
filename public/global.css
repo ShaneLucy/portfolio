@@ -150,6 +150,16 @@ body {
   height: 100%;
 }
 
+/* ubuntu-condensed-regular - latin */
+
+/* ubuntu-regular - latin */
+@font-face {
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/ubuntu-v15-latin-regular.woff2") format("woff2");
+}
+
 body {
   color: var(--font-primary);
   font-family: Ubuntu, sans-serif;
