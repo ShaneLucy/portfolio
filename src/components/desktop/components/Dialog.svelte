@@ -15,7 +15,10 @@
 
   let maximise = false;
   let minimise = false;
+  let header: HTMLElement;
+  let containerWidth: number;
 
+  $fileExplorerState[openingActiveTab].active = true;
   const minimiseDialog = (): void => {
     minimise = !minimise;
     // Add minimised container to a store
@@ -37,8 +40,11 @@
     }
   };
 
+  const getCurrentIndex = (menu: Array<FileExplorerMenu>): number =>
+    menu.findIndex((x) => x.active === true);
+
   const previousTab = (): void => {
-    const currentIndex = $fileExplorerState.findIndex((x) => x.active === true);
+    const currentIndex = getCurrentIndex($fileExplorerState);
 
     if (currentIndex > 0) {
       $fileExplorerState[currentIndex].active = false;
@@ -47,7 +53,7 @@
   };
 
   const nextTab = (): void => {
-    const currentIndex = $fileExplorerState.findIndex((x) => x.active === true);
+    const currentIndex = getCurrentIndex($fileExplorerState);
 
     if (currentIndex + 1 < $fileExplorerState.length) {
       $fileExplorerState[currentIndex].active = false;
@@ -62,10 +68,28 @@
     $fileExplorerState[(<CustomEvent>event).detail.index].active = true;
   };
 
+  const updateWidth = (event: Event): void => {
+    $fileExplorerState.forEach((fileExplorer, i) => {
+      $fileExplorerState[i].menuWidth = (<CustomEvent>event).detail.width;
+    });
+
+    $fileExplorerState.forEach((fileExplorer, i) => {
+      $fileExplorerState[i].headerWidth = header.offsetWidth;
+    });
+
+    const currentIndex = getCurrentIndex($fileExplorerState);
+    containerWidth =
+      $fileExplorerState[currentIndex].headerWidth - $fileExplorerState[currentIndex].menuWidth;
+  };
+
   onMount(() => {
-    if ($fileExplorerState.length > 0) {
-      $fileExplorerState[openingActiveTab].active = true;
-    }
+    $fileExplorerState.forEach((fileExplorer, i) => {
+      $fileExplorerState[i].headerWidth = header.offsetWidth;
+    });
+
+    containerWidth =
+      $fileExplorerState[openingActiveTab].headerWidth -
+      $fileExplorerState[openingActiveTab].menuWidth;
   });
 </script>
 
@@ -78,7 +102,7 @@
   class:min-container={minimise}
   on:click
 >
-  <header class:max-header={maximise} class:active={$dialogState[index].active}>
+  <header class:max-header={maximise} class:active={$dialogState[index].active} bind:this={header}>
     <div>
       <div>
         {#if $fileExplorerState.length > 0}
@@ -120,7 +144,9 @@
         <svelte:component
           this={dialog.component}
           fileExplorerState={$fileExplorerState}
-          on:message={setActiveTab}
+          on:update-width={updateWidth}
+          on:update-active-tab={setActiveTab}
+          {containerWidth}
         />
       {/if}
     {/each}
@@ -163,6 +189,7 @@
     border-bottom: solid 1px var(--border-dark);
     padding-top: 0.15rem;
     padding-bottom: 0.15rem;
+    width: 100%;
   }
 
   header.active {

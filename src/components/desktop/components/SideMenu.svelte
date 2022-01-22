@@ -3,7 +3,7 @@
   import type { Dialog } from "../../../types";
   import FileExplorer from "./FileExplorer.svelte";
   import Home from "./Home.svelte";
-  import About from "./About.svelte";
+  import AboutMe from "./about-me/AboutMe.svelte";
   import Projects from "./Projects.svelte";
 
   type MenuItems = {
@@ -66,16 +66,22 @@
             name: "home",
             active: false,
             component: Home,
+            headerWidth: 0,
+            menuWidth: 0,
           },
           {
             name: "about",
             active: false,
-            component: About,
+            component: AboutMe,
+            headerWidth: 0,
+            menuWidth: 0,
           },
           {
             name: "projects",
             active: false,
             component: Projects,
+            headerWidth: 0,
+            menuWidth: 0,
           },
         ],
         active: true,

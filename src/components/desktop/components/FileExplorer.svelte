@@ -1,16 +1,24 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import type { FileExplorerMenu } from "../../../types";
   import SvgLoader from "../SVGLoader.svelte";
 
   export let fileExplorerState: Array<FileExplorerMenu>;
+  export let containerWidth: number;
 
   const dispatch = createEventDispatcher();
   let svgMargin: string;
+  let aside: HTMLElement;
 
   function dispatchActiveTab(index: number) {
-    dispatch("message", {
+    dispatch("update-active-tab", {
       index,
+    });
+  }
+
+  function dispatchMenuWidth(width: number) {
+    dispatch("update-width", {
+      width,
     });
   }
 
@@ -18,14 +26,28 @@
     svgMargin = window.innerWidth < 400 ? "0" : "0 0 0 0.5rem";
   }
 
+  onMount(() => {
+    dispatchMenuWidth(aside.offsetWidth);
+  });
+
   setSvgMargin();
-  window.addEventListener("resize", setSvgMargin);
+
+  window.addEventListener("resize", () => {
+    setSvgMargin();
+    dispatchMenuWidth(aside.offsetWidth);
+  });
 </script>
 
-<aside>
+<aside bind:this={aside}>
   <nav>
     {#each fileExplorerState as menuItem, index}
-      <div class:active={menuItem.active} on:click={() => dispatchActiveTab(index)}>
+      <div
+        class:active={menuItem.active}
+        on:click={() => {
+          dispatchActiveTab(index);
+          dispatchMenuWidth(aside.offsetWidth);
+        }}
+      >
         <SvgLoader svg={menuItem.name} --margin={svgMargin} />
         <a href={menuItem.name} on:click|preventDefault>
           {menuItem.name}
@@ -34,7 +56,7 @@
     {/each}
   </nav>
 </aside>
-<div>
+<div style="width: {containerWidth}px">
   <main>
     {#each fileExplorerState as menuItem}
       {#if menuItem.active}
@@ -70,9 +92,9 @@
   }
 
   main {
-    width: calc(100% - 1.5rem);
-    height: calc(100% - 1.5rem);
-    margin: 0.75rem;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
 
   a {
