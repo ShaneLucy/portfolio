@@ -4,7 +4,7 @@
   import FileExplorer from "./FileExplorer.svelte";
   import Home from "./Home.svelte";
   import AboutMe from "./about-me/AboutMe.svelte";
-  import Projects from "./Projects.svelte";
+  import Projects from "./projects/Projects.svelte";
 
   type MenuItems = {
     href: string;
