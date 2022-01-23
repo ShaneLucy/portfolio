@@ -6,27 +6,35 @@
   import { setDialogAsInactive, toggleActiveDialog } from "../../helpers";
 </script>
 
-<TopMenu />
+<div class="container">
+  <TopMenu />
 
-<div on:click|self={setDialogAsInactive}>
-  <SideMenu />
+  <div class="desktop" on:click|self={setDialogAsInactive}>
+    <SideMenu />
 
-  {#each $dialogState as dialog, index (dialog.id)}
-    {#if $dialogState[index].open}
-      <Dialog
-        on:click={(event) => toggleActiveDialog(event, index)}
-        openingActiveTab={dialog.openingActiveTab}
-        {index}
-        initialFileExplorerState={dialog.fileExplorerState}
-      />
-    {/if}
-  {/each}
+    {#each $dialogState as dialog, index (dialog.id)}
+      {#if $dialogState[index].open}
+        <Dialog
+          on:click={(event) => toggleActiveDialog(event, index)}
+          openingActiveTab={dialog.openingActiveTab}
+          {index}
+          initialFileExplorerState={dialog.fileExplorerState}
+        />
+      {/if}
+    {/each}
+  </div>
 </div>
 
 <style>
   div {
     width: 100%;
     height: 100%;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .desktop {
     background-image: url("images/focal-fossa.webp");
     background-position: center;
     background-repeat: no-repeat;
