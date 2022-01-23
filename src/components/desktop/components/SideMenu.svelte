@@ -94,6 +94,8 @@
     dialogState.update((val) => [...val, ...nextState]);
     totalCreatedDialogs.update((value) => value + 1);
   };
+
+  openFileExplorer(0);
 </script>
 
 <aside>
