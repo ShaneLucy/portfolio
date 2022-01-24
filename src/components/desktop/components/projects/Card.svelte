@@ -30,10 +30,9 @@
 
 <style>
   article {
-    margin: 0.75rem;
-    padding: 0.75rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
     height: max-content;
-    width: 28%;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -53,20 +52,46 @@
   }
 
   h2 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
   }
 
   div {
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   footer {
     display: flex;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     justify-content: space-between;
     font-size: 1.05rem;
-    position: relative;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 500px) {
+    article {
+      margin: 0.75rem;
+      padding: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    div {
+      margin-top: 0.75rem;
+    }
+
+    footer {
+      margin-top: 1rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    article {
+      max-width: 32%;
+    }
   }
 </style>

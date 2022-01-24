@@ -118,7 +118,12 @@
   svg {
     width: 1.25rem;
     height: auto;
-    margin: var(--margin);
     cursor: pointer;
+  }
+
+  @media (min-width: 500px) {
+    svg {
+      margin: var(--margin);
+    }
   }
 </style>
