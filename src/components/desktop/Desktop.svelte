@@ -11,7 +11,6 @@
 
   <div class="desktop" on:click|self={setDialogAsInactive}>
     <SideMenu />
-
     {#each $dialogState as dialog, index (dialog.id)}
       {#if $dialogState[index].open}
         <Dialog
