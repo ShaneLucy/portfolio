@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
-  import { draggable } from "svelte-drag";
+  import { draggable } from "@neodrag/svelte";
   import type { FileExplorerMenu } from "../../../types";
   import { dialogState } from "../../../state";
   import SvgLoader from "../SVGLoader.svelte";
@@ -13,7 +13,6 @@
 
   const fileExplorerState = writable<Array<FileExplorerMenu>>(initialFileExplorerState);
 
-  let maximise = false;
   let minimise = false;
   let header: HTMLElement;
   let containerWidth: number;
@@ -22,10 +21,6 @@
   const minimiseDialog = (): void => {
     minimise = !minimise;
     // Add minimised container to a store
-  };
-
-  const maximiseDialog = (): void => {
-    maximise = !maximise;
   };
 
   const closeDialog = (event: Event): void => {
@@ -94,15 +89,12 @@
 </script>
 
 <div
-  use:draggable
+  use:draggable={{ handle: "header" }}
   class="container"
   style="z-index: {$dialogState[index].zIndex};"
-  class:normal={!maximise}
-  class:max-container={maximise}
-  class:min-container={minimise}
   on:click
 >
-  <header class:max-header={maximise} class:active={$dialogState[index].active} bind:this={header}>
+  <header class:active={$dialogState[index].active} bind:this={header}>
     <div>
       <div>
         {#if $fileExplorerState.length > 0}
@@ -132,7 +124,6 @@
       </div>
       <div>
         <SvgLoader svg={"minimise"} on:click={minimiseDialog} />
-        <SvgLoader svg={"maximise"} on:click={maximiseDialog} />
         <SvgLoader svg={"exit"} on:click={(event) => closeDialog(event)} />
       </div>
     </div>
@@ -157,29 +148,10 @@
   .container {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-  }
-
-  .normal {
-    left: 20%;
-    position: absolute;
     width: 75%;
     height: 75%;
-  }
-
-  .max-container {
-    width: 100%;
-    height: 100%;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .max-header {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .min-container {
-    display: none;
+    left: 20%;
+    position: absolute;
   }
 
   header {
@@ -190,6 +162,7 @@
     padding-top: 0.15rem;
     padding-bottom: 0.15rem;
     width: 100%;
+    cursor: grab;
   }
 
   header.active {
@@ -244,10 +217,6 @@
   }
 
   @media (min-width: 500px) {
-    .normal {
-      left: 12.5%;
-    }
-
     header div {
       justify-content: space-between;
     }
@@ -256,24 +225,17 @@
       display: flex;
     }
 
-    @media (orientation: portrait) {
-      .normal {
-        width: 60%;
-        height: 60%;
-      }
+    header {
+      padding-top: 0.125rem;
+      padding-bottom: 0.125rem;
+    }
 
-      header {
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
-      }
+    header div div div {
+      padding: 0.2rem;
+    }
 
-      header div div div {
-        padding: 0.4rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+    p {
+      font-size: 1rem;
     }
   }
 </style>
