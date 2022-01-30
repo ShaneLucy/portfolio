@@ -16,21 +16,19 @@
 </script>
 
 <header>
-  <div>
-    <p>Activities</p>
-  </div>
-  <div>
-    <p>
-      {date.toLocaleString(navigator.language, {
-        day: "numeric",
-        month: "short",
-      })}
-      {date.toLocaleString(navigator.language, {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}
-    </p>
-  </div>
+  <p class="activites">Activities</p>
+
+  <p>
+    {date.toLocaleString(navigator.language, {
+      day: "numeric",
+      month: "short",
+    })}
+    {date.toLocaleString(navigator.language, {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}
+  </p>
+
   <div class="end">
     <svg
       fill="none"
@@ -98,10 +96,6 @@
     padding-left: 1rem;
   }
 
-  div:hover {
-    border-bottom: 0.2rem solid var(--active);
-  }
-
   .end {
     column-gap: 0.8rem;
   }
@@ -110,6 +104,11 @@
     font-size: 0.75rem;
     padding-top: 0.125rem;
     padding-bottom: 0.125rem;
+    padding-left: 0.3rem;
+  }
+
+  .activites {
+    display: none;
   }
 
   svg {
@@ -118,17 +117,22 @@
   }
 
   @media (min-width: 500px) {
-    @media (orientation: portrait) {
-      div {
-        padding-top: 0.35rem;
-        padding-bottom: 0.15rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      svg {
-        height: 1.25rem;
-      }
+    .activites {
+      display: block;
+    }
+
+    div {
+      padding-top: 0.35rem;
+      padding-bottom: 0.15rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+
+    svg {
+      height: 1.25rem;
     }
   }
 </style>
