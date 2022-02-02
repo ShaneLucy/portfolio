@@ -40,10 +40,6 @@
     flex-wrap: wrap;
   }
 
-  article:hover {
-    background-color: #f9f9f9f3;
-  }
-
   header {
     display: flex;
     flex-direction: column;

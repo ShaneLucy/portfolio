@@ -60,7 +60,7 @@
   aside {
     min-width: 27%;
     background-color: var(--background-quaternary);
-    border-right: 1px solid var(--border-light);
+    border-right: 2px solid var(--border-light);
   }
 
   nav {
@@ -74,7 +74,7 @@
     background-color: var(--background-tertiary);
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   a {
