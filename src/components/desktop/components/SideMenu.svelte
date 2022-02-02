@@ -105,17 +105,9 @@
   <nav>
     {#each menuItems as menuItem, index}
       {#if menuItem.location === "internal"}
-        <span>
-          {#each $dialogState as dialog}
-            {#if dialog.open && dialog.openingActiveTab === index}
-              <span class="active" />
-            {/if}
-          {/each}
-
-          <a href={menuItem.href} on:click|preventDefault={() => openFileExplorer(index)}>
-            <img src={menuItem.src} alt={menuItem.name} />
-          </a>
-        </span>
+        <a href={menuItem.href} on:click|preventDefault={() => openFileExplorer(index)}>
+          <img src={menuItem.src} alt={menuItem.name} />
+        </a>
       {:else}
         <a href={menuItem.href} target="_blank" rel="noopener">
           <img src={menuItem.src} alt={menuItem.name} />
@@ -127,14 +119,14 @@
 
 <style>
   aside {
-    height: 100%;
     background-color: var(--side-menu);
     z-index: 9999;
   }
 
   nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   img {
@@ -145,21 +137,10 @@
     transform: scale(0.5);
   }
 
-  span {
-    position: relative;
-  }
-
-  .active {
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--active);
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.25rem;
-  }
-
   @media (min-width: 500px) {
+    aside {
+      height: 100%;
+    }
     img {
       transform: scale(1);
     }
@@ -167,10 +148,8 @@
     nav {
       margin: 2.5rem 1.25rem;
       row-gap: 2.5rem;
-    }
-
-    .active {
-      left: -0.75rem;
+      flex-direction: column;
+      justify-content: start;
     }
   }
 </style>

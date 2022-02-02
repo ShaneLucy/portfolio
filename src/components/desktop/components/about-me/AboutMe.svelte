@@ -1,23 +1,15 @@
 <script lang="ts">
-  import JSON from "./AboutMeJSON.md";
+  import JSON from "./AboutMeContent.md";
 </script>
 
 <div>
-  <div>
-    <JSON />
-  </div>
+  <JSON />
 </div>
 
 <style>
   div {
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-tertiary);
-  }
-
-  div div {
-    width: var(--width);
-    height: calc(100% - 1.5rem);
+    height: 90%;
+    width: 90%;
     margin: 0.75rem;
   }
 </style>

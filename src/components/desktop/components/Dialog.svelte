@@ -13,15 +13,8 @@
 
   const fileExplorerState = writable<Array<FileExplorerMenu>>(initialFileExplorerState);
 
-  let minimise = false;
   let header: HTMLElement;
-  let containerWidth: number;
-
   $fileExplorerState[openingActiveTab].active = true;
-  const minimiseDialog = (): void => {
-    minimise = !minimise;
-    // Add minimised container to a store
-  };
 
   const closeDialog = (event: Event): void => {
     event.stopPropagation();
@@ -63,28 +56,10 @@
     $fileExplorerState[(<CustomEvent>event).detail.index].active = true;
   };
 
-  const updateWidth = (event: Event): void => {
-    $fileExplorerState.forEach((fileExplorer, i) => {
-      $fileExplorerState[i].menuWidth = (<CustomEvent>event).detail.width;
-    });
-
-    $fileExplorerState.forEach((fileExplorer, i) => {
-      $fileExplorerState[i].headerWidth = header.offsetWidth;
-    });
-
-    const currentIndex = getCurrentIndex($fileExplorerState);
-    containerWidth =
-      $fileExplorerState[currentIndex].headerWidth - $fileExplorerState[currentIndex].menuWidth;
-  };
-
   onMount(() => {
     $fileExplorerState.forEach((fileExplorer, i) => {
       $fileExplorerState[i].headerWidth = header.offsetWidth;
     });
-
-    containerWidth =
-      $fileExplorerState[openingActiveTab].headerWidth -
-      $fileExplorerState[openingActiveTab].menuWidth;
   });
 </script>
 
@@ -97,47 +72,33 @@
   <header class:active={$dialogState[index].active} bind:this={header}>
     <div>
       <div>
-        {#if $fileExplorerState.length > 0}
+        <SvgLoader svg={"chevron-left"} on:click={previousTab} />
+        <SvgLoader svg={"chevron-right"} on:click={nextTab} />
+      </div>
+      {#each $fileExplorerState as menuItem}
+        {#if menuItem.active}
           <div>
-            <SvgLoader svg={"chevron-left"} on:click={previousTab} />
-            <SvgLoader svg={"chevron-right"} on:click={nextTab} />
+            <span
+              ><SvgLoader svg={menuItem.name} />
+              <p>{menuItem.name}</p></span
+            >
           </div>
         {/if}
-        <div>
-          {#if $fileExplorerState.length > 0}
-            {#each $fileExplorerState as menuItem}
-              {#if menuItem.active}
-                <span
-                  ><SvgLoader svg={menuItem.name} />
-                  <p>{menuItem.name}</p></span
-                >
-              {/if}
-            {/each}
-          {:else}
-            {#each $dialogState as dialog}
-              {#if dialog.active}
-                <span> <p>{dialog.title}</p></span>
-              {/if}
-            {/each}
-          {/if}
-        </div>
-      </div>
+      {/each}
+    </div>
+    <div>
       <div>
-        <SvgLoader svg={"minimise"} on:click={minimiseDialog} />
         <SvgLoader svg={"exit"} on:click={(event) => closeDialog(event)} />
       </div>
     </div>
   </header>
-
   <div class="inner-container">
     {#each $dialogState as dialog, dialogIndex}
       {#if index === dialogIndex}
         <svelte:component
           this={dialog.component}
           fileExplorerState={$fileExplorerState}
-          on:update-width={updateWidth}
           on:update-active-tab={setActiveTab}
-          {containerWidth}
         />
       {/if}
     {/each}
@@ -148,9 +109,10 @@
   .container {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    width: 75%;
-    height: 75%;
-    left: 20%;
+    width: 90%;
+    margin-left: 5%;
+    height: 80%;
+    top: 2%;
     position: absolute;
   }
 
@@ -163,6 +125,8 @@
     padding-bottom: 0.15rem;
     width: 100%;
     cursor: grab;
+    display: flex;
+    justify-content: space-between;
   }
 
   header.active {
@@ -176,36 +140,23 @@
 
   header div {
     display: flex;
-    justify-content: end;
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+    padding: 0.1rem;
   }
-
   header div div {
-    margin-right: 0.5rem;
-    display: flex;
-    column-gap: 0.5rem;
-  }
-
-  header div div:nth-child(1) {
-    display: none;
-  }
-
-  header div div:nth-child(2) {
-    column-gap: 1.5rem;
-  }
-
-  header div div div {
-    margin-left: 0.5rem;
     border-radius: 0.25rem;
     border: solid 1px var(--border-dark);
     background-color: var(--background-primary);
-    padding: 0.1rem;
   }
 
   .inner-container {
     display: flex;
+    flex-direction: column-reverse;
     width: 100%;
     height: 100%;
     color: var(--font-secondary);
+    background-color: var(--background-tertiary);
   }
 
   span {
@@ -217,6 +168,17 @@
   }
 
   @media (min-width: 500px) {
+    .container {
+      width: 75%;
+      height: 75%;
+      left: 20%;
+      margin-left: 0;
+      top: 0;
+    }
+
+    .inner-container {
+      flex-direction: row;
+    }
     header div {
       justify-content: space-between;
     }

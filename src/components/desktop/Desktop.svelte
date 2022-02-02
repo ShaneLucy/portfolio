@@ -40,6 +40,13 @@
     background-size: cover;
     position: relative;
     display: flex;
+    flex-direction: column-reverse;
     overflow: hidden;
+  }
+
+  @media (min-width: 500px) {
+    .desktop {
+      flex-direction: row;
+    }
   }
 </style>
