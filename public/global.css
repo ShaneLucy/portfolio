@@ -157,8 +157,8 @@ body.dark-theme {
   --side-menu: rgb(30 30 30 / 50%);
   --border-dark: #111;
   --border-light: #202020;
-  --json-key-color: #fb82e8;
-  --json-value-color: #6fb8ee;
+  --json-key-color: #6fb8ee;
+  --json-value-color: #fb82e8;
   --json-punctuation-color: #ffe185;
 }
 
