@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import { draggable } from "@neodrag/svelte";
   import type { FileExplorerMenu } from "../../../types";
   import { dialogState } from "../../../state";
   import SvgLoader from "../SVGLoader.svelte";
-  import { setDialogAsActive } from "../../../helpers";
+  import { setDialogAsActive, getFileExplorerActiveIndex } from "../../../helpers";
 
   export let openingActiveTab: number;
   export let index: number;
@@ -28,11 +27,8 @@
     }
   };
 
-  const getCurrentIndex = (menu: Array<FileExplorerMenu>): number =>
-    menu.findIndex((x) => x.active === true);
-
   const previousTab = (): void => {
-    const currentIndex = getCurrentIndex($fileExplorerState);
+    const currentIndex = getFileExplorerActiveIndex($fileExplorerState);
 
     if (currentIndex > 0) {
       $fileExplorerState[currentIndex].active = false;
@@ -41,7 +37,7 @@
   };
 
   const nextTab = (): void => {
-    const currentIndex = getCurrentIndex($fileExplorerState);
+    const currentIndex = getFileExplorerActiveIndex($fileExplorerState);
 
     if (currentIndex + 1 < $fileExplorerState.length) {
       $fileExplorerState[currentIndex].active = false;
@@ -55,12 +51,6 @@
     });
     $fileExplorerState[(<CustomEvent>event).detail.index].active = true;
   };
-
-  onMount(() => {
-    $fileExplorerState.forEach((fileExplorer, i) => {
-      $fileExplorerState[i].headerWidth = header.offsetWidth;
-    });
-  });
 </script>
 
 <div

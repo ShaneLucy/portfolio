@@ -3,15 +3,13 @@ import type AboutMe from "../components/desktop/components/about-me/AboutMe.svel
 import type Projects from "../components/desktop/components/projects/Projects.svelte";
 import type Home from "../components/desktop/components/Home.svelte";
 
-export interface FileExplorerMenu {
-  name: string;
+export type FileExplorerMenu = {
+  name: "home" | "about" | "projects";
   active: boolean;
   component: typeof Projects | AboutMe | Home;
-  headerWidth: number;
-  menuWidth: number;
-}
+};
 
-export interface Dialog {
+export type Dialog = {
   component: typeof FileExplorer;
   openingActiveTab: number;
   display: "min" | "default" | "max";
@@ -21,12 +19,12 @@ export interface Dialog {
   title: string;
   id: number;
   zIndex: number;
-}
+};
 
-export interface ProjectProperties {
+export type ProjectProperties = {
   name: string;
   description: string;
   thumbnail: string;
   githubUrl: string;
   websiteUrl: string;
-}
+};
