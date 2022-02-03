@@ -1,10 +1,13 @@
 import { dialogState } from "../state";
-import type { Dialog } from "../types";
+import type { Dialog, FileExplorerMenu } from "../types";
 
 let currentDialog: Array<Dialog>;
 dialogState.subscribe(async (value) => {
   currentDialog = value;
 });
+
+export const getFileExplorerActiveIndex = (menu: Array<FileExplorerMenu>): number =>
+  menu.findIndex((x) => x.active === true);
 
 export const setDialogAsInactive = (): void => {
   if (currentDialog.length > 0) {
