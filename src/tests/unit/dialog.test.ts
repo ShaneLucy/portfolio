@@ -6,7 +6,7 @@ import {
   closeDialog,
   getFileExplorerActiveIndex,
 } from "../../components/desktop/components/dialog";
-import Home from "../../components/desktop/components/Home.svelte";
+import Home from "../../components/desktop/components/dialog/components/file-explorer/components/Home.svelte";
 
 describe("getFileExplorerActiveIndex returns the correct value", () => {
   test("given a file explorer menu with an active tab it returns the correct index", () => {
