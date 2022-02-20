@@ -2,26 +2,24 @@
   import { createEventDispatcher } from "svelte";
   import type { FileExplorerMenu } from "types";
   import SvgLoader from "src/components/desktop/SVGLoader.svelte";
-
-  export let fileExplorerState: Array<FileExplorerMenu>;
+  import setSvgMargin from "./index";
 
   const dispatch = createEventDispatcher();
-  let svgMargin: string;
 
-  const dispatchActiveTab = (index: number): void => {
+  export const dispatchActiveTab = (index: number): void => {
     dispatch("update-active-tab", {
       index,
     });
   };
 
-  const setSvgMargin = (): void => {
-    svgMargin = window.innerWidth < 400 ? "0" : "0 0 0 0.5rem";
-  };
+  export let fileExplorerState: Array<FileExplorerMenu>;
 
-  setSvgMargin();
+  let svgMargin: string;
+
+  svgMargin = setSvgMargin(window.innerWidth);
 
   window.addEventListener("resize", () => {
-    setSvgMargin();
+    svgMargin = setSvgMargin(window.innerWidth);
   });
 </script>
 
