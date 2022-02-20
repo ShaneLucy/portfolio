@@ -7,7 +7,6 @@
 
   const dispatch = createEventDispatcher();
   let svgMargin: string;
-  let aside: HTMLElement;
 
   function dispatchActiveTab(index: number) {
     dispatch("update-active-tab", {
@@ -26,7 +25,7 @@
   });
 </script>
 
-<aside bind:this={aside}>
+<aside>
   <nav>
     {#each fileExplorerState as menuItem, index}
       <div
