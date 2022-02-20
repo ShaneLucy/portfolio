@@ -4,13 +4,12 @@
   import type { FileExplorerMenu, Dialog } from "types";
   import { dialogState } from "state";
   import SvgLoader from "src/components/desktop/SVGLoader.svelte";
+  import { closeDialog, setDialogAsActive } from "components/desktop/components/dialog";
   import {
     setPreviousTabAsActive,
     setNextTabAsActive,
-    closeDialog,
     setActiveTab,
-  } from "components/desktop/components/dialog";
-  import { setDialogAsActive } from "helpers";
+  } from "components/desktop/components/dialog/components/file-explorer";
   import FileExplorer from "src/components/desktop/components/FileExplorer.svelte";
 
   export let openingActiveTab: number;
@@ -29,12 +28,16 @@
     fileExplorerState.set(setNextTabAsActive(menu));
   };
 
-  const handleCloseDialog = (menu: Array<Dialog>, i: number): void => {
-    dialogState.set(closeDialog(menu, i));
+  const handleCloseDialog = (dialog: Array<Dialog>, i: number): void => {
+    dialogState.set(closeDialog(dialog, i));
   };
 
   const handleSetActiveTab = (event: Event, menu: Array<FileExplorerMenu>): void => {
     fileExplorerState.set(setActiveTab(event, menu));
+  };
+
+  const handleSetDialogAsActive = (event: Event, i: number, dialog: Array<Dialog>): void => {
+    dialogState.set(setDialogAsActive(event, i, dialog));
   };
 </script>
 
@@ -71,7 +74,7 @@
       <div>
         <SvgLoader
           svg={"exit"}
-          on:click={(event) => setDialogAsActive(event, index)}
+          on:click={(event) => handleSetDialogAsActive(event, index, $dialogState)}
           on:click={(event) => event.stopPropagation()}
           on:click={() => handleCloseDialog($dialogState, index)}
         />

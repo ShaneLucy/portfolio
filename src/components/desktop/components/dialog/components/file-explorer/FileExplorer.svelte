@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import type { FileExplorerMenu } from "types";
   import SvgLoader from "src/components/desktop/SVGLoader.svelte";
-  import setSvgMargin from "./index";
+  import { setSvgMargin } from "components/desktop/components/dialog/components/file-explorer/index";
 
   const dispatch = createEventDispatcher();
 

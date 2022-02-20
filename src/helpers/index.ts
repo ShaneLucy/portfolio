@@ -1,6 +1,7 @@
 import type { Dialog } from "types";
 
 import { dialogState } from "../state";
+import { setDialogAsActive } from "../components/desktop/components/dialog/index";
 
 let currentDialog: Array<Dialog>;
 dialogState.subscribe(async (value) => {
@@ -29,15 +30,8 @@ export const updateDialogZIndex = (): void => {
   }
 };
 
-export const setDialogAsActive = (event: Event, index: number): void => {
-  if ((<HTMLElement>event.target).tagName !== "IMG" && !currentDialog[index].active) {
-    currentDialog[index].active = true;
-  }
-  dialogState.set(currentDialog);
-};
-
 export const toggleActiveDialog = (event: Event, index: number): void => {
   setDialogAsInactive();
-  setDialogAsActive(event, index);
+  setDialogAsActive(event, index, currentDialog);
   updateDialogZIndex();
 };
