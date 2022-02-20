@@ -8,15 +8,15 @@
   const dispatch = createEventDispatcher();
   let svgMargin: string;
 
-  function dispatchActiveTab(index: number) {
+  const dispatchActiveTab = (index: number): void => {
     dispatch("update-active-tab", {
       index,
     });
-  }
+  };
 
-  function setSvgMargin() {
+  const setSvgMargin = (): void => {
     svgMargin = window.innerWidth < 400 ? "0" : "0 0 0 0.5rem";
-  }
+  };
 
   setSvgMargin();
 
