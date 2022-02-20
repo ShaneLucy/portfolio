@@ -1,7 +1,7 @@
 <script lang="ts">
   import TopMenu from "./components/TopMenu.svelte";
   import SideMenu from "./components/SideMenu.svelte";
-  import Dialog from "./components/Dialog.svelte";
+  import Dialog from "./components/dialog/Dialog.svelte";
   import { dialogState } from "../../state";
   import { setDialogAsInactive, toggleActiveDialog } from "../../helpers";
 </script>

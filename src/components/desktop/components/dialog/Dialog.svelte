@@ -1,10 +1,12 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import { draggable } from "@neodrag/svelte";
-  import type { FileExplorerMenu } from "../../../types";
-  import { dialogState } from "../../../state";
-  import SvgLoader from "../SVGLoader.svelte";
-  import { setDialogAsActive, getFileExplorerActiveIndex } from "../../../helpers";
+  import type { FileExplorerMenu, Dialog } from "../../../../types";
+  import { dialogState } from "../../../../state";
+  import SvgLoader from "../../SVGLoader.svelte";
+  import { setPreviousTabAsActive, setNextTabAsActive, closeDialog, setActiveTab } from "./index";
+  import { setDialogAsActive } from "../../../../helpers";
+  import FileExplorer from "../FileExplorer.svelte";
 
   export let openingActiveTab: number;
   export let index: number;
@@ -12,44 +14,22 @@
 
   const fileExplorerState = writable<Array<FileExplorerMenu>>(initialFileExplorerState);
 
-  let header: HTMLElement;
   $fileExplorerState[openingActiveTab].active = true;
 
-  const closeDialog = (event: Event): void => {
-    event.stopPropagation();
-    setDialogAsActive(event, index);
-
-    if ($dialogState.length > 0) {
-      dialogState.update((value) => {
-        value.splice(index, 1);
-        return value;
-      });
-    }
+  const handleSetPreviousTabAsActive = (menu: Array<FileExplorerMenu>): void => {
+    fileExplorerState.set(setPreviousTabAsActive(menu));
   };
 
-  const previousTab = (): void => {
-    const currentIndex = getFileExplorerActiveIndex($fileExplorerState);
-
-    if (currentIndex > 0) {
-      $fileExplorerState[currentIndex].active = false;
-      $fileExplorerState[currentIndex - 1].active = true;
-    }
+  const handleSetNextTabAsActive = (menu: Array<FileExplorerMenu>): void => {
+    fileExplorerState.set(setNextTabAsActive(menu));
   };
 
-  const nextTab = (): void => {
-    const currentIndex = getFileExplorerActiveIndex($fileExplorerState);
-
-    if (currentIndex + 1 < $fileExplorerState.length) {
-      $fileExplorerState[currentIndex].active = false;
-      $fileExplorerState[currentIndex + 1].active = true;
-    }
+  const handleCloseDialog = (menu: Array<Dialog>, i: number): void => {
+    dialogState.set(closeDialog(menu, i));
   };
 
-  const setActiveTab = (event: Event): void => {
-    $fileExplorerState.forEach((fileExplorer, i) => {
-      $fileExplorerState[i].active = false;
-    });
-    $fileExplorerState[(<CustomEvent>event).detail.index].active = true;
+  const handleSetActiveTab = (event: Event, menu: Array<FileExplorerMenu>): void => {
+    fileExplorerState.set(setActiveTab(event, menu));
   };
 </script>
 
@@ -59,11 +39,17 @@
   style="z-index: {$dialogState[index].zIndex};"
   on:click
 >
-  <header class:active={$dialogState[index].active} bind:this={header}>
+  <header class:active={$dialogState[index].active}>
     <div>
       <div>
-        <SvgLoader svg={"chevron-left"} on:click={previousTab} />
-        <SvgLoader svg={"chevron-right"} on:click={nextTab} />
+        <SvgLoader
+          svg={"chevron-left"}
+          on:click={() => handleSetPreviousTabAsActive($fileExplorerState)}
+        />
+        <SvgLoader
+          svg={"chevron-right"}
+          on:click={() => handleSetNextTabAsActive($fileExplorerState)}
+        />
       </div>
       {#each $fileExplorerState as menuItem}
         {#if menuItem.active}
@@ -78,17 +64,21 @@
     </div>
     <div>
       <div>
-        <SvgLoader svg={"exit"} on:click={(event) => closeDialog(event)} />
+        <SvgLoader
+          svg={"exit"}
+          on:click={(event) => setDialogAsActive(event, index)}
+          on:click={(event) => event.stopPropagation()}
+          on:click={() => handleCloseDialog($dialogState, index)}
+        />
       </div>
     </div>
   </header>
   <div class="inner-container">
     {#each $dialogState as dialog, dialogIndex}
       {#if index === dialogIndex}
-        <svelte:component
-          this={dialog.component}
+        <FileExplorer
           fileExplorerState={$fileExplorerState}
-          on:update-active-tab={setActiveTab}
+          on:update-active-tab={(event) => handleSetActiveTab(event, $fileExplorerState)}
         />
       {/if}
     {/each}

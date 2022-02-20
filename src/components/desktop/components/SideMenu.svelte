@@ -1,7 +1,6 @@
 <script lang="ts">
   import { dialogState, totalCreatedDialogs } from "../../../state";
   import type { Dialog } from "../../../types";
-  import FileExplorer from "./FileExplorer.svelte";
   import Home from "./Home.svelte";
   import AboutMe from "./about-me/AboutMe.svelte";
   import Projects from "./projects/Projects.svelte";
@@ -60,7 +59,6 @@
 
     const nextState: Array<Dialog> = [
       {
-        component: FileExplorer,
         openingActiveTab,
         id: $totalCreatedDialogs,
         display: "default",
