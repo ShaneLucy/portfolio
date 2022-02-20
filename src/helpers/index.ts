@@ -1,5 +1,6 @@
+import type { Dialog } from "types";
+
 import { dialogState } from "../state";
-import type { Dialog } from "../types";
 
 let currentDialog: Array<Dialog>;
 dialogState.subscribe(async (value) => {

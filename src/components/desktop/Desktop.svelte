@@ -1,9 +1,9 @@
 <script lang="ts">
-  import TopMenu from "./components/TopMenu.svelte";
-  import SideMenu from "./components/SideMenu.svelte";
-  import Dialog from "./components/dialog/Dialog.svelte";
-  import { dialogState } from "../../state";
-  import { setDialogAsInactive, toggleActiveDialog } from "../../helpers";
+  import TopMenu from "src/components/desktop/components/TopMenu.svelte";
+  import SideMenu from "src/components/desktop/components/SideMenu.svelte";
+  import Dialog from "src/components/desktop/components/dialog/Dialog.svelte";
+  import { dialogState } from "state";
+  import { setDialogAsInactive, toggleActiveDialog } from "helpers";
 </script>
 
 <div class="container">

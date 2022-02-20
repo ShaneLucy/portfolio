@@ -18,6 +18,7 @@
   "devDependencies": {
     "@js-temporal/polyfill": "^0.3.0",
     "@playwright/test": "^1.17.1",
+    "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.0.0",

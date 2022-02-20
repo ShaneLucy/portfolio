@@ -1,12 +1,17 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import { draggable } from "@neodrag/svelte";
-  import type { FileExplorerMenu, Dialog } from "../../../../types";
-  import { dialogState } from "../../../../state";
-  import SvgLoader from "../../SVGLoader.svelte";
-  import { setPreviousTabAsActive, setNextTabAsActive, closeDialog, setActiveTab } from "./index";
-  import { setDialogAsActive } from "../../../../helpers";
-  import FileExplorer from "../FileExplorer.svelte";
+  import type { FileExplorerMenu, Dialog } from "types";
+  import { dialogState } from "state";
+  import SvgLoader from "src/components/desktop/SVGLoader.svelte";
+  import {
+    setPreviousTabAsActive,
+    setNextTabAsActive,
+    closeDialog,
+    setActiveTab,
+  } from "components/desktop/components/dialog";
+  import { setDialogAsActive } from "helpers";
+  import FileExplorer from "src/components/desktop/components/FileExplorer.svelte";
 
   export let openingActiveTab: number;
   export let index: number;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import JSON from "./AboutMeContent.md";
+  import JSON from "src/components/desktop/components/about-me/AboutMeContent.md";
 </script>
 
 <div>

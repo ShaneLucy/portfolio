@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { FileExplorerMenu } from "../../../types";
-  import SvgLoader from "../SVGLoader.svelte";
+  import type { FileExplorerMenu } from "types";
+  import SvgLoader from "src/components/desktop/SVGLoader.svelte";
 
   export let fileExplorerState: Array<FileExplorerMenu>;
 

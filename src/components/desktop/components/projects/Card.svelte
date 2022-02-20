@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ProjectProperties } from "../../../../types";
-  import SVGLoader from "../../SVGLoader.svelte";
+  import type { ProjectProperties } from "types";
+  import SVGLoader from "src/components/desktop/SVGLoader.svelte";
 
   export let project: ProjectProperties;
 </script>

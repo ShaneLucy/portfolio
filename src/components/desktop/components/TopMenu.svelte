@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Temporal } from "@js-temporal/polyfill";
 
-  import ThemeToggle from "./ThemeToggle.svelte";
+  import ThemeToggle from "src/components/desktop/components/ThemeToggle.svelte";
 
   let date = Temporal.Now.zonedDateTimeISO();
   const oneSecond = 1_000;

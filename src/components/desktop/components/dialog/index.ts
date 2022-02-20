@@ -1,4 +1,4 @@
-import type { FileExplorerMenu, Dialog } from "../../../../types";
+import type { FileExplorerMenu, Dialog } from "types";
 
 export const closeDialog = (dialogState: Array<Dialog>, index: number): Array<Dialog> => {
   const DIALOG_CLONE = [...dialogState];

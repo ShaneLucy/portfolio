@@ -1,6 +1,6 @@
-import type AboutMe from "../components/desktop/components/about-me/AboutMe.svelte";
-import type Projects from "../components/desktop/components/projects/Projects.svelte";
-import type Home from "../components/desktop/components/Home.svelte";
+import type AboutMe from "components/desktop/components/about-me/AboutMe.svelte";
+import type Projects from "components/desktop/components/projects/Projects.svelte";
+import type Home from "components/desktop/components/Home.svelte";
 
 export type FileExplorerMenu = {
   name: "home" | "about" | "projects";

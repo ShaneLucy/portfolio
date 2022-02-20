@@ -8,6 +8,7 @@ import typescript from "@rollup/plugin-typescript";
 import css from "rollup-plugin-css-only";
 import copy from "rollup-plugin-copy";
 import { mdsvex } from "mdsvex";
+import alias from "@rollup/plugin-alias";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -75,6 +76,9 @@ export default {
       sourceMap: !production,
       inlineSources: !production,
     }),
+    // alias({
+    //   entries: [{ find: "src/", replacement: `${__dirname}/src/` }],
+    // }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
@@ -87,6 +91,12 @@ export default {
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser(),
+    alias({
+      entries: [
+        // If you add a new top-level-folder besides src which you want to use, add it here
+        { find: /^src(\/|$)/, replacement: `${__dirname}/src/` },
+      ],
+    }),
   ],
   watch: {
     clearScreen: false,

@@ -1,3 +1,4 @@
+import type { FileExplorerMenu, Dialog } from "types";
 import {
   setNextTabAsActive,
   setPreviousTabAsActive,
@@ -5,7 +6,6 @@ import {
   closeDialog,
   getFileExplorerActiveIndex,
 } from "../../components/desktop/components/dialog";
-import type { FileExplorerMenu, Dialog } from "../../types";
 import Home from "../../components/desktop/components/Home.svelte";
 
 describe("getFileExplorerActiveIndex returns the correct value", () => {

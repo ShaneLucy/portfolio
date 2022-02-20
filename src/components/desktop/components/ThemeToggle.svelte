@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import SvgLoader from "../SVGLoader.svelte";
+  import SvgLoader from "src/components/desktop/SVGLoader.svelte";
 
   let darkMode: boolean;
 

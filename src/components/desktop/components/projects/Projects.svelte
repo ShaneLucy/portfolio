@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ProjectProperties } from "../../../../types";
-  import Card from "./Card.svelte";
+  import type { ProjectProperties } from "types";
+  import Card from "src/components/desktop/components/projects/Card.svelte";
 
   const projects: Array<ProjectProperties> = [
     {
