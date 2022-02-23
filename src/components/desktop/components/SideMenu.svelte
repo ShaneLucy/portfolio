@@ -1,9 +1,9 @@
 <script lang="ts">
   import { dialogState, totalCreatedDialogs } from "state";
   import type { Dialog } from "types";
-  import Home from "src/components/desktop/components/Home.svelte";
-  import AboutMe from "src/components/desktop/components/about-me/AboutMe.svelte";
-  import Projects from "src/components/desktop/components/projects/Projects.svelte";
+  import Home from "src/components/desktop/components/dialog/components/file-explorer/components/Home.svelte";
+  import AboutMe from "src/components/desktop/components/dialog/components/file-explorer/components/about-me/AboutMe.svelte";
+  import Projects from "src/components/desktop/components/dialog/components/file-explorer/components//projects/Projects.svelte";
 
   type MenuItems = {
     href: string;

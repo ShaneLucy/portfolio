@@ -10,7 +10,7 @@
     setNextTabAsActive,
     setActiveTab,
   } from "components/desktop/components/dialog/components/file-explorer";
-  import FileExplorer from "src/components/desktop/components/FileExplorer.svelte";
+  import FileExplorer from "src/components/desktop/components/dialog/components/file-explorer/FileExplorer.svelte";
 
   export let openingActiveTab: number;
   export let index: number;
