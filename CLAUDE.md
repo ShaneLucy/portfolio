@@ -4,6 +4,10 @@
 - **Package Manager**: bun
 - **Add-ons**: prettier, eslint, vitest, playwright, mcp
 
+## File Paths
+
+**Never write absolute paths** in any file, comment, or output. Always use relative paths. This applies to imports, configuration, documentation, and all other contexts.
+
 ---
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
