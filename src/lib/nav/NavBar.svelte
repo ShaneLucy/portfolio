@@ -3,7 +3,7 @@
     <div class="container nav-inner">
       <a href="#hero" class="nav-brand type-label" aria-label="Shane Lucy — back to top">SL</a>
       <ul class="nav-links" role="list">
-        <li><a href="#hero" class="nav-link type-label">Home</a></li>
+        <li class="nav-link-home"><a href="#hero" class="nav-link type-label">Home</a></li>
         <li><a href="#projects" class="nav-link type-label">Projects</a></li>
         <li><a href="#about" class="nav-link type-label">About</a></li>
         <li><a href="#contact" class="nav-link type-label">Contact</a></li>
@@ -60,6 +60,17 @@
   @media (max-width: 640px) {
     .nav-links {
       gap: var(--space-4);
+    }
+  }
+
+  /* At 400% zoom / 320px viewport the brand already serves as Home */
+  @media (max-width: 400px) {
+    .nav-links {
+      gap: var(--space-3);
+    }
+
+    .nav-link-home {
+      display: none;
     }
   }
 </style>
