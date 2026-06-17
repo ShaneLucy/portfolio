@@ -8,7 +8,7 @@
     density?: number;
   }
 
-  let { paletteT = 0.5, flowSpeed = 0.4, density = 0.6 }: Props = $props();
+  let { paletteT = 0.5, flowSpeed = 0.25, density = 0.6 }: Props = $props();
 
   let canvas = $state<HTMLCanvasElement>();
   let gl: WebGLRenderingContext | null = null;
