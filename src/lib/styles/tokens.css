@@ -1,0 +1,78 @@
+/* ============================================================
+   DESIGN TOKENS — Liquid Light Portfolio
+   All colours in OKLCH. All sizes in rem / clamp().
+   ============================================================ */
+
+:root {
+  /* ── Type Scale ─────────────────────────────────────────── */
+  --text-xs:      clamp(0.64rem,  0.60rem + 0.20vw,  0.75rem);
+  --text-sm:      clamp(0.80rem,  0.75rem + 0.25vw,  0.875rem);
+  --text-base:    clamp(1.00rem,  0.925rem + 0.375vw, 1.125rem);
+  --text-md:      clamp(1.25rem,  1.10rem + 0.75vw,  1.5rem);
+  --text-lg:      clamp(1.563rem, 1.35rem + 1.05vw,  2rem);
+  --text-xl:      clamp(1.953rem, 1.60rem + 1.75vw,  2.75rem);
+  --text-2xl:     clamp(2.441rem, 1.90rem + 2.70vw,  4rem);
+  --text-3xl:     clamp(3.052rem, 2.20rem + 4.25vw,  6rem);
+  --text-display: clamp(3.815rem, 2.50rem + 6.50vw,  9rem);
+
+  /* ── Line Heights ───────────────────────────────────────── */
+  --leading-tight:  1.1;
+  --leading-snug:   1.2;
+  --leading-normal: 1.5;
+  --leading-loose:  1.7;
+
+  /* ── Letter Spacing ─────────────────────────────────────── */
+  --tracking-tight:  -0.03em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.08em;
+
+  /* ── Surfaces (invariant — do not shift with section) ───── */
+  --surface-base:    oklch(6%  0.012 270);
+  --surface-raised:  oklch(10% 0.015 270);
+  --surface-overlay: oklch(14% 0.018 270);
+
+  /* ── Text (always on surface tokens, never on shader) ───── */
+  --text-primary:   oklch(95% 0.008 270);
+  --text-secondary: oklch(72% 0.010 270);
+  --text-tertiary:  oklch(55% 0.010 270);
+
+  /* ── Focus ──────────────────────────────────────────────── */
+  --focus-ring: oklch(80% 0.18 195);
+
+  /* ── Cool Palette (aurora, deep water) ──────────────────── */
+  --cool-deep:   oklch(22% 0.12 265);
+  --cool-mid:    oklch(48% 0.18 295);
+  --cool-bright: oklch(72% 0.16 195);
+  --cool-accent: oklch(85% 0.12 185);
+
+  /* ── Warm Palette (bioluminescence, fire) ───────────────── */
+  --warm-deep:   oklch(22% 0.12  35);
+  --warm-mid:    oklch(55% 0.20  50);
+  --warm-bright: oklch(78% 0.18  70);
+  --warm-accent: oklch(88% 0.14  80);
+
+  /* ── Grid ───────────────────────────────────────────────── */
+  --grid-columns:   12;
+  --grid-gap:       clamp(1rem, 2vw, 1.5rem);
+  --grid-max-width: 1400px;
+  --grid-margin:    clamp(1.5rem, 5vw, 4rem);
+
+  /* ── Spacing Scale ──────────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --section-padding-y: clamp(4rem, 8vw, 10rem);
+
+  /* ── Transition ─────────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}

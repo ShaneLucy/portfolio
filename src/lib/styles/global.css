@@ -1,0 +1,96 @@
+/* ============================================================
+   GLOBAL STYLES — Liquid Light Portfolio
+   ============================================================ */
+
+@import '@fontsource-variable/fraunces/wght.css';
+@import '@fontsource-variable/inter/wght.css';
+
+body {
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-variation-settings: 'wght' 400;
+}
+
+/* ── Heading Defaults ───────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: var(--text-3xl);
+  font-variation-settings: 'wght' 700;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'wght' 700;
+}
+
+h3 {
+  font-size: var(--text-xl);
+  font-variation-settings: 'wght' 600;
+}
+
+/* ── Display (hero headline) ────────────────────────────────── */
+
+.type-display {
+  font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  font-size: var(--text-display);
+  font-variation-settings: 'wght' 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* ── Label (nav, tags, metadata) ────────────────────────────── */
+
+.type-label {
+  font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  font-variation-settings: 'wght' 500;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* ── Layout Utilities ───────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--grid-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gap);
+}
+
+/* ── Section Base ───────────────────────────────────────────── */
+
+section {
+  min-height: 100svh;
+  padding-block: var(--section-padding-y);
+  position: relative;
+}
+
+/* ── Stacking Context ───────────────────────────────────────── */
+
+/* WebGL canvas: z-index 0 (added by ShaderCanvas in Phase 2)  */
+/* Content layers: z-index 1+                                   */
+main {
+  position: relative;
+  z-index: 1;
+}
