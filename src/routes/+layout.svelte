@@ -6,6 +6,7 @@
   import MotionToggle from '$lib/a11y/MotionToggle.svelte';
   import NavBar from '$lib/nav/NavBar.svelte';
   import ShaderCanvas from '$lib/shader/ShaderCanvas.svelte';
+  import SectionTracker from '$lib/sections/SectionTracker.svelte';
   import favicon from '$lib/assets/favicon.svg';
 
   let { children } = $props();
@@ -18,6 +19,7 @@
 </svelte:head>
 
 <ShaderCanvas />
+<SectionTracker />
 <SkipLink />
 <NavBar />
 <main id="main-content">

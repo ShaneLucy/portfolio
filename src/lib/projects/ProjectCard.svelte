@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
+  import { slide } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
+  import { motionStore } from '$lib/stores/motion.svelte';
 
   type Project = {
     id: string;
@@ -44,7 +47,11 @@
   </div>
 
   {#if expanded}
-    <div id={contentId} class="card-detail">
+    <div
+      id={contentId}
+      class="card-detail"
+      transition:slide={{ duration: motionStore.enabled ? 350 : 0, easing: cubicOut }}
+    >
       <p>{project.narrative}</p>
     </div>
   {/if}

@@ -1,20 +1,29 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { motionStore } from '$lib/stores/motion.svelte';
+  import { shaderStore, type SectionId } from '$lib/stores/shader.svelte';
 
-  interface Props {
-    paletteT?: number;
-    flowSpeed?: number;
-    density?: number;
-  }
+  type ShaderState = { palette_t: number; flow_speed: number; density: number };
 
-  let { paletteT = 0.5, flowSpeed = 0.25, density = 0.6 }: Props = $props();
+  const SECTION_STATES: Record<SectionId, ShaderState> = {
+    hero:     { palette_t: 0.5,  flow_speed: 0.4,  density: 0.6  },
+    projects: { palette_t: 0.75, flow_speed: 0.25, density: 0.4  },
+    about:    { palette_t: 0.25, flow_speed: 0.35, density: 0.5  },
+    contact:  { palette_t: 0.6,  flow_speed: 0.5,  density: 0.65 },
+  };
+
+  const TRANSITION_DURATION = 1.2; // seconds, cubic ease-out
 
   let canvas = $state<HTMLCanvasElement>();
   let gl: WebGLRenderingContext | null = null;
   let rafId: number | null = null;
   let timeAccum = 0;
   let lastTs: number | null = null;
+
+  // Interpolated shader state — plain variables, mutated every rAF frame.
+  let curr: ShaderState = { ...SECTION_STATES.hero };
+  let from: ShaderState = { ...SECTION_STATES.hero };
+  let transitionStart = 0;
 
   let uTime: WebGLUniformLocation | null = null;
   let uResolution: WebGLUniformLocation | null = null;
@@ -198,15 +207,26 @@ void main() {
     if (!gl || !canvas) return;
     gl.uniform1f(uTime, time);
     gl.uniform2f(uResolution, canvas.width, canvas.height);
-    gl.uniform1f(uPaletteT, paletteT);
-    gl.uniform1f(uFlowSpeed, flowSpeed);
-    gl.uniform1f(uDensity, density);
+    gl.uniform1f(uPaletteT, curr.palette_t);
+    gl.uniform1f(uFlowSpeed, curr.flow_speed);
+    gl.uniform1f(uDensity, curr.density);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
   function loop(ts: number) {
     if (lastTs !== null) timeAccum += (ts - lastTs) / 1000;
     lastTs = ts;
+
+    // Advance interpolation toward active section target (cubic ease-out)
+    const target = SECTION_STATES[shaderStore.activeSection];
+    const elapsed = timeAccum - transitionStart;
+    const t = Math.min(elapsed / TRANSITION_DURATION, 1.0);
+    const eased = 1 - Math.pow(1 - t, 3);
+
+    curr.palette_t  = from.palette_t  + (target.palette_t  - from.palette_t)  * eased;
+    curr.flow_speed = from.flow_speed + (target.flow_speed - from.flow_speed) * eased;
+    curr.density    = from.density    + (target.density    - from.density)    * eased;
+
     renderFrame(timeAccum);
     rafId = requestAnimationFrame(loop);
   }
@@ -255,8 +275,22 @@ void main() {
     };
   });
 
+  // React to active section changes: begin interpolation (or snap when motion is off).
   $effect(() => {
-    // React to motion toggle after GL is ready
+    const section = shaderStore.activeSection;
+    if (!gl) return;
+    if (motionStore.enabled) {
+      from = { ...curr };
+      transitionStart = timeAccum;
+    } else {
+      curr = { ...SECTION_STATES[section] };
+      from = { ...curr };
+      renderFrame(timeAccum);
+    }
+  });
+
+  // React to motion toggle: start/stop loop.
+  $effect(() => {
     if (!gl) return;
     if (motionStore.enabled) {
       startLoop();

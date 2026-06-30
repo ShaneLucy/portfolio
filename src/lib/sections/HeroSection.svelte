@@ -78,4 +78,16 @@
     height: 3rem;
     background: linear-gradient(to bottom, var(--text-tertiary), transparent);
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-line {
+      animation: scroll-drip 2.4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes scroll-drip {
+    0%   { opacity: 0.3; transform: scaleY(0.6) translateY(-20%); }
+    50%  { opacity: 1;   transform: scaleY(1)   translateY(0); }
+    100% { opacity: 0.3; transform: scaleY(0.6) translateY(20%); }
+  }
 </style>
