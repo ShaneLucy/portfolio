@@ -3,16 +3,25 @@
   import { motionStore } from '$lib/stores/motion.svelte';
   import { shaderStore, type SectionId } from '$lib/stores/shader.svelte';
 
-  type ShaderState = { palette_t: number; flow_speed: number; density: number };
-
-  const SECTION_STATES: Record<SectionId, ShaderState> = {
-    hero:     { palette_t: 0.5,  flow_speed: 0.4,  density: 0.6  },
-    projects: { palette_t: 0.75, flow_speed: 0.25, density: 0.4  },
-    about:    { palette_t: 0.25, flow_speed: 0.35, density: 0.5  },
-    contact:  { palette_t: 0.6,  flow_speed: 0.5,  density: 0.65 },
+  type ShaderState = {
+    palette_t:   number;
+    flow_speed:  number;
+    density:     number;
+    disturbance: number;
   };
 
-  const TRANSITION_DURATION = 1.2; // seconds, cubic ease-out
+  const SECTION_STATES: Record<SectionId, ShaderState> = {
+    hero:     { palette_t: 0.5,  flow_speed: 0.4,  density: 0.6,  disturbance: 0.8 },
+    projects: { palette_t: 0.75, flow_speed: 0.25, density: 0.4,  disturbance: 0.5 },
+    about:    { palette_t: 0.25, flow_speed: 0.35, density: 0.5,  disturbance: 0.4 },
+    contact:  { palette_t: 0.6,  flow_speed: 0.5,  density: 0.65, disturbance: 0.7 },
+  };
+
+  const TRANSITION_DURATION = 1.2;
+  const TRACE_SIZE = 32;
+  const TRACE_DISSOLVE = 4.0;
+  const STATIC_TIME = 12.5;     // fixed time for prefers-reduced-motion frame
+  const MIN_TRACE_DIST_SQ = 0.008 * 0.008;
 
   let canvas = $state<HTMLCanvasElement>();
   let gl: WebGLRenderingContext | null = null;
@@ -20,16 +29,29 @@
   let timeAccum = 0;
   let lastTs: number | null = null;
 
-  // Interpolated shader state — plain variables, mutated every rAF frame.
   let curr: ShaderState = { ...SECTION_STATES.hero };
   let from: ShaderState = { ...SECTION_STATES.hero };
   let transitionStart = 0;
 
-  let uTime: WebGLUniformLocation | null = null;
-  let uResolution: WebGLUniformLocation | null = null;
-  let uPaletteT: WebGLUniformLocation | null = null;
-  let uFlowSpeed: WebGLUniformLocation | null = null;
-  let uDensity: WebGLUniformLocation | null = null;
+  // Trace ring buffer — positions in UV space (0–1), ages in [0,1]
+  const tracePos = new Float32Array(TRACE_SIZE * 2).fill(-1);
+  const traceAge = new Float32Array(TRACE_SIZE).fill(1.0);
+  let traceHead = 0;
+  let pointerDown = false;
+  let lastTX = -1, lastTY = -1;
+  let ptrX = 0.5, ptrY = 0.5;
+
+  // Uniform locations
+  let uTime:          WebGLUniformLocation | null = null;
+  let uResolution:    WebGLUniformLocation | null = null;
+  let uPaletteT:      WebGLUniformLocation | null = null;
+  let uFlowSpeed:     WebGLUniformLocation | null = null;
+  let uDensity:       WebGLUniformLocation | null = null;
+  let uDisturbance:   WebGLUniformLocation | null = null;
+  let uPointer:       WebGLUniformLocation | null = null;
+  let uPointerActive: WebGLUniformLocation | null = null;
+  let uTrace:         WebGLUniformLocation | null = null;
+  let uTraceAge:      WebGLUniformLocation | null = null;
 
   let pixelRatio = 1;
 
@@ -39,9 +61,6 @@ void main() {
   gl_Position = vec4(a_position, 0.0, 1.0);
 }`;
 
-  // Domain-warped simplex noise fluid field.
-  // Palette colours are pre-converted from OKLCH to linear sRGB.
-  // Output is gamma-encoded for correct display.
   const FRAG = `
 precision mediump float;
 
@@ -50,6 +69,11 @@ uniform vec2  u_resolution;
 uniform float u_palette_t;
 uniform float u_flow_speed;
 uniform float u_density;
+uniform float u_disturbance;
+uniform vec2  u_pointer;
+uniform float u_pointer_active;
+uniform vec2  u_trace[32];
+uniform float u_trace_age[32];
 
 vec2 mod289v2(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 mod289v3(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -79,7 +103,6 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-// Branch-free 4-stop gradient
 vec3 gradient4(float t, vec3 c0, vec3 c1, vec3 c2, vec3 c3) {
   float s = clamp(t, 0.0, 1.0) * 3.0;
   vec3 g01 = mix(c0, c1, clamp(s,       0.0, 1.0));
@@ -112,28 +135,42 @@ void main() {
   float threshold = 1.0 - u_density;
   float lum = smoothstep(threshold - 0.15, threshold + 0.45, raw);
 
-  // Cool palette — linear sRGB from OKLCH(L% C H):
-  // deep(22% 0.12 265), mid(48% 0.18 295), bright(72% 0.16 195), accent(85% 0.12 185)
+  // Cool palette — linear sRGB approximations from OKLCH design tokens
   vec3 coolDeep   = vec3(0.001, 0.005, 0.082);
   vec3 coolMid    = vec3(0.139, 0.048, 0.467);
   vec3 coolBright = vec3(0.000, 0.539, 0.549);
   vec3 coolAccent = vec3(0.116, 0.801, 0.687);
 
-  // Warm palette — linear sRGB from OKLCH(L% C H):
-  // deep(22% 0.12 35), mid(55% 0.20 50), bright(78% 0.18 70), accent(88% 0.14 80)
+  // Warm palette
   vec3 warmDeep   = vec3(0.056, 0.000, 0.000);
   vec3 warmMid    = vec3(0.566, 0.044, 0.000);
   vec3 warmBright = vec3(0.996, 0.346, 0.000);
   vec3 warmAccent = vec3(1.000, 0.607, 0.122);
 
-  // Near-black background matching --surface-base oklch(6% 0.012 270)
   vec3 bg = vec3(0.001, 0.002, 0.007);
 
   vec3 coolColor  = gradient4(lum, coolDeep, coolMid, coolBright, coolAccent);
   vec3 warmColor  = gradient4(lum, warmDeep, warmMid, warmBright, warmAccent);
   vec3 fluidColor = mix(coolColor, warmColor, u_palette_t);
-
   vec3 color = mix(bg, fluidColor, lum);
+
+  // Trace mark-making: Gaussian splat per ring-buffer point, fading with age.
+  // Aspect-corrected distance so splats appear circular on non-square viewports.
+  float aspect = u_resolution.x / u_resolution.y;
+  float radius = u_disturbance * 0.09;
+  float traceContrib = 0.0;
+  for (int i = 0; i < 32; i++) {
+    float age = u_trace_age[i];
+    if (age >= 1.0) continue;
+    vec2 d = vec2((uv.x - u_trace[i].x) * aspect, uv.y - u_trace[i].y);
+    float fade = 1.0 - smoothstep(0.6, 1.0, age);
+    traceContrib += exp(-dot(d, d) / (radius * radius)) * fade;
+  }
+  traceContrib = clamp(traceContrib, 0.0, 1.0);
+
+  vec3 traceAccent = mix(coolAccent, warmAccent, u_palette_t);
+  color = mix(color, traceAccent, traceContrib * 0.85);
+
   gl_FragColor = vec4(linearToSRGB(color), 1.0);
 }`;
 
@@ -182,11 +219,16 @@ void main() {
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-    uTime       = gl.getUniformLocation(program, 'u_time');
-    uResolution = gl.getUniformLocation(program, 'u_resolution');
-    uPaletteT   = gl.getUniformLocation(program, 'u_palette_t');
-    uFlowSpeed  = gl.getUniformLocation(program, 'u_flow_speed');
-    uDensity    = gl.getUniformLocation(program, 'u_density');
+    uTime         = gl.getUniformLocation(program, 'u_time');
+    uResolution   = gl.getUniformLocation(program, 'u_resolution');
+    uPaletteT     = gl.getUniformLocation(program, 'u_palette_t');
+    uFlowSpeed    = gl.getUniformLocation(program, 'u_flow_speed');
+    uDensity      = gl.getUniformLocation(program, 'u_density');
+    uDisturbance  = gl.getUniformLocation(program, 'u_disturbance');
+    uPointer      = gl.getUniformLocation(program, 'u_pointer');
+    uPointerActive= gl.getUniformLocation(program, 'u_pointer_active');
+    uTrace        = gl.getUniformLocation(program, 'u_trace');
+    uTraceAge     = gl.getUniformLocation(program, 'u_trace_age');
 
     handleResize();
     return true;
@@ -205,27 +247,54 @@ void main() {
 
   function renderFrame(time: number) {
     if (!gl || !canvas) return;
-    gl.uniform1f(uTime, time);
-    gl.uniform2f(uResolution, canvas.width, canvas.height);
-    gl.uniform1f(uPaletteT, curr.palette_t);
-    gl.uniform1f(uFlowSpeed, curr.flow_speed);
-    gl.uniform1f(uDensity, curr.density);
+    gl.uniform1f(uTime,          time);
+    gl.uniform2f(uResolution,    canvas.width, canvas.height);
+    gl.uniform1f(uPaletteT,      curr.palette_t);
+    gl.uniform1f(uFlowSpeed,     curr.flow_speed);
+    gl.uniform1f(uDensity,       curr.density);
+    gl.uniform1f(uDisturbance,   curr.disturbance);
+    gl.uniform2f(uPointer,       ptrX, ptrY);
+    gl.uniform1f(uPointerActive, pointerDown ? 1.0 : 0.0);
+    gl.uniform2fv(uTrace,        tracePos);
+    gl.uniform1fv(uTraceAge,     traceAge);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
+  function addTracePoint(x: number, y: number) {
+    const dx = x - lastTX;
+    const dy = y - lastTY;
+    if (lastTX >= 0 && dx * dx + dy * dy < MIN_TRACE_DIST_SQ) return;
+    const idx = traceHead % TRACE_SIZE;
+    tracePos[idx * 2]     = x;
+    tracePos[idx * 2 + 1] = y;
+    traceAge[idx] = 0.0;
+    traceHead++;
+    lastTX = x;
+    lastTY = y;
+  }
+
   function loop(ts: number) {
-    if (lastTs !== null) timeAccum += (ts - lastTs) / 1000;
+    const dt = lastTs !== null ? (ts - lastTs) / 1000 : 0;
+    if (lastTs !== null) timeAccum += dt;
     lastTs = ts;
 
-    // Advance interpolation toward active section target (cubic ease-out)
+    // Age all active trace points
+    for (let i = 0; i < TRACE_SIZE; i++) {
+      if (traceAge[i] < 1.0) {
+        traceAge[i] = Math.min(1.0, traceAge[i] + dt / TRACE_DISSOLVE);
+      }
+    }
+
+    // Advance shader state interpolation toward active section target (cubic ease-out)
     const target = SECTION_STATES[shaderStore.activeSection];
     const elapsed = timeAccum - transitionStart;
     const t = Math.min(elapsed / TRANSITION_DURATION, 1.0);
     const eased = 1 - Math.pow(1 - t, 3);
 
-    curr.palette_t  = from.palette_t  + (target.palette_t  - from.palette_t)  * eased;
-    curr.flow_speed = from.flow_speed + (target.flow_speed - from.flow_speed) * eased;
-    curr.density    = from.density    + (target.density    - from.density)    * eased;
+    curr.palette_t   = from.palette_t   + (target.palette_t   - from.palette_t)   * eased;
+    curr.flow_speed  = from.flow_speed  + (target.flow_speed  - from.flow_speed)  * eased;
+    curr.density     = from.density     + (target.density     - from.density)     * eased;
+    curr.disturbance = from.disturbance + (target.disturbance - from.disturbance) * eased;
 
     renderFrame(timeAccum);
     rafId = requestAnimationFrame(loop);
@@ -265,13 +334,43 @@ void main() {
     if (motionStore.enabled) {
       startLoop();
     } else {
-      renderFrame(0);
+      // Render at a fixed non-zero time so the static frame shows developed fluid patterns
+      renderFrame(STATIC_TIME);
     }
+
+    // Pointer tracking — listeners on document since canvas is pointer-events: none
+    function onPointerDown(e: PointerEvent) {
+      pointerDown = true;
+      const x = e.clientX / window.innerWidth;
+      const y = 1 - e.clientY / window.innerHeight;
+      ptrX = x; ptrY = y;
+      addTracePoint(x, y);
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      ptrX = e.clientX / window.innerWidth;
+      ptrY = 1 - e.clientY / window.innerHeight;
+      if (pointerDown) addTracePoint(ptrX, ptrY);
+    }
+
+    function onPointerUp() {
+      pointerDown = false;
+      lastTX = -1; lastTY = -1;
+    }
+
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup',   onPointerUp);
+    document.addEventListener('pointercancel', onPointerUp);
 
     return () => {
       stopLoop();
       ro.disconnect();
       io.disconnect();
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('pointerup',   onPointerUp);
+      document.removeEventListener('pointercancel', onPointerUp);
     };
   });
 
@@ -285,7 +384,7 @@ void main() {
     } else {
       curr = { ...SECTION_STATES[section] };
       from = { ...curr };
-      renderFrame(timeAccum);
+      renderFrame(STATIC_TIME);
     }
   });
 
@@ -296,7 +395,7 @@ void main() {
       startLoop();
     } else {
       stopLoop();
-      renderFrame(timeAccum);
+      renderFrame(STATIC_TIME);
     }
   });
 </script>
