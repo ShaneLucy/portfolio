@@ -5,6 +5,7 @@
   import SkipLink from '$lib/a11y/SkipLink.svelte';
   import MotionToggle from '$lib/a11y/MotionToggle.svelte';
   import NavBar from '$lib/nav/NavBar.svelte';
+  import SectionNavIndicator from '$lib/nav/SectionNavIndicator.svelte';
   import ShaderCanvas from '$lib/shader/ShaderCanvas.svelte';
   import SectionTracker from '$lib/sections/SectionTracker.svelte';
   import ParallaxController from '$lib/sections/ParallaxController.svelte';
@@ -24,6 +25,7 @@
 <ParallaxController />
 <SkipLink />
 <NavBar />
+<SectionNavIndicator />
 <main id="main-content">
   {@render children()}
 </main>

@@ -17,6 +17,8 @@ html {
   text-size-adjust: none;
   scroll-behavior: smooth;
   color-scheme: dark;
+  /* Offset anchor scroll targets below the fixed nav bar */
+  scroll-padding-top: 4rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
