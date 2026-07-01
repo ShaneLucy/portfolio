@@ -3,18 +3,15 @@
   import { motionStore } from '$lib/stores/motion.svelte';
   import { shaderStore, type SectionId } from '$lib/stores/shader.svelte';
 
-  type ShaderState = {
-    palette_t:   number;
-    flow_speed:  number;
-    density:     number;
-    disturbance: number;
-  };
+  const BASE_FLOW_SPEED  = 0.35;
+  const BASE_DENSITY     = 0.55;
+  const BASE_DISTURBANCE = 0.6;
 
-  const SECTION_STATES: Record<SectionId, ShaderState> = {
-    hero:     { palette_t: 0.5,  flow_speed: 0.4,  density: 0.6,  disturbance: 0.8 },
-    projects: { palette_t: 0.75, flow_speed: 0.25, density: 0.4,  disturbance: 0.5 },
-    about:    { palette_t: 0.25, flow_speed: 0.35, density: 0.5,  disturbance: 0.4 },
-    contact:  { palette_t: 0.6,  flow_speed: 0.5,  density: 0.65, disturbance: 0.7 },
+  const SECTION_PALETTE: Record<SectionId, number> = {
+    hero:     0.5,
+    projects: 0.75,
+    about:    0.25,
+    contact:  0.6,
   };
 
   const TRANSITION_DURATION = 1.2;
@@ -29,8 +26,8 @@
   let timeAccum = 0;
   let lastTs: number | null = null;
 
-  let curr: ShaderState = { ...SECTION_STATES.hero };
-  let from: ShaderState = { ...SECTION_STATES.hero };
+  let currPalette = SECTION_PALETTE.hero;
+  let fromPalette = SECTION_PALETTE.hero;
   let transitionStart = 0;
 
   // Trace ring buffer — positions in UV space (0–1), ages in [0,1]
@@ -249,15 +246,19 @@ void main() {
     if (!gl || !canvas) return;
     gl.uniform1f(uTime,          time);
     gl.uniform2f(uResolution,    canvas.width, canvas.height);
-    gl.uniform1f(uPaletteT,      curr.palette_t);
-    gl.uniform1f(uFlowSpeed,     curr.flow_speed);
-    gl.uniform1f(uDensity,       curr.density);
-    gl.uniform1f(uDisturbance,   curr.disturbance);
+    gl.uniform1f(uPaletteT,    currPalette);
+    gl.uniform1f(uFlowSpeed,   BASE_FLOW_SPEED);
+    gl.uniform1f(uDensity,     BASE_DENSITY);
+    gl.uniform1f(uDisturbance, BASE_DISTURBANCE);
     gl.uniform2f(uPointer,       ptrX, ptrY);
     gl.uniform1f(uPointerActive, pointerDown ? 1.0 : 0.0);
     gl.uniform2fv(uTrace,        tracePos);
     gl.uniform1fv(uTraceAge,     traceAge);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+
+  function currentFrameTime(): number {
+    return timeAccum > 0 ? timeAccum : STATIC_TIME;
   }
 
   function addTracePoint(x: number, y: number) {
@@ -285,16 +286,11 @@ void main() {
       }
     }
 
-    // Advance shader state interpolation toward active section target (cubic ease-out)
-    const target = SECTION_STATES[shaderStore.activeSection];
+    const targetPalette = SECTION_PALETTE[shaderStore.activeSection];
     const elapsed = timeAccum - transitionStart;
     const t = Math.min(elapsed / TRANSITION_DURATION, 1.0);
     const eased = 1 - Math.pow(1 - t, 3);
-
-    curr.palette_t   = from.palette_t   + (target.palette_t   - from.palette_t)   * eased;
-    curr.flow_speed  = from.flow_speed  + (target.flow_speed  - from.flow_speed)  * eased;
-    curr.density     = from.density     + (target.density     - from.density)     * eased;
-    curr.disturbance = from.disturbance + (target.disturbance - from.disturbance) * eased;
+    currPalette = fromPalette + (targetPalette - fromPalette) * eased;
 
     renderFrame(timeAccum);
     rafId = requestAnimationFrame(loop);
@@ -379,12 +375,12 @@ void main() {
     const section = shaderStore.activeSection;
     if (!gl) return;
     if (motionStore.enabled) {
-      from = { ...curr };
+      fromPalette = currPalette;
       transitionStart = timeAccum;
     } else {
-      curr = { ...SECTION_STATES[section] };
-      from = { ...curr };
-      renderFrame(STATIC_TIME);
+      currPalette = SECTION_PALETTE[section];
+      fromPalette = currPalette;
+      renderFrame(currentFrameTime());
     }
   });
 
@@ -395,7 +391,7 @@ void main() {
       startLoop();
     } else {
       stopLoop();
-      renderFrame(STATIC_TIME);
+      renderFrame(currentFrameTime());
     }
   });
 </script>

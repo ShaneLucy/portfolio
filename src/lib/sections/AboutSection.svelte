@@ -17,19 +17,19 @@
       <div class="about-skills">
         <h3 class="skills-heading">Skills</h3>
         <ul role="list" class="skills-list">
-          <li class="skill-group parallax-layer-3">
+          <li class="skill-group">
             <span class="type-label skill-category">Languages</span>
             <span>Java, TypeScript, SQL</span>
           </li>
-          <li class="skill-group parallax-layer-3">
+          <li class="skill-group">
             <span class="type-label skill-category">Frontend</span>
             <span>SvelteKit, CSS, WebGL / GLSL</span>
           </li>
-          <li class="skill-group parallax-layer-3">
+          <li class="skill-group">
             <span class="type-label skill-category">Backend</span>
             <span>Spring Boot, Node.js, PostgreSQL</span>
           </li>
-          <li class="skill-group parallax-layer-3">
+          <li class="skill-group">
             <span class="type-label skill-category">Infrastructure</span>
             <span>Cloudflare, Docker, GitHub Actions</span>
           </li>

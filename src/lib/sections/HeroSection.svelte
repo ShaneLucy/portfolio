@@ -13,7 +13,9 @@
     </div>
   </div>
   <div class="scroll-indicator parallax-layer-1" aria-hidden="true">
-    <span class="scroll-line"></span>
+    <span class="scroll-mouse">
+      <span class="scroll-wheel"></span>
+    </span>
   </div>
 </section>
 
@@ -72,22 +74,36 @@
     margin-top: auto;
   }
 
-  .scroll-line {
+  .scroll-mouse {
+    position: relative;
     display: block;
-    width: 1px;
-    height: 3rem;
-    background: linear-gradient(to bottom, var(--text-tertiary), transparent);
+    width: 1.625rem;
+    height: 2.625rem;
+    border: 2px solid var(--text-tertiary);
+    border-radius: 1rem;
+  }
+
+  .scroll-wheel {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 0.25rem;
+    height: 0.5rem;
+    margin-left: -0.125rem;
+    border-radius: 999px;
+    background: var(--cool-bright);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .scroll-line {
-      animation: scroll-drip 2.4s ease-in-out infinite;
+    .scroll-wheel {
+      animation: scroll-wheel 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
   }
 
-  @keyframes scroll-drip {
-    0%   { opacity: 0.3; transform: scaleY(0.6) translateY(-20%); }
-    50%  { opacity: 1;   transform: scaleY(1)   translateY(0); }
-    100% { opacity: 0.3; transform: scaleY(0.6) translateY(20%); }
+  @keyframes scroll-wheel {
+    0%   { opacity: 0; transform: translateY(0); }
+    30%  { opacity: 1; }
+    70%  { opacity: 1; transform: translateY(0.75rem); }
+    100% { opacity: 0; transform: translateY(0.75rem); }
   }
 </style>
