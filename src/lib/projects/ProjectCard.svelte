@@ -71,6 +71,16 @@
     border-color: oklch(30% 0.02 270);
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .project-card {
+      transition: border-color var(--transition-normal), transform var(--transition-normal);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+    }
+  }
+
   .card-summary {
     padding: var(--space-8);
   }

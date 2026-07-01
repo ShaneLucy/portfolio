@@ -274,7 +274,7 @@ void main() {
   }
 
   function loop(ts: number) {
-    const dt = lastTs !== null ? (ts - lastTs) / 1000 : 0;
+    const dt = lastTs !== null ? Math.min((ts - lastTs) / 1000, 0.05) : 0;
     if (lastTs !== null) timeAccum += dt;
     lastTs = ts;
 

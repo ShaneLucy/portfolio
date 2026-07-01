@@ -7,6 +7,7 @@
   import NavBar from '$lib/nav/NavBar.svelte';
   import ShaderCanvas from '$lib/shader/ShaderCanvas.svelte';
   import SectionTracker from '$lib/sections/SectionTracker.svelte';
+  import ParallaxController from '$lib/sections/ParallaxController.svelte';
   import favicon from '$lib/assets/favicon.svg';
 
   let { children } = $props();
@@ -20,6 +21,7 @@
 
 <ShaderCanvas />
 <SectionTracker />
+<ParallaxController />
 <SkipLink />
 <NavBar />
 <main id="main-content">

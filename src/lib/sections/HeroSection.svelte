@@ -12,7 +12,7 @@
       </a>
     </div>
   </div>
-  <div class="scroll-indicator" aria-hidden="true">
+  <div class="scroll-indicator parallax-layer-1" aria-hidden="true">
     <span class="scroll-line"></span>
   </div>
 </section>
