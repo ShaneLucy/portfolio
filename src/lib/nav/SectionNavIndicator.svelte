@@ -13,7 +13,7 @@
     currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1].id : null
   );
 
-  const isVisible = $derived(shaderStore.activeSection !== 'hero');
+  const isVisible = $derived(true);
 
   function sectionState(index: number): 'unvisited' | 'visited' | 'active' {
     if (index === currentIndex) return 'active';
@@ -150,12 +150,13 @@
 
   @media (max-width: 1099px) {
     .section-nav {
-      /* Mobile: horizontal strip below nav bar */
+      /* Mobile: floating pill at bottom-centre */
       right: auto;
-      top: 4rem; /* nav bar height */
-      left: 0;
-      width: 100%;
-      transform: translateY(-100%);
+      top: auto;
+      bottom: var(--space-8);
+      left: 50%;
+      width: auto;
+      transform: translateX(-50%) translateY(calc(100% + 2rem));
       opacity: 0;
       visibility: hidden;
       transition:
@@ -165,7 +166,7 @@
     }
 
     .section-nav.is-visible {
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
       opacity: 1;
       visibility: visible;
       transition:
