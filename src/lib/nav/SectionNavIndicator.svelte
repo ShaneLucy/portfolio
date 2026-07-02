@@ -162,10 +162,6 @@
         opacity 250ms ease-in,
         transform 250ms ease-in,
         visibility 0s 250ms;
-      background: oklch(6% 0.012 270 / 0.90);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid oklch(15% 0.015 270 / 0.6);
     }
 
     .section-nav.is-visible {

@@ -16,7 +16,7 @@
 
 <div class="controls">
   <button
-    class="ctrl-btn"
+    class="ctrl-btn ctrl-prev-btn"
     aria-label="Previous section"
     disabled={prevId === null}
     onclick={() => navigate(prevId)}
@@ -24,12 +24,12 @@
     <span aria-hidden="true" class="ctrl-icon ctrl-prev">&#8896;</span>
   </button>
   <button
-    class="ctrl-btn"
+    class="ctrl-btn ctrl-next-btn"
     aria-label="Next section"
     disabled={nextId === null}
     onclick={() => navigate(nextId)}
   >
-    <span aria-hidden="true" class="ctrl-icon ctrl-next">&#8897;</span>
+    <span aria-hidden="true" class="ctrl-icon ctrl-next">&#8896;</span>
   </button>
 </div>
 
@@ -66,7 +66,7 @@
     line-height: 1;
   }
 
-  /* Mobile: rotate icons for horizontal layout */
+  /* Mobile: rotate icons for horizontal layout and push next to end */
   @media (max-width: 1099px) {
     .ctrl-prev {
       transform: rotate(-90deg);
@@ -76,6 +76,10 @@
     .ctrl-next {
       transform: rotate(90deg);
       display: inline-block;
+    }
+
+    .ctrl-next-btn {
+      order: 999;
     }
   }
 </style>
