@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { shaderStore } from '$lib/stores/shader.svelte';
-  import { SECTION_ORDER } from '$lib/nav/sections.config';
+  import { onMount } from "svelte";
+  import { shaderStore } from "$lib/stores/shader.svelte";
+  import { SECTION_ORDER } from "$lib/nav/sections.config";
 
   onMount(() => {
     // Maintain the full set so stale entries from a batch don't override the correct one.
@@ -37,7 +37,7 @@
         }
         pickActive();
       },
-      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
     );
 
     for (const { id } of SECTION_ORDER) {
@@ -54,11 +54,11 @@
       }
     }
 
-    window.addEventListener('hashchange', onHashChange);
+    window.addEventListener("hashchange", onHashChange);
 
     return () => {
       io.disconnect();
-      window.removeEventListener('hashchange', onHashChange);
+      window.removeEventListener("hashchange", onHashChange);
     };
   });
 </script>

@@ -23,6 +23,7 @@ SectionNav: A dual-layout section navigation indicator for the Liquid Light port
 - Prev (chevron-up) / Next (chevron-down): 32px visual circle, 44×44 touch target, above/below dots
 
 **Connecting segments (desktop):**
+
 - 1px wide, solid colour (no gradient on the line itself)
 - Gap of 4px from the full-size (scale-1.0) dot edge — segment starts 9px from dot centre
 - Each gap between dots has two children: background layer (`--nav-track-unvisited`, always visible) and fill layer (`--nav-track-visited`, `scaleY` animated)
@@ -41,6 +42,7 @@ SectionNav: A dual-layout section navigation indicator for the Liquid Light port
 - **No `::after` underline accent** — replaced by dot-on-track system
 
 **Mobile track and dots:**
+
 - 1px horizontal track: `position: absolute; height: 1px; bottom: 4px; left: 44px; right: 44px`
 - Track colour: `--nav-track-unvisited` base; visited fill covers it left-to-right
 - 6px dots (`width: 6px; height: 6px; border-radius: 50%`) centred on the track at each flex item's horizontal midpoint
@@ -56,21 +58,23 @@ SectionNav: A dual-layout section navigation indicator for the Liquid Light port
 All states use hue 195 (same as `--cool-bright`). No warm/cool hue shift — single-hue progression of lightness and chroma only.
 
 **Dot tokens:**
+
 - `--nav-dot-unvisited`: `oklch(32% 0.04 195)` — dim, barely-there; future sections
-- `--nav-dot-visited`:   `oklch(54% 0.10 195)` — clearly "been here"; medium presence
-- `--nav-dot-active`:    `oklch(72% 0.16 195)` — = `--cool-bright`; dominant + glow
+- `--nav-dot-visited`: `oklch(54% 0.10 195)` — clearly "been here"; medium presence
+- `--nav-dot-active`: `oklch(72% 0.16 195)` — = `--cool-bright`; dominant + glow
 
 **Track segment tokens:**
+
 - `--nav-track-unvisited`: `oklch(28% 0.03 195 / 0.60)` — slightly dimmer than dot, semi-transparent
-- `--nav-track-visited`:   `oklch(52% 0.09 195 / 0.75)` — connecting tissue, below dot brightness
+- `--nav-track-visited`: `oklch(52% 0.09 195 / 0.75)` — connecting tissue, below dot brightness
 
 **Scale + colour matrix:**
 
-| State | Scale | Colour | Glow | On hover |
-|---|---|---|---|---|
-| Unvisited | 0.6 | `--nav-dot-unvisited` | none | → scale(0.8), no colour change |
-| Visited | 0.6 | `--nav-dot-visited` | none | → scale(0.8), no colour change |
-| Active | 1.0 | `--nav-dot-active` | yes | already 1.0 |
+| State     | Scale | Colour                | Glow | On hover                       |
+| --------- | ----- | --------------------- | ---- | ------------------------------ |
+| Unvisited | 0.6   | `--nav-dot-unvisited` | none | → scale(0.8), no colour change |
+| Visited   | 0.6   | `--nav-dot-visited`   | none | → scale(0.8), no colour change |
+| Active    | 1.0   | `--nav-dot-active`    | yes  | already 1.0                    |
 
 **Contrast note:** `--nav-dot-unvisited` is intentionally below 3:1 against the dark background (~2.8:1). Acceptable exception — unvisited dots are structural/decorative; the active state conveys accessible meaning via `aria-current="true"` and the live region, not colour alone.
 
@@ -80,18 +84,19 @@ All states use hue 195 (same as `--cool-bright`). No warm/cool hue shift — sin
 
 **Timing (all use `ease-out` for arrivals, `ease-in` for departures):**
 
-| Element | Delay | Duration | Easing |
-|---|---|---|---|
-| Segment fill (scaleY/scaleX) | 0ms | 400ms | ease-out |
-| Arriving dot colour | 0ms | 250ms | ease-out |
-| Arriving dot scale (→ 1.0) | 0ms | 250ms | ease-out |
-| Departing dot (→ visited) | 0ms | 200ms | ease |
-| Glow fade-in on active dot | 0ms | 300ms | ease-out |
-| Glow fade-out on departing | 0ms | 150ms | ease-in |
+| Element                      | Delay | Duration | Easing   |
+| ---------------------------- | ----- | -------- | -------- |
+| Segment fill (scaleY/scaleX) | 0ms   | 400ms    | ease-out |
+| Arriving dot colour          | 0ms   | 250ms    | ease-out |
+| Arriving dot scale (→ 1.0)   | 0ms   | 250ms    | ease-out |
+| Departing dot (→ visited)    | 0ms   | 200ms    | ease     |
+| Glow fade-in on active dot   | 0ms   | 300ms    | ease-out |
+| Glow fade-out on departing   | 0ms   | 150ms    | ease-in  |
 
 The 150ms lead that segment fill has over the dot transition creates a "dot lands first, light catches up" read — physically plausible and satisfying.
 
 **Fill direction:** Always in the direction of travel.
+
 - Forward: `transform-origin: top center` (desktop) / `left center` (mobile)
 - Backward: `transform-origin: bottom center` (desktop) / `right center` (mobile)
 - JS sets `data-dir="back"` **synchronously** before any CSS transition fires
@@ -107,15 +112,18 @@ The 150ms lead that segment fill has over the dot transition creates a "dot land
 **Implementation trigger:** `shaderStore.activeSection !== 'hero'`. Do NOT create an independent scroll threshold — the store is the single source of truth for active section.
 
 **Entrance animation (fires when leaving hero):**
+
 - Desktop: `transform: translateX(calc(100% + 24px)) → translateX(0)` + `opacity: 0 → 1`; 400ms ease-out
 - Mobile: `transform: translateY(-100%) → translateY(0)` + `opacity: 0 → 1`; 400ms ease-out
 
 **Exit animation (fires when scrolling back to hero):**
+
 - Desktop: reverse translateX; 250ms ease-in
 - Mobile: reverse translateY; 250ms ease-in
 - Exits are 150ms faster than entrances — elements stepping aside without ceremony
 
 **`visibility` pattern:** Control `visibility` alongside `opacity` and `transform`:
+
 - `.is-visible`: `visibility: visible` at 0ms delay (in tab order from animation start)
 - Exit: `visibility: hidden` delayed by exit duration (stays in tab order until fully hidden)
 - `visibility: hidden` removes element from accessibility tree and keyboard tab order — no `aria-hidden` needed

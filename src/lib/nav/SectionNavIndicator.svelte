@@ -1,24 +1,25 @@
 <script lang="ts">
-  import { shaderStore } from '$lib/stores/shader.svelte';
-  import { SECTION_ORDER } from '$lib/nav/sections.config';
-  import SectionNavItem from './SectionNavItem.svelte';
-  import SectionNavControls from './SectionNavControls.svelte';
+  import { shaderStore } from "$lib/stores/shader.svelte";
+  import { SECTION_ORDER } from "$lib/nav/sections.config";
+  import SectionNavItem from "./SectionNavItem.svelte";
+  import SectionNavControls from "./SectionNavControls.svelte";
 
   const currentIndex = $derived(
-    Math.max(0, SECTION_ORDER.findIndex((s) => s.id === shaderStore.activeSection))
+    Math.max(
+      0,
+      SECTION_ORDER.findIndex((s) => s.id === shaderStore.activeSection)
+    )
   );
 
   const prevId = $derived(currentIndex > 0 ? SECTION_ORDER[currentIndex - 1].id : null);
-  const nextId = $derived(
-    currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1].id : null
-  );
+  const nextId = $derived(currentIndex < SECTION_ORDER.length - 1 ? SECTION_ORDER[currentIndex + 1].id : null);
 
   const isVisible = $derived(true);
 
-  function sectionState(index: number): 'unvisited' | 'visited' | 'active' {
-    if (index === currentIndex) return 'active';
-    if (index < currentIndex) return 'visited';
-    return 'unvisited';
+  function sectionState(index: number): "unvisited" | "visited" | "active" {
+    if (index === currentIndex) return "active";
+    if (index < currentIndex) return "visited";
+    return "unvisited";
   }
 
   function segmentFilled(index: number): boolean {
@@ -29,33 +30,21 @@
   const announcement = $derived(
     (() => {
       const section = SECTION_ORDER.find((s) => s.id === shaderStore.activeSection);
-      return section ? `Now in ${section.label} section` : '';
+      return section ? `Now in ${section.label} section` : "";
     })()
   );
 </script>
 
-<nav
-  class="section-nav"
-  class:is-visible={isVisible}
-  aria-label="Section navigation"
->
+<nav class="section-nav" class:is-visible={isVisible} aria-label="Section navigation">
   <div class="nav-inner" role="list">
     <SectionNavControls {prevId} {nextId} />
 
     {#each SECTION_ORDER as section, i (section.id)}
       <div class="item-wrap" role="listitem">
-        <SectionNavItem
-          id={section.id}
-          label={section.label}
-          state={sectionState(i)}
-        />
+        <SectionNavItem id={section.id} label={section.label} state={sectionState(i)} />
 
         {#if i < SECTION_ORDER.length - 1}
-          <div
-            class="segment"
-            data-filled={segmentFilled(i) ? 'true' : 'false'}
-            aria-hidden="true"
-          >
+          <div class="segment" data-filled={segmentFilled(i) ? "true" : "false"} aria-hidden="true">
             <div class="segment-bg"></div>
             <div class="segment-fill"></div>
           </div>
@@ -143,7 +132,7 @@
     transition: transform 400ms ease-out;
   }
 
-  .segment[data-filled='true'] .segment-fill {
+  .segment[data-filled="true"] .segment-fill {
     transform: scaleY(1);
   }
 
@@ -212,7 +201,7 @@
       transition: transform 400ms ease-out;
     }
 
-    .segment[data-filled='true'] .segment-fill {
+    .segment[data-filled="true"] .segment-fill {
       transform: scaleX(1);
     }
   }

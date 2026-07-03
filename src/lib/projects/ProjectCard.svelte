@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import { slide } from 'svelte/transition';
-  import { cubicOut } from 'svelte/easing';
-  import { motionStore } from '$lib/stores/motion.svelte';
+  import type { Snippet } from "svelte";
+  import { slide } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
+  import { motionStore } from "$lib/stores/motion.svelte";
 
   type Project = {
     id: string;
@@ -35,23 +35,14 @@
       {#if links}
         {@render links()}
       {/if}
-      <button
-        class="card-expand type-label"
-        onclick={toggle}
-        aria-expanded={expanded}
-        aria-controls={contentId}
-      >
-        {expanded ? 'Less ↑' : 'More ↓'}
+      <button class="card-expand type-label" onclick={toggle} aria-expanded={expanded} aria-controls={contentId}>
+        {expanded ? "Less ↑" : "More ↓"}
       </button>
     </div>
   </div>
 
   {#if expanded}
-    <div
-      id={contentId}
-      class="card-detail"
-      transition:slide={{ duration: motionStore.enabled ? 350 : 0, easing: cubicOut }}
-    >
+    <div id={contentId} class="card-detail" transition:slide={{ duration: motionStore.enabled ? 350 : 0, easing: cubicOut }}>
       <p>{project.narrative}</p>
     </div>
   {/if}
@@ -73,7 +64,9 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .project-card {
-      transition: border-color var(--transition-normal), transform var(--transition-normal);
+      transition:
+        border-color var(--transition-normal),
+        transform var(--transition-normal);
     }
 
     .project-card:hover {
@@ -88,7 +81,7 @@
   .card-title {
     font-size: var(--text-xl);
     margin-bottom: var(--space-3);
-    font-variation-settings: 'wght' 600;
+    font-variation-settings: "wght" 600;
   }
 
   .card-hook {

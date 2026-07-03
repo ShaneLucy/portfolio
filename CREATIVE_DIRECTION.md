@@ -1,6 +1,6 @@
 # Portfolio Creative Direction: Liquid Light
 
-*Session date: 2026-06-06 — to be refined in a subsequent session*
+_Session date: 2026-06-06 — to be refined in a subsequent session_
 
 ---
 
@@ -13,6 +13,7 @@
 **The bar:** The previous portfolio recreated a minimal Ubuntu desktop environment in the browser. This must clear that bar but be entirely different.
 
 **Hard constraints:**
+
 - WCAG 2.2 AA accessibility — non-negotiable, not caveated
 - Must showcase taste and design sensibility, not just technical ability
 - 3D or shader-based (user requirement going into final decision)
@@ -59,7 +60,7 @@ The visitor lands in a dark, calm space occupied by a single slow-moving field o
 
 ### Three Key Refinements (proposed in session)
 
-1. **Content-reactive shader state** — the palette, density, and flow of the fluid shift per content section and settle around focused elements. The shader is not ambient wallpaper; it actively responds to what the visitor is reading. This is what makes it feel *designed*, not looping.
+1. **Content-reactive shader state** — the palette, density, and flow of the fluid shift per content section and settle around focused elements. The shader is not ambient wallpaper; it actively responds to what the visitor is reading. This is what makes it feel _designed_, not looping.
 
 2. **Severe editorial typography as the co-star** — an expressive display face, tight modular type scale, strict grid discipline. The shader does the emotional/atmospheric work; the typography does the intellectual/structural work. Together they signal a complete design sensibility. Neither works alone.
 
@@ -67,7 +68,7 @@ The visitor lands in a dark, calm space occupied by a single slow-moving field o
 
 ### Spatial Depth Variant
 
-Rather than full 3D, the recommended execution adds **layered parallax and subtle Z-axis motion** to create perceived depth and a sense of place — evoking spatial presence without the performance and accessibility costs of Three.js. This is the hybrid that *adds* to Liquid Light rather than diluting it.
+Rather than full 3D, the recommended execution adds **layered parallax and subtle Z-axis motion** to create perceived depth and a sense of place — evoking spatial presence without the performance and accessibility costs of Three.js. This is the hybrid that _adds_ to Liquid Light rather than diluting it.
 
 ### Accessibility Strategy
 
@@ -110,4 +111,4 @@ The following should be resolved before implementation begins:
 
 ---
 
-*Document created from the creative brainstorm session on 2026-06-06. All decisions above reflect the conversation; nothing has been implemented yet.*
+_Document created from the creative brainstorm session on 2026-06-06. All decisions above reflect the conversation; nothing has been implemented yet._

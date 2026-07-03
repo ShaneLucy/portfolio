@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { motionStore } from '$lib/stores/motion.svelte';
+  import { onMount } from "svelte";
+  import { motionStore } from "$lib/stores/motion.svelte";
 
   onMount(() => {
     motionStore.init();
@@ -10,9 +10,9 @@
 <button
   class="motion-toggle type-label"
   onclick={() => motionStore.toggle()}
-  aria-label={motionStore.enabled ? 'Pause animations' : 'Enable animations'}
+  aria-label={motionStore.enabled ? "Pause animations" : "Enable animations"}
 >
-  {motionStore.enabled ? 'Pause' : 'Play'}
+  {motionStore.enabled ? "Pause" : "Play"}
 </button>
 
 <style>
@@ -27,7 +27,9 @@
     border-radius: 2rem;
     cursor: pointer;
     z-index: 100;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast);
   }
 
   .motion-toggle:hover {

@@ -4,14 +4,12 @@
     <div class="about-grid">
       <div class="about-bio">
         <p>
-          I'm Shane Lucy, a full-stack developer based in Ireland. I build things that work
-          well and look considered — backends that hold up under pressure, and interfaces
-          that don't need explaining.
+          I'm Shane Lucy, a full-stack developer based in Ireland. I build things that work well and look considered — backends that hold up
+          under pressure, and interfaces that don't need explaining.
         </p>
         <p>
-          My background spans Java and TypeScript ecosystems, with a particular interest in
-          developer tooling and the moments where engineering and design intersect. I care
-          about the details that most people skip.
+          My background spans Java and TypeScript ecosystems, with a particular interest in developer tooling and the moments where
+          engineering and design intersect. I care about the details that most people skip.
         </p>
       </div>
       <div class="about-skills">
@@ -79,7 +77,7 @@
   .skills-heading {
     font-size: var(--text-lg);
     margin-bottom: var(--space-6);
-    font-variation-settings: 'wght' 600;
+    font-variation-settings: "wght" 600;
   }
 
   .skills-list {

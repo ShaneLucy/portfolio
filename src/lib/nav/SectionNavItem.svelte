@@ -1,21 +1,16 @@
 <script lang="ts">
-  import type { SectionId } from '$lib/stores/shader.svelte';
+  import type { SectionId } from "$lib/stores/shader.svelte";
 
   interface Props {
     id: SectionId;
     label: string;
-    state: 'unvisited' | 'visited' | 'active';
+    state: "unvisited" | "visited" | "active";
   }
 
   let { id, label, state }: Props = $props();
 </script>
 
-<a
-  href="#{id}"
-  class="nav-item"
-  data-state={state}
-  aria-current={state === 'active' ? 'true' : undefined}
->
+<a href="#{id}" class="nav-item" data-state={state} aria-current={state === "active" ? "true" : undefined}>
   <span class="label">{label}</span>
   <span class="dot" aria-hidden="true"></span>
 </a>
@@ -44,27 +39,27 @@
   }
 
   /* Unvisited */
-  .nav-item[data-state='unvisited'] .dot {
+  .nav-item[data-state="unvisited"] .dot {
     background: var(--nav-dot-unvisited);
     transform: scale(0.6);
   }
 
   /* Visited */
-  .nav-item[data-state='visited'] .dot {
+  .nav-item[data-state="visited"] .dot {
     background: var(--nav-dot-visited);
     transform: scale(0.6);
   }
 
   /* Active */
-  .nav-item[data-state='active'] .dot {
+  .nav-item[data-state="active"] .dot {
     background: var(--nav-dot-active);
     transform: scale(1);
     box-shadow: 0 0 10px 4px oklch(72% 0.16 195 / 0.45);
   }
 
   /* Hover: scale up slightly for unvisited/visited */
-  .nav-item[data-state='unvisited']:hover .dot,
-  .nav-item[data-state='visited']:hover .dot {
+  .nav-item[data-state="unvisited"]:hover .dot,
+  .nav-item[data-state="visited"]:hover .dot {
     transform: scale(0.8);
   }
 
@@ -83,7 +78,7 @@
     pointer-events: none;
   }
 
-  .nav-item[data-state='active'] .label {
+  .nav-item[data-state="active"] .label {
     color: var(--nav-dot-active);
     opacity: 1;
   }
@@ -100,7 +95,7 @@
       color: var(--text-secondary);
     }
 
-    .nav-item[data-state='active'] .label {
+    .nav-item[data-state="active"] .label {
       color: var(--nav-dot-active);
     }
 
@@ -115,7 +110,7 @@
 
   /* Forced colors (Windows High Contrast) */
   @media (forced-colors: active) {
-    .nav-item[data-state='active'] .dot {
+    .nav-item[data-state="active"] .dot {
       background: Highlight;
       box-shadow: none;
     }

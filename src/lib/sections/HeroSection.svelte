@@ -1,15 +1,9 @@
 <section id="hero" aria-labelledby="hero-heading">
   <div class="container hero-inner">
     <div class="hero-content">
-      <h1 id="hero-heading" class="type-display hero-headline">
-        Shane Lucy
-      </h1>
-      <p class="hero-subtext">
-        Full-stack developer. Interfaces that earn a second look.
-      </p>
-      <a href="#projects" class="hero-cta type-label" aria-label="View my projects">
-        See the work ↓
-      </a>
+      <h1 id="hero-heading" class="type-display hero-headline">Shane Lucy</h1>
+      <p class="hero-subtext">Full-stack developer. Interfaces that earn a second look.</p>
+      <a href="#projects" class="hero-cta type-label" aria-label="View my projects"> See the work ↓ </a>
     </div>
   </div>
 </section>
@@ -54,12 +48,13 @@
     text-decoration: none;
     border-bottom: 1px solid var(--cool-bright);
     padding-bottom: var(--space-1);
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast);
   }
 
   .hero-cta:hover {
     color: var(--cool-accent);
     border-color: var(--cool-accent);
   }
-
 </style>

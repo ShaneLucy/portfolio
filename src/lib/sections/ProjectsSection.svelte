@@ -1,23 +1,23 @@
 <script lang="ts">
-  import ProjectCard from '$lib/projects/ProjectCard.svelte';
+  import ProjectCard from "$lib/projects/ProjectCard.svelte";
 
   const projects = [
     {
-      id: 'db-documenter',
-      title: 'db-documenter',
-      hook: 'One command. Living schema diagrams.',
-      tech: ['Java', 'PostgreSQL', 'PlantUML', 'JDBC'] as const,
+      id: "db-documenter",
+      title: "db-documenter",
+      hook: "One command. Living schema diagrams.",
+      tech: ["Java", "PostgreSQL", "PlantUML", "JDBC"] as const,
       narrative:
-        "db-documenter is a Java library that connects to a live PostgreSQL database and automatically generates PlantUML entity-relationship diagrams reflecting the current schema. No manual diagram maintenance, no drift between documentation and reality. Point it at any database, run a single command, get a diagram. Built to solve the problem of schema documentation that rots the moment it's written.",
+        "db-documenter is a Java library that connects to a live PostgreSQL database and automatically generates PlantUML entity-relationship diagrams reflecting the current schema. No manual diagram maintenance, no drift between documentation and reality. Point it at any database, run a single command, get a diagram. Built to solve the problem of schema documentation that rots the moment it's written."
     },
     {
-      id: 'blog',
-      title: 'Travel Blog',
-      hook: 'Stories from the road, built from scratch.',
-      tech: ['SvelteKit', 'TypeScript', 'Markdown'] as const,
+      id: "blog",
+      title: "Travel Blog",
+      hook: "Stories from the road, built from scratch.",
+      tech: ["SvelteKit", "TypeScript", "Markdown"] as const,
       narrative:
-        'A personal travel blog built with SvelteKit and TypeScript. Markdown-driven content, fast static generation, and a clean typographic system designed for long-form reading. The project served as a playground for learning SvelteKit before applying it to more complex work.',
-    },
+        "A personal travel blog built with SvelteKit and TypeScript. Markdown-driven content, fast static generation, and a clean typographic system designed for long-form reading. The project served as a playground for learning SvelteKit before applying it to more complex work."
+    }
   ] as const;
 </script>
 
@@ -28,20 +28,13 @@
       {#each projects as project (project.id)}
         <ProjectCard {project}>
           {#snippet links()}
-            {#if project.id === 'db-documenter'}
-              <a
-                href="https://github.com/shanelucy/db-documenter"
-                class="card-link type-label"
-                target="_blank"
-                rel="noopener noreferrer"
-              >GitHub ↗</a>
-            {:else if project.id === 'blog'}
-              <a
-                href="https://github.com/shanelucy/blog"
-                class="card-link type-label"
-                target="_blank"
-                rel="noopener noreferrer"
-              >GitHub ↗</a>
+            {#if project.id === "db-documenter"}
+              <a href="https://github.com/shanelucy/db-documenter" class="card-link type-label" target="_blank" rel="noopener noreferrer"
+                >GitHub ↗</a
+              >
+            {:else if project.id === "blog"}
+              <a href="https://github.com/shanelucy/blog" class="card-link type-label" target="_blank" rel="noopener noreferrer">GitHub ↗</a
+              >
             {/if}
           {/snippet}
         </ProjectCard>

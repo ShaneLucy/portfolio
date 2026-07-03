@@ -34,12 +34,12 @@ src/lib/nav/
 
 **Existing files to update:**
 
-| File | Change |
-|---|---|
-| `src/routes/+layout.svelte` | Add `<SectionNavIndicator />` after `<NavBar />` |
-| `src/lib/sections/SectionTracker.svelte` | Source `SECTION_IDS` from `SECTION_ORDER` |
-| `src/lib/styles/reset.css` or `global.css` | Add `scroll-padding-top` |
-| `src/lib/styles/tokens.css` | Add three-state nav colour tokens |
+| File                                       | Change                                           |
+| ------------------------------------------ | ------------------------------------------------ |
+| `src/routes/+layout.svelte`                | Add `<SectionNavIndicator />` after `<NavBar />` |
+| `src/lib/sections/SectionTracker.svelte`   | Source `SECTION_IDS` from `SECTION_ORDER`        |
+| `src/lib/styles/reset.css` or `global.css` | Add `scroll-padding-top`                         |
+| `src/lib/styles/tokens.css`                | Add three-state nav colour tokens                |
 
 ### Responsive — CSS-only, one rendered instance
 
@@ -67,7 +67,10 @@ Tab order: skip-link → main nav → section indicator → content.
 
 ```ts
 const currentIndex = $derived(
-  Math.max(0, SECTION_ORDER.findIndex(s => s.id === shaderStore.activeSection))
+  Math.max(
+    0,
+    SECTION_ORDER.findIndex((s) => s.id === shaderStore.activeSection)
+  )
 );
 ```
 
@@ -127,13 +130,13 @@ Track: `position: absolute; height: 1px; bottom: 4px; left: 44px; right: 44px` �
 
 ### Three-state tokens (add to `tokens.css`)
 
-| Token | Value | Usage |
-|---|---|---|
-| `--nav-dot-unvisited` | `oklch(32% 0.04 195)` | Dots for sections not yet reached |
-| `--nav-dot-visited` | `oklch(54% 0.10 195)` | Dots for sections passed through |
-| `--nav-dot-active` | `oklch(72% 0.16 195)` | Active dot (= `--cool-bright`) |
-| `--nav-track-unvisited` | `oklch(28% 0.03 195 / 0.60)` | Segment before upcoming sections |
-| `--nav-track-visited` | `oklch(52% 0.09 195 / 0.75)` | Segment between visited sections |
+| Token                   | Value                        | Usage                             |
+| ----------------------- | ---------------------------- | --------------------------------- |
+| `--nav-dot-unvisited`   | `oklch(32% 0.04 195)`        | Dots for sections not yet reached |
+| `--nav-dot-visited`     | `oklch(54% 0.10 195)`        | Dots for sections passed through  |
+| `--nav-dot-active`      | `oklch(72% 0.16 195)`        | Active dot (= `--cool-bright`)    |
+| `--nav-track-unvisited` | `oklch(28% 0.03 195 / 0.60)` | Segment before upcoming sections  |
+| `--nav-track-visited`   | `oklch(52% 0.09 195 / 0.75)` | Segment between visited sections  |
 
 Single-hue (hue 195 throughout), lightness and chroma only — no warm/cool hue shift between states. Keeps the single-hue Liquid Light identity intact.
 
@@ -141,12 +144,12 @@ Single-hue (hue 195 throughout), lightness and chroma only — no warm/cool hue 
 
 ### Dot state matrix
 
-| | Unvisited | Visited | Active |
-|---|---|---|---|
-| Scale | 0.6 | 0.6 | 1.0 |
-| Colour | `--nav-dot-unvisited` | `--nav-dot-visited` | `--nav-dot-active` |
-| Glow | none | none | `0 0 10px 4px oklch(72% 0.16 195 / 0.45)` |
-| Hover | scale(0.8), colour unchanged | scale(0.8), colour unchanged | already 1.0 |
+|        | Unvisited                    | Visited                      | Active                                    |
+| ------ | ---------------------------- | ---------------------------- | ----------------------------------------- |
+| Scale  | 0.6                          | 0.6                          | 1.0                                       |
+| Colour | `--nav-dot-unvisited`        | `--nav-dot-visited`          | `--nav-dot-active`                        |
+| Glow   | none                         | none                         | `0 0 10px 4px oklch(72% 0.16 195 / 0.45)` |
+| Hover  | scale(0.8), colour unchanged | scale(0.8), colour unchanged | already 1.0                               |
 
 Glow is exclusive to the active dot.
 
@@ -186,16 +189,16 @@ Set `data-dir="back"` on the fill element synchronously before removing the visi
 
 ### Timing
 
-| Element | Duration | Easing |
-|---|---|---|
-| Segment fill (`scaleY`/`scaleX`) | 400ms | `ease-out` |
-| Arriving dot colour | 250ms | `ease-out` |
-| Arriving dot scale (→ 1.0) | 250ms | `ease-out` |
-| Departing dot colour (→ visited) | 200ms | `ease` |
-| Active glow fade-in | 300ms | `ease-out` |
-| Departing glow fade-out | 150ms | `ease-in` |
+| Element                          | Duration | Easing     |
+| -------------------------------- | -------- | ---------- |
+| Segment fill (`scaleY`/`scaleX`) | 400ms    | `ease-out` |
+| Arriving dot colour              | 250ms    | `ease-out` |
+| Arriving dot scale (→ 1.0)       | 250ms    | `ease-out` |
+| Departing dot colour (→ visited) | 200ms    | `ease`     |
+| Active glow fade-in              | 300ms    | `ease-out` |
+| Departing glow fade-out          | 150ms    | `ease-in`  |
 
-Segment fill runs 150ms longer than the dot transition — the dot arrives at full brightness while the connecting line is still completing. Light flows in *after* the dot lands, consistent with the Liquid Light concept.
+Segment fill runs 150ms longer than the dot transition — the dot arrives at full brightness while the connecting line is still completing. Light flows in _after_ the dot lands, consistent with the Liquid Light concept.
 
 ### Reduced motion
 
@@ -215,10 +218,10 @@ The indicator is **hidden on the hero section** and revealed once `activeSection
 
 ### Entrance / exit animations
 
-| | Entrance | Exit |
-|---|---|---|
-| Desktop | `translateX(calc(100% + 24px)) → translateX(0)` + opacity 0→1, 400ms `ease-out` | `translateX(0) → translateX(calc(100% + 24px))` + opacity 1→0, 250ms `ease-in` |
-| Mobile | `translateY(-100%) → translateY(0)` + opacity 0→1, 400ms `ease-out` (slides from behind nav bar) | `translateY(0) → translateY(-100%)` + opacity 1→0, 250ms `ease-in` |
+|         | Entrance                                                                                         | Exit                                                                           |
+| ------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Desktop | `translateX(calc(100% + 24px)) → translateX(0)` + opacity 0→1, 400ms `ease-out`                  | `translateX(0) → translateX(calc(100% + 24px))` + opacity 1→0, 250ms `ease-in` |
+| Mobile  | `translateY(-100%) → translateY(0)` + opacity 0→1, 400ms `ease-out` (slides from behind nav bar) | `translateY(0) → translateY(-100%)` + opacity 1→0, 250ms `ease-in`             |
 
 Exits are 150ms shorter — elements stepping aside feel lighter than elements arriving.
 
@@ -254,15 +257,15 @@ Exits are 150ms shorter — elements stepping aside feel lighter than elements a
 
 ## Accessibility
 
-| Requirement | Implementation |
-|---|---|
-| Landmark | `<nav aria-label="Section navigation">` — distinct from NavBar's "Main navigation" |
-| Active item | `aria-current="true"` on the active `<a>` (not `"page"` — this is same-document navigation) |
-| Live region | `aria-live="polite"` region announcing "Now in [Section] section", debounced 300ms to avoid flood during fast scrolling |
-| Keyboard | Items are `<a>` elements — Enter/click both work natively; Tab traverses items |
-| Prev/Next | Real `<button>` elements with `aria-label="Previous section"` / `"Next section"`; native `disabled` at boundaries |
-| Focus ring | `:focus-visible` using `--focus-ring: oklch(80% 0.18 195)` |
-| Touch targets | 48×48px minimum for all interactive elements |
+| Requirement   | Implementation                                                                                                                       |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Landmark      | `<nav aria-label="Section navigation">` — distinct from NavBar's "Main navigation"                                                   |
+| Active item   | `aria-current="true"` on the active `<a>` (not `"page"` — this is same-document navigation)                                          |
+| Live region   | `aria-live="polite"` region announcing "Now in [Section] section", debounced 300ms to avoid flood during fast scrolling              |
+| Keyboard      | Items are `<a>` elements — Enter/click both work natively; Tab traverses items                                                       |
+| Prev/Next     | Real `<button>` elements with `aria-label="Previous section"` / `"Next section"`; native `disabled` at boundaries                    |
+| Focus ring    | `:focus-visible` using `--focus-ring: oklch(80% 0.18 195)`                                                                           |
+| Touch targets | 48×48px minimum for all interactive elements                                                                                         |
 | Forced colors | Active dot uses `Highlight` system accent; glow is stripped — active section remains visually distinct in Windows High Contrast mode |
 
 ---

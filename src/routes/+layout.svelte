@@ -1,15 +1,15 @@
 <script lang="ts">
-  import '$lib/styles/tokens.css';
-  import '$lib/styles/reset.css';
-  import '$lib/styles/global.css';
-  import SkipLink from '$lib/a11y/SkipLink.svelte';
-  import MotionToggle from '$lib/a11y/MotionToggle.svelte';
-  import NavBar from '$lib/nav/NavBar.svelte';
-  import SectionNavIndicator from '$lib/nav/SectionNavIndicator.svelte';
-  import ShaderCanvas from '$lib/shader/ShaderCanvas.svelte';
-  import SectionTracker from '$lib/sections/SectionTracker.svelte';
-  import ParallaxController from '$lib/sections/ParallaxController.svelte';
-  import favicon from '$lib/assets/favicon.svg';
+  import "$lib/styles/tokens.css";
+  import "$lib/styles/reset.css";
+  import "$lib/styles/global.css";
+  import SkipLink from "$lib/a11y/SkipLink.svelte";
+  import MotionToggle from "$lib/a11y/MotionToggle.svelte";
+  import NavBar from "$lib/nav/NavBar.svelte";
+  import SectionNavIndicator from "$lib/nav/SectionNavIndicator.svelte";
+  import ShaderCanvas from "$lib/shader/ShaderCanvas.svelte";
+  import SectionTracker from "$lib/sections/SectionTracker.svelte";
+  import ParallaxController from "$lib/sections/ParallaxController.svelte";
+  import favicon from "$lib/assets/favicon.svg";
 
   let { children } = $props();
 </script>

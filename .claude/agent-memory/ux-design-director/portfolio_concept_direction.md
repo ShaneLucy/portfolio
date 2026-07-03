@@ -12,6 +12,7 @@ Open creative brainstorm for a new portfolio. See [[user-profile]].
 **User's original idea (also not chosen):** A 3D home office (Three.js), first-person camera, monitors as content. Critique stands: discoverability/perf/a11y costs, crowded genre.
 
 **New front-end/design-craft concepts generated (2026-06-06):**
+
 - **Letterform** — portfolio as a living type specimen / editorial magazine; typography craft is the hero.
 - **Liquid Light** — WebGL shader-driven generative-art site; a tactile fluid/light field reacts to the visitor; motion + shader craft.
 - **The Cut** — motion-design "film" portfolio built on a scroll-driven timeline; cinematic sequencing, FLIP transitions, choreography.
@@ -25,8 +26,9 @@ Open creative brainstorm for a new portfolio. See [[user-profile]].
 **Hybrid verdict:** Liquid-aesthetics-on-3D = dilutes (inherits all 3D costs). Liquid-Light-with-spatial-depth = adds (cheap "sense of place"); it's just the strong execution of Liquid Light. If 3D office is ever wanted, do it as authored camera "shots" (no free-look) + 3D as progressive enhancement over a canonical accessible site + baked/stylized low-poly art direction.
 
 **MORE OPTIONS REQUESTED (2026-06-06):** User narrowed to two finalists — **Liquid Light** and **3D Home Office** — but wants more options before committing. Firm constraint: new concepts MUST use 3D and/or shaders, matching the finalists' technical ambition. Generated 4 more (all 3D/shader):
+
 - **Risograph Engine** — real-time riso-print skin (halftone/registration/ink-bleed) as shader post-process over DOM. Print-craft taste signal; safest on a11y; shader-skin not spatial. MY SLEEPER RECOMMENDATION (rarest pure-taste signal, cleanest a11y).
-- **Depth of Field** — first-person *photographic* portfolio; authored camera shots + real DOF/bokeh/rack-focus (Three.js EffectComposer). Cinematographic/directorial flex. Closest to 3D Office; re-incurs parallel-accessible-build cost. The "authored shots" fix is how to make 3D Office read as design not engineering.
+- **Depth of Field** — first-person _photographic_ portfolio; authored camera shots + real DOF/bokeh/rack-focus (Three.js EffectComposer). Cinematographic/directorial flex. Closest to 3D Office; re-incurs parallel-accessible-build cost. The "authored shots" fix is how to make 3D Office read as design not engineering.
 - **Loom** — real-time GPU cloth sim (GPGPU mass-spring) with woven generative patterns; textile/fashion register. Closest sibling to Liquid Light (tactile-material), warmer/rarer; hardest to make look expensive (rubbery-cloth risk).
 - **Camera Obscura** — shader refraction/dispersion/caustics; reveal-by-light dark UI. Optical "design physics" flex; "dark+glass+glow" is the most saturated aesthetic — execution must beat the glassmorphism crowd.
 

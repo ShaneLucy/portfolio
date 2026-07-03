@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SectionId } from '$lib/stores/shader.svelte';
+  import type { SectionId } from "$lib/stores/shader.svelte";
 
   interface Props {
     prevId: SectionId | null;
@@ -15,20 +15,10 @@
 </script>
 
 <div class="controls">
-  <button
-    class="ctrl-btn ctrl-prev-btn"
-    aria-label="Previous section"
-    disabled={prevId === null}
-    onclick={() => navigate(prevId)}
-  >
+  <button class="ctrl-btn ctrl-prev-btn" aria-label="Previous section" disabled={prevId === null} onclick={() => navigate(prevId)}>
     <span aria-hidden="true" class="ctrl-icon ctrl-prev">&#8896;</span>
   </button>
-  <button
-    class="ctrl-btn ctrl-next-btn"
-    aria-label="Next section"
-    disabled={nextId === null}
-    onclick={() => navigate(nextId)}
-  >
+  <button class="ctrl-btn ctrl-next-btn" aria-label="Next section" disabled={nextId === null} onclick={() => navigate(nextId)}>
     <span aria-hidden="true" class="ctrl-icon ctrl-next">&#8896;</span>
   </button>
 </div>

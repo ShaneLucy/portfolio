@@ -1,24 +1,13 @@
 <section id="contact" aria-labelledby="contact-heading">
   <div class="container contact-inner">
     <h2 id="contact-heading" class="section-heading">Get in touch</h2>
-    <p class="contact-lead">
-      Open to interesting problems. Let's talk.
-    </p>
+    <p class="contact-lead">Open to interesting problems. Let's talk.</p>
     <ul class="contact-links" role="list">
       <li>
-        <a href="mailto:shanelucy01@protonmail.com" class="contact-link type-label">
-          Email ↗
-        </a>
+        <a href="mailto:shanelucy01@protonmail.com" class="contact-link type-label"> Email ↗ </a>
       </li>
       <li>
-        <a
-          href="https://github.com/shanelucy"
-          class="contact-link type-label"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub ↗
-        </a>
+        <a href="https://github.com/shanelucy" class="contact-link type-label" target="_blank" rel="noopener noreferrer"> GitHub ↗ </a>
       </li>
     </ul>
   </div>
@@ -62,7 +51,9 @@
     text-decoration: none;
     border-bottom: 1px solid oklch(30% 0.02 270);
     padding-bottom: var(--space-1);
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      color var(--transition-fast);
   }
 
   .contact-link:hover {

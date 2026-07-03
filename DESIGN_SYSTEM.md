@@ -1,6 +1,6 @@
 # Portfolio Design System: Liquid Light
 
-*Created: 2026-06-16 — companion to CREATIVE_DIRECTION.md*
+_Created: 2026-06-16 — companion to CREATIVE_DIRECTION.md_
 
 ---
 
@@ -8,10 +8,10 @@
 
 ### Typefaces
 
-| Role | Face | Source | Cost |
-|------|------|--------|------|
-| **Display / headings** | Fraunces | Google Fonts / fontsource | Free |
-| **Body / UI** | Inter | fontsource (`@fontsource-variable/inter`) | Free |
+| Role                   | Face     | Source                                    | Cost |
+| ---------------------- | -------- | ----------------------------------------- | ---- |
+| **Display / headings** | Fraunces | Google Fonts / fontsource                 | Free |
+| **Body / UI**          | Inter    | fontsource (`@fontsource-variable/inter`) | Free |
 
 **Why this pairing:** Fraunces is a variable font with an optical-size axis (`opsz`) and an optical weight axis (`WONK`) that produces genuinely different letterform flavours at display vs. text sizes — the kind of detail that reads as taste. Inter is clean, modern, and stays invisible in body copy, letting Fraunces do the expressive work. The variable axes on Fraunces are gated behind `prefers-reduced-motion` (axis animation only; static weight/optical-size assignments always apply).
 
@@ -20,39 +20,39 @@
 Fluid sizing via `clamp()`. Breakpoints implied by viewport width — no hard breakpoints needed. Base = 1rem (user-relative, never overridden).
 
 ```css
---text-xs:      clamp(0.64rem,  0.60rem + 0.20vw,  0.75rem);
---text-sm:      clamp(0.80rem,  0.75rem + 0.25vw,  0.875rem);
---text-base:    clamp(1.00rem,  0.925rem + 0.375vw, 1.125rem);
---text-md:      clamp(1.25rem,  1.10rem + 0.75vw,  1.5rem);
---text-lg:      clamp(1.563rem, 1.35rem + 1.05vw,  2rem);
---text-xl:      clamp(1.953rem, 1.60rem + 1.75vw,  2.75rem);
---text-2xl:     clamp(2.441rem, 1.90rem + 2.70vw,  4rem);
---text-3xl:     clamp(3.052rem, 2.20rem + 4.25vw,  6rem);
---text-display: clamp(3.815rem, 2.50rem + 6.50vw,  9rem);
+--text-xs: clamp(0.64rem, 0.6rem + 0.2vw, 0.75rem);
+--text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+--text-base: clamp(1rem, 0.925rem + 0.375vw, 1.125rem);
+--text-md: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+--text-lg: clamp(1.563rem, 1.35rem + 1.05vw, 2rem);
+--text-xl: clamp(1.953rem, 1.6rem + 1.75vw, 2.75rem);
+--text-2xl: clamp(2.441rem, 1.9rem + 2.7vw, 4rem);
+--text-3xl: clamp(3.052rem, 2.2rem + 4.25vw, 6rem);
+--text-display: clamp(3.815rem, 2.5rem + 6.5vw, 9rem);
 ```
 
 ### Weight & Style Assignments
 
-| Token | Face | Weight | Use |
-|-------|------|--------|-----|
-| `--type-display` | Fraunces | 800 (variable) | Hero headline |
-| `--type-heading-1` | Fraunces | 700 | Section headings |
-| `--type-heading-2` | Fraunces | 600 | Sub-headings, project titles |
-| `--type-label` | General Sans | 500 | Navigation, tags, metadata |
-| `--type-body` | General Sans | 400 | Body copy |
-| `--type-caption` | General Sans | 400 | Captions, footnotes |
+| Token              | Face         | Weight         | Use                          |
+| ------------------ | ------------ | -------------- | ---------------------------- |
+| `--type-display`   | Fraunces     | 800 (variable) | Hero headline                |
+| `--type-heading-1` | Fraunces     | 700            | Section headings             |
+| `--type-heading-2` | Fraunces     | 600            | Sub-headings, project titles |
+| `--type-label`     | General Sans | 500            | Navigation, tags, metadata   |
+| `--type-body`      | General Sans | 400            | Body copy                    |
+| `--type-caption`   | General Sans | 400            | Captions, footnotes          |
 
 ### Line Heights & Tracking
 
 ```css
---leading-tight:   1.1;   /* display, heading-1 */
---leading-snug:    1.2;   /* heading-2 */
---leading-normal:  1.5;   /* body */
---leading-loose:   1.7;   /* long-form prose */
+--leading-tight: 1.1; /* display, heading-1 */
+--leading-snug: 1.2; /* heading-2 */
+--leading-normal: 1.5; /* body */
+--leading-loose: 1.7; /* long-form prose */
 
---tracking-tight:  -0.03em; /* display */
---tracking-normal:  0em;    /* body */
---tracking-wide:    0.08em; /* labels, all-caps */
+--tracking-tight: -0.03em; /* display */
+--tracking-normal: 0em; /* body */
+--tracking-wide: 0.08em; /* labels, all-caps */
 ```
 
 ### Accessibility — Typography
@@ -77,46 +77,46 @@ Format: `oklch(L% C H)` — Lightness (0–100%), Chroma (0–0.4+), Hue (0–36
 
 ```css
 /* Backgrounds */
---surface-base:     oklch(6%  0.012 270);  /* near-black, slight cool tint */
---surface-raised:   oklch(10% 0.015 270);  /* cards, elevated panels */
---surface-overlay:  oklch(14% 0.018 270);  /* modals, expanded states */
+--surface-base: oklch(6% 0.012 270); /* near-black, slight cool tint */
+--surface-raised: oklch(10% 0.015 270); /* cards, elevated panels */
+--surface-overlay: oklch(14% 0.018 270); /* modals, expanded states */
 
 /* Text — contrast guaranteed regardless of shader state */
 /* Text always sits on a surface token, never directly on the shader canvas */
---text-primary:     oklch(95% 0.008 270);  /* ~19:1 on surface-base */
---text-secondary:   oklch(72% 0.010 270);  /* ~7.5:1 on surface-base — AA large + AA normal */
---text-tertiary:    oklch(55% 0.010 270);  /* ~4.6:1 on surface-base — AA normal minimum */
+--text-primary: oklch(95% 0.008 270); /* ~19:1 on surface-base */
+--text-secondary: oklch(72% 0.01 270); /* ~7.5:1 on surface-base — AA large + AA normal */
+--text-tertiary: oklch(55% 0.01 270); /* ~4.6:1 on surface-base — AA normal minimum */
 
 /* Focus ring */
---focus-ring:       oklch(80% 0.18  195);  /* aqua — visible on dark and on shader */
+--focus-ring: oklch(80% 0.18 195); /* aqua — visible on dark and on shader */
 ```
 
 ### Cool Palette (aurora, deep water)
 
 ```css
---cool-deep:    oklch(22% 0.12  265);  /* deep indigo */
---cool-mid:     oklch(48% 0.18  295);  /* violet */
---cool-bright:  oklch(72% 0.16  195);  /* aqua */
---cool-accent:  oklch(85% 0.12  185);  /* pale cyan highlight */
+--cool-deep: oklch(22% 0.12 265); /* deep indigo */
+--cool-mid: oklch(48% 0.18 295); /* violet */
+--cool-bright: oklch(72% 0.16 195); /* aqua */
+--cool-accent: oklch(85% 0.12 185); /* pale cyan highlight */
 ```
 
 ### Warm Palette (bioluminescence, fire)
 
 ```css
---warm-deep:    oklch(22% 0.12   35);  /* deep amber */
---warm-mid:     oklch(55% 0.20   50);  /* amber-gold */
---warm-bright:  oklch(78% 0.18   70);  /* gold */
---warm-accent:  oklch(88% 0.14   80);  /* pale gold highlight */
+--warm-deep: oklch(22% 0.12 35); /* deep amber */
+--warm-mid: oklch(55% 0.2 50); /* amber-gold */
+--warm-bright: oklch(78% 0.18 70); /* gold */
+--warm-accent: oklch(88% 0.14 80); /* pale gold highlight */
 ```
 
 ### Section → Palette Mapping
 
-| Section | Shader palette | Temperature bias | Notes |
-|---------|---------------|-----------------|-------|
-| Hero | Neutral blend | Shifts during scroll as intro gesture | Equal cool/warm; slow rotation |
-| Projects | Warm dominant | 70% warm / 30% cool | Amber/gold — focus, craft, making |
-| About | Cool dominant | 30% warm / 70% cool | Aqua/violet — calm, reflective |
-| Contact | Warm returning | 60% warm / 40% cool | Inviting close; echoes the hero's blend |
+| Section  | Shader palette | Temperature bias                      | Notes                                   |
+| -------- | -------------- | ------------------------------------- | --------------------------------------- |
+| Hero     | Neutral blend  | Shifts during scroll as intro gesture | Equal cool/warm; slow rotation          |
+| Projects | Warm dominant  | 70% warm / 30% cool                   | Amber/gold — focus, craft, making       |
+| About    | Cool dominant  | 30% warm / 70% cool                   | Aqua/violet — calm, reflective          |
+| Contact  | Warm returning | 60% warm / 40% cool                   | Inviting close; echoes the hero's blend |
 
 Palette interpolation is handled by the `u_palette_t` uniform (0.0 = full cool, 1.0 = full warm). The shader lerps between the two palettes in OKLCH.
 
@@ -124,13 +124,13 @@ Palette interpolation is handled by the `u_palette_t` uniform (0.0 = full cool, 
 
 Before any text colour token is used, it must be verified against every surface it appears on:
 
-| Token | Surface | Ratio | WCAG level |
-|-------|---------|-------|-----------|
-| `--text-primary` | `--surface-base` | ≥ 15:1 | AAA |
-| `--text-secondary` | `--surface-base` | ≥ 7:1 | AA |
-| `--text-tertiary` | `--surface-base` | ≥ 4.5:1 | AA |
-| `--text-primary` | `--surface-raised` | ≥ 12:1 | AAA |
-| `--text-secondary` | `--surface-raised` | ≥ 6:1 | AA |
+| Token              | Surface            | Ratio   | WCAG level |
+| ------------------ | ------------------ | ------- | ---------- |
+| `--text-primary`   | `--surface-base`   | ≥ 15:1  | AAA        |
+| `--text-secondary` | `--surface-base`   | ≥ 7:1   | AA         |
+| `--text-tertiary`  | `--surface-base`   | ≥ 4.5:1 | AA         |
+| `--text-primary`   | `--surface-raised` | ≥ 12:1  | AAA        |
+| `--text-secondary` | `--surface-raised` | ≥ 6:1   | AA         |
 
 The shader canvas is never a text background. Text is **always** on a surface token.
 
@@ -169,37 +169,37 @@ uniform float u_trace_age[32];  // age of each trace point (0–1, 1=just placed
 
 ```typescript
 type ShaderState = {
-  palette_t:   number;  // 0.0–1.0
-  flow_speed:  number;  // 0.1–1.0
-  density:     number;  // 0.2–1.0
-  disturbance: number;  // 0.1–1.0
+  palette_t: number; // 0.0–1.0
+  flow_speed: number; // 0.1–1.0
+  density: number; // 0.2–1.0
+  disturbance: number; // 0.1–1.0
 };
 
 const SECTION_STATES: Record<string, ShaderState> = {
   hero: {
-    palette_t:   0.5,   // neutral blend
-    flow_speed:  0.4,   // slow, meditative
-    density:     0.6,
-    disturbance: 0.8,   // high pointer reactivity on the hero
+    palette_t: 0.5, // neutral blend
+    flow_speed: 0.4, // slow, meditative
+    density: 0.6,
+    disturbance: 0.8 // high pointer reactivity on the hero
   },
   projects: {
-    palette_t:   0.75,  // warm dominant
-    flow_speed:  0.25,  // slower — focused, content foreground
-    density:     0.4,   // thinner — don't compete with project cards
-    disturbance: 0.5,
+    palette_t: 0.75, // warm dominant
+    flow_speed: 0.25, // slower — focused, content foreground
+    density: 0.4, // thinner — don't compete with project cards
+    disturbance: 0.5
   },
   about: {
-    palette_t:   0.25,  // cool dominant
-    flow_speed:  0.35,
-    density:     0.5,
-    disturbance: 0.4,
+    palette_t: 0.25, // cool dominant
+    flow_speed: 0.35,
+    density: 0.5,
+    disturbance: 0.4
   },
   contact: {
-    palette_t:   0.6,   // warm returning
-    flow_speed:  0.5,   // slightly faster — inviting
-    density:     0.65,
-    disturbance: 0.7,
-  },
+    palette_t: 0.6, // warm returning
+    flow_speed: 0.5, // slightly faster — inviting
+    density: 0.65,
+    disturbance: 0.7
+  }
 };
 ```
 
@@ -241,13 +241,13 @@ The static gradient is a first-class experience — it should be designed and te
 
 ### Performance Budget
 
-| Target | Threshold |
-|--------|-----------|
-| Frame time | ≤ 16ms (60fps) desktop |
-| Frame time — mobile | ≤ 33ms (30fps) acceptable |
-| Canvas resolution | 1.0× device pixel ratio desktop; 0.5× mobile (upscaled via CSS) |
+| Target                | Threshold                                                            |
+| --------------------- | -------------------------------------------------------------------- |
+| Frame time            | ≤ 16ms (60fps) desktop                                               |
+| Frame time — mobile   | ≤ 33ms (30fps) acceptable                                            |
+| Canvas resolution     | 1.0× device pixel ratio desktop; 0.5× mobile (upscaled via CSS)      |
 | Pause when off-screen | `IntersectionObserver` on canvas; stop `rAF` when canvas not visible |
-| First paint | Canvas initialises after first `rAF`, never blocks content paint |
+| First paint           | Canvas initialises after first `rAF`, never blocks content paint     |
 
 ---
 
@@ -257,22 +257,22 @@ The static gradient is a first-class experience — it should be designed and te
 
 Three depth layers create perceived Z-space without Three.js:
 
-| Layer | Content | Scroll rate | CSS |
-|-------|---------|-------------|-----|
-| 0 (deepest) | WebGL canvas | Fixed (CSS `position: fixed`) | — |
-| 1 | Section background tints, decorative shapes | 0.92× natural scroll | `transform: translateY(calc(var(--scroll-offset) * 0.08))` |
-| 2 | Main content blocks | 1.0× (natural) | — |
-| 3 | Accent labels, floating tags | 1.06× | `transform: translateY(calc(var(--scroll-offset) * -0.06))` |
+| Layer       | Content                                     | Scroll rate                   | CSS                                                         |
+| ----------- | ------------------------------------------- | ----------------------------- | ----------------------------------------------------------- |
+| 0 (deepest) | WebGL canvas                                | Fixed (CSS `position: fixed`) | —                                                           |
+| 1           | Section background tints, decorative shapes | 0.92× natural scroll          | `transform: translateY(calc(var(--scroll-offset) * 0.08))`  |
+| 2           | Main content blocks                         | 1.0× (natural)                | —                                                           |
+| 3           | Accent labels, floating tags                | 1.06×                         | `transform: translateY(calc(var(--scroll-offset) * -0.06))` |
 
 `--scroll-offset` is a CSS custom property updated on scroll via a JS listener (throttled to `rAF`). This is gated behind `prefers-reduced-motion`.
 
 ### Grid
 
 ```css
---grid-columns:    12;
---grid-gap:        clamp(1rem, 2vw, 1.5rem);
---grid-max-width:  1400px;
---grid-margin:     clamp(1.5rem, 5vw, 4rem);
+--grid-columns: 12;
+--grid-gap: clamp(1rem, 2vw, 1.5rem);
+--grid-max-width: 1400px;
+--grid-margin: clamp(1.5rem, 5vw, 4rem);
 ```
 
 Content uses CSS Grid. Sections span the full viewport height minimum (`min-height: 100svh`).
@@ -280,16 +280,16 @@ Content uses CSS Grid. Sections span the full viewport height minimum (`min-heig
 ### Spacing Scale
 
 ```css
---space-1:   0.25rem;
---space-2:   0.5rem;
---space-3:   0.75rem;
---space-4:   1rem;
---space-6:   1.5rem;
---space-8:   2rem;
---space-12:  3rem;
---space-16:  4rem;
---space-24:  6rem;
---space-32:  8rem;
+--space-1: 0.25rem;
+--space-2: 0.5rem;
+--space-3: 0.75rem;
+--space-4: 1rem;
+--space-6: 1.5rem;
+--space-8: 2rem;
+--space-12: 3rem;
+--space-16: 4rem;
+--space-24: 6rem;
+--space-32: 8rem;
 
 /* Section vertical rhythm */
 --section-padding-y: clamp(4rem, 8vw, 10rem);
@@ -299,19 +299,19 @@ Content uses CSS Grid. Sections span the full viewport height minimum (`min-heig
 
 ## 5. Component Inventory
 
-| Component | File | Purpose |
-|-----------|------|---------|
-| `ShaderCanvas` | `lib/shader/ShaderCanvas.svelte` | WebGL canvas, `aria-hidden`, manages GL context |
-| `ShaderController` | `lib/shader/ShaderController.svelte` | Section tracking, uniform interpolation, `rAF` loop |
-| `MotionToggle` | `lib/a11y/MotionToggle.svelte` | Pause/resume button, persisted to `localStorage` |
-| `SkipLink` | `lib/a11y/SkipLink.svelte` | Skip to main content; visually hidden until focused |
-| `NavBar` | `lib/nav/NavBar.svelte` | Sticky top nav, section anchor links, keyboard navigable |
-| `HeroSection` | `lib/sections/HeroSection.svelte` | Display headline, sub-copy, scroll indicator |
-| `ProjectsSection` | `lib/sections/ProjectsSection.svelte` | Project grid layout wrapper |
-| `ProjectCard` | `lib/projects/ProjectCard.svelte` | Dual-mode card — collapsed (scannable) + expanded (deep) |
-| `AboutSection` | `lib/sections/AboutSection.svelte` | Bio, skills, professional context |
-| `ContactSection` | `lib/sections/ContactSection.svelte` | Links, email, GitHub |
-| `SectionTracker` | `lib/sections/SectionTracker.svelte` | `IntersectionObserver` wrapper; emits active section |
+| Component          | File                                  | Purpose                                                  |
+| ------------------ | ------------------------------------- | -------------------------------------------------------- |
+| `ShaderCanvas`     | `lib/shader/ShaderCanvas.svelte`      | WebGL canvas, `aria-hidden`, manages GL context          |
+| `ShaderController` | `lib/shader/ShaderController.svelte`  | Section tracking, uniform interpolation, `rAF` loop      |
+| `MotionToggle`     | `lib/a11y/MotionToggle.svelte`        | Pause/resume button, persisted to `localStorage`         |
+| `SkipLink`         | `lib/a11y/SkipLink.svelte`            | Skip to main content; visually hidden until focused      |
+| `NavBar`           | `lib/nav/NavBar.svelte`               | Sticky top nav, section anchor links, keyboard navigable |
+| `HeroSection`      | `lib/sections/HeroSection.svelte`     | Display headline, sub-copy, scroll indicator             |
+| `ProjectsSection`  | `lib/sections/ProjectsSection.svelte` | Project grid layout wrapper                              |
+| `ProjectCard`      | `lib/projects/ProjectCard.svelte`     | Dual-mode card — collapsed (scannable) + expanded (deep) |
+| `AboutSection`     | `lib/sections/AboutSection.svelte`    | Bio, skills, professional context                        |
+| `ContactSection`   | `lib/sections/ContactSection.svelte`  | Links, email, GitHub                                     |
+| `SectionTracker`   | `lib/sections/SectionTracker.svelte`  | `IntersectionObserver` wrapper; emits active section     |
 
 ---
 
@@ -470,4 +470,4 @@ Goal: shipped to Cloudflare Pages, fast.
 
 ---
 
-*All decisions above are confirmed unless marked as open. Implementation starts at Phase 1.*
+_All decisions above are confirmed unless marked as open. Implementation starts at Phase 1._
