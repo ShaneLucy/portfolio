@@ -7,7 +7,9 @@ function createMotionStore() {
   const enabled = $derived(userOverride !== null ? userOverride : !prefersReduced);
 
   function init() {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") {
+      return;
+    }
 
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     prefersReduced = mq.matches;

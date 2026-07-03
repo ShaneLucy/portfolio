@@ -6,7 +6,9 @@
 
   // React to motion toggle: immediately set or remove --scroll-offset.
   $effect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") {
+      return;
+    }
     if (motionStore.enabled) {
       document.documentElement.style.setProperty("--scroll-offset", `${window.scrollY}px`);
     } else {

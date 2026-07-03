@@ -17,8 +17,12 @@
   const isVisible = $derived(true);
 
   function sectionState(index: number): "unvisited" | "visited" | "active" {
-    if (index === currentIndex) return "active";
-    if (index < currentIndex) return "visited";
+    if (index === currentIndex) {
+      return "active";
+    }
+    if (index < currentIndex) {
+      return "visited";
+    }
     return "unvisited";
   }
 

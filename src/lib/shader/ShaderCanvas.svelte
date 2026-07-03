@@ -174,9 +174,13 @@ void main() {
 }`;
 
   function compileShader(type: number, source: string): WebGLShader | null {
-    if (!gl) return null;
+    if (!gl) {
+      return null;
+    }
     const shader = gl.createShader(type);
-    if (!shader) return null;
+    if (!shader) {
+      return null;
+    }
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -188,17 +192,25 @@ void main() {
   }
 
   function initGL(): boolean {
-    if (!canvas) return false;
+    if (!canvas) {
+      return false;
+    }
     const ctx = canvas.getContext("webgl");
-    if (!ctx) return false;
+    if (!ctx) {
+      return false;
+    }
     gl = ctx;
 
     const vert = compileShader(gl.VERTEX_SHADER, VERT);
     const frag = compileShader(gl.FRAGMENT_SHADER, FRAG);
-    if (!vert || !frag) return false;
+    if (!vert || !frag) {
+      return false;
+    }
 
     const program = gl.createProgram();
-    if (!program) return false;
+    if (!program) {
+      return false;
+    }
     gl.attachShader(program, vert);
     gl.attachShader(program, frag);
     gl.linkProgram(program);
@@ -234,7 +246,9 @@ void main() {
   }
 
   function handleResize() {
-    if (!gl || !canvas) return;
+    if (!gl || !canvas) {
+      return;
+    }
     const w = Math.floor(window.innerWidth * pixelRatio);
     const h = Math.floor(window.innerHeight * pixelRatio);
     if (canvas.width !== w || canvas.height !== h) {
@@ -245,7 +259,9 @@ void main() {
   }
 
   function renderFrame(time: number) {
-    if (!gl || !canvas) return;
+    if (!gl || !canvas) {
+      return;
+    }
     gl.uniform1f(uTime, time);
     gl.uniform2f(uResolution, canvas.width, canvas.height);
     gl.uniform1f(uPaletteT, currPalette);
@@ -266,7 +282,9 @@ void main() {
   function addTracePoint(x: number, y: number) {
     const dx = x - lastTX;
     const dy = y - lastTY;
-    if (lastTX >= 0 && dx * dx + dy * dy < MIN_TRACE_DIST_SQ) return;
+    if (lastTX >= 0 && dx * dx + dy * dy < MIN_TRACE_DIST_SQ) {
+      return;
+    }
     const idx = traceHead % TRACE_SIZE;
     tracePos[idx * 2] = x;
     tracePos[idx * 2 + 1] = y;
@@ -278,7 +296,9 @@ void main() {
 
   function loop(ts: number) {
     const dt = lastTs !== null ? Math.min((ts - lastTs) / 1000, 0.05) : 0;
-    if (lastTs !== null) timeAccum += dt;
+    if (lastTs !== null) {
+      timeAccum += dt;
+    }
     lastTs = ts;
 
     // Age all active trace points
@@ -299,13 +319,17 @@ void main() {
   }
 
   function startLoop() {
-    if (rafId !== null || !gl) return;
+    if (rafId !== null || !gl) {
+      return;
+    }
     lastTs = null;
     rafId = requestAnimationFrame(loop);
   }
 
   function stopLoop() {
-    if (rafId !== null) cancelAnimationFrame(rafId);
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+    }
     rafId = null;
     lastTs = null;
   }
@@ -313,15 +337,20 @@ void main() {
   onMount(() => {
     pixelRatio = window.matchMedia("(max-width: 768px)").matches ? 0.5 : Math.min(window.devicePixelRatio, 1.5);
 
-    if (!initGL()) return;
+    if (!initGL()) {
+      return;
+    }
 
     const ro = new ResizeObserver(handleResize);
     ro.observe(document.documentElement);
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) stopLoop();
-        else if (motionStore.enabled) startLoop();
+        if (!entry.isIntersecting) {
+          stopLoop();
+        } else if (motionStore.enabled) {
+          startLoop();
+        }
       },
       { threshold: 0 }
     );
@@ -347,7 +376,9 @@ void main() {
     function onPointerMove(e: PointerEvent) {
       ptrX = e.clientX / window.innerWidth;
       ptrY = 1 - e.clientY / window.innerHeight;
-      if (pointerDown) addTracePoint(ptrX, ptrY);
+      if (pointerDown) {
+        addTracePoint(ptrX, ptrY);
+      }
     }
 
     function onPointerUp() {
@@ -375,7 +406,9 @@ void main() {
   // React to active section changes: begin interpolation (or snap when motion is off).
   $effect(() => {
     const section = shaderStore.activeSection;
-    if (!gl) return;
+    if (!gl) {
+      return;
+    }
     if (motionStore.enabled) {
       fromPalette = currPalette;
       transitionStart = timeAccum;
@@ -388,7 +421,9 @@ void main() {
 
   // React to motion toggle: start/stop loop.
   $effect(() => {
-    if (!gl) return;
+    if (!gl) {
+      return;
+    }
     if (motionStore.enabled) {
       startLoop();
     } else {

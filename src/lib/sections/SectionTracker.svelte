@@ -16,9 +16,13 @@
       let best: string | null = null;
       let bestDist = Infinity;
       for (const { id } of SECTION_ORDER) {
-        if (!intersecting.has(id)) continue;
+        if (!intersecting.has(id)) {
+          continue;
+        }
         const el = document.getElementById(id);
-        if (!el) continue;
+        if (!el) {
+          continue;
+        }
         const { top, height } = el.getBoundingClientRect();
         const dist = Math.abs(top + height / 2 - mid);
         if (dist < bestDist) {
@@ -26,14 +30,19 @@
           best = id;
         }
       }
-      if (best) shaderStore.setSection(best as Parameters<typeof shaderStore.setSection>[0]);
+      if (best) {
+        shaderStore.setSection(best as Parameters<typeof shaderStore.setSection>[0]);
+      }
     }
 
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) intersecting.add(entry.target.id);
-          else intersecting.delete(entry.target.id);
+          if (entry.isIntersecting) {
+            intersecting.add(entry.target.id);
+          } else {
+            intersecting.delete(entry.target.id);
+          }
         }
         pickActive();
       },
@@ -42,7 +51,9 @@
 
     for (const { id } of SECTION_ORDER) {
       const el = document.getElementById(id);
-      if (el) io.observe(el);
+      if (el) {
+        io.observe(el);
+      }
     }
 
     // When a nav button sets location.hash, sync the active section immediately

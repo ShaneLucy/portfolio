@@ -9,7 +9,9 @@
   let { prevId, nextId }: Props = $props();
 
   function navigate(id: SectionId | null): void {
-    if (!id) return;
+    if (!id) {
+      return;
+    }
     location.hash = id;
   }
 </script>
