@@ -16,8 +16,8 @@
   data-state={state}
   aria-current={state === 'active' ? 'true' : undefined}
 >
-  <span class="dot" aria-hidden="true"></span>
   <span class="label">{label}</span>
+  <span class="dot" aria-hidden="true"></span>
 </a>
 
 <style>
@@ -29,6 +29,7 @@
     min-width: 48px;
     min-height: 48px;
     position: relative;
+    z-index: 1;
   }
 
   .dot {

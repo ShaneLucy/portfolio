@@ -119,9 +119,10 @@
   .segment {
     position: relative;
     width: 1px;
-    height: 2rem;
+    height: 80px;
     overflow: visible;
-    margin: 0 auto;
+    margin: -24px auto 0;
+    z-index: 0;
   }
 
   .segment-bg,
@@ -191,9 +192,10 @@
     }
 
     .segment {
-      width: 2rem;
+      width: 80px;
       height: 1px;
-      margin: 0;
+      margin-top: 0;
+      margin-left: -24px;
     }
 
     .segment-bg,
