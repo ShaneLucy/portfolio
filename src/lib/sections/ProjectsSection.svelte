@@ -59,7 +59,7 @@
     gap: var(--space-6);
   }
 
-  :global(.card-link) {
+  .card-link {
     color: var(--cool-bright);
     text-decoration: none;
     border-bottom: 1px solid transparent;
@@ -67,7 +67,7 @@
     transition: border-color var(--transition-fast);
   }
 
-  :global(.card-link:hover) {
+  .card-link:hover {
     border-color: var(--cool-bright);
   }
 </style>

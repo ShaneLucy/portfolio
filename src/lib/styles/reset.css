@@ -14,7 +14,6 @@ html {
   /* Respect user's font size preference — never override rem base */
   font-size: 100%;
   text-size-adjust: none;
-  text-size-adjust: none;
   scroll-behavior: smooth;
   color-scheme: dark;
 
@@ -110,7 +109,7 @@ ol {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }

@@ -44,13 +44,13 @@
     flex-shrink: 0;
   }
 
-  .ctrl-btn:hover:not(:disabled) {
-    color: var(--text-primary);
-  }
-
   .ctrl-btn:disabled {
     opacity: 0.25;
     cursor: not-allowed;
+  }
+
+  .ctrl-btn:hover:not(:disabled) {
+    color: var(--text-primary);
   }
 
   .ctrl-icon {

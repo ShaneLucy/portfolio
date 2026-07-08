@@ -21,7 +21,6 @@
     z-index: 50;
     background: oklch(6% 0.012 270deg / 85%);
     backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
     border-bottom: 1px solid oklch(15% 0.015 270deg / 60%);
   }
 
