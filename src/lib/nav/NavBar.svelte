@@ -19,10 +19,10 @@
     left: 0;
     right: 0;
     z-index: 50;
-    background: oklch(6% 0.012 270 / 0.85);
+    background: oklch(6% 0.012 270deg / 85%);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid oklch(15% 0.015 270 / 0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid oklch(15% 0.015 270deg / 60%);
   }
 
   .nav-inner {
@@ -57,14 +57,14 @@
     color: var(--text-primary);
   }
 
-  @media (max-width: 640px) {
+  @media (width <= 640px) {
     .nav-links {
       gap: var(--space-4);
     }
   }
 
   /* At 400% zoom / 320px viewport the brand already serves as Home */
-  @media (max-width: 400px) {
+  @media (width <= 400px) {
     .nav-links {
       gap: var(--space-3);
     }

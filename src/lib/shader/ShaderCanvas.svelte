@@ -18,7 +18,13 @@
   const TRACE_SIZE = 32;
   const TRACE_DISSOLVE = 4.0;
   const STATIC_TIME = 12.5; // fixed time for prefers-reduced-motion frame
-  const MIN_TRACE_DIST_SQ = 0.008 * 0.008;
+  const MIN_TRACE_RADIUS = 0.008;
+  const MIN_TRACE_DIST_SQ = MIN_TRACE_RADIUS * MIN_TRACE_RADIUS;
+  const QUAD_VERTICES = 6;
+  const MS_PER_S = 1000;
+  const MAX_DT = 0.05;
+  const MOBILE_PIXEL_RATIO = 0.5;
+  const MAX_PIXEL_RATIO = 1.5;
 
   let canvas = $state<HTMLCanvasElement>();
   let gl: WebGLRenderingContext | null = null;
@@ -37,8 +43,9 @@
   let pointerDown = false;
   let lastTX = -1,
     lastTY = -1;
-  let ptrX = 0.5,
-    ptrY = 0.5;
+  const INITIAL_PTR = 0.5;
+  let ptrX = INITIAL_PTR,
+    ptrY = INITIAL_PTR;
 
   // Uniform locations
   let uTime: WebGLUniformLocation | null = null;
@@ -272,7 +279,7 @@ void main() {
     gl.uniform1f(uPointerActive, pointerDown ? 1.0 : 0.0);
     gl.uniform2fv(uTrace, tracePos);
     gl.uniform1fv(uTraceAge, traceAge);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    gl.drawArrays(gl.TRIANGLES, 0, QUAD_VERTICES);
   }
 
   function currentFrameTime(): number {
@@ -295,7 +302,7 @@ void main() {
   }
 
   function loop(ts: number) {
-    const dt = lastTs !== null ? Math.min((ts - lastTs) / 1000, 0.05) : 0;
+    const dt = lastTs !== null ? Math.min((ts - lastTs) / MS_PER_S, MAX_DT) : 0;
     if (lastTs !== null) {
       timeAccum += dt;
     }
@@ -335,7 +342,7 @@ void main() {
   }
 
   onMount(() => {
-    pixelRatio = window.matchMedia("(max-width: 768px)").matches ? 0.5 : Math.min(window.devicePixelRatio, 1.5);
+    pixelRatio = window.matchMedia("(max-width: 768px)").matches ? MOBILE_PIXEL_RATIO : Math.min(window.devicePixelRatio, MAX_PIXEL_RATIO);
 
     if (!initGL()) {
       return;
@@ -348,13 +355,17 @@ void main() {
       ([entry]) => {
         if (!entry.isIntersecting) {
           stopLoop();
-        } else if (motionStore.enabled) {
+          return;
+        }
+        if (motionStore.enabled) {
           startLoop();
         }
       },
       { threshold: 0 }
     );
-    io.observe(canvas!);
+    if (canvas) {
+      io.observe(canvas);
+    }
 
     if (motionStore.enabled) {
       startLoop();

@@ -142,13 +142,10 @@
 
   /* ── Mobile ──────────────────────────────────────────────── */
 
-  @media (max-width: 1099px) {
+  @media (width <= 1099px) {
     .section-nav {
       /* Mobile: floating pill at bottom-centre */
-      right: auto;
-      top: auto;
-      bottom: var(--space-8);
-      left: 50%;
+      inset: auto auto var(--space-8) 50%;
       width: auto;
       transform: translateX(-50%) translateY(calc(100% + 2rem));
       opacity: 0;

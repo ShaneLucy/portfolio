@@ -55,7 +55,7 @@
     align-items: start;
   }
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     .about-grid {
       grid-template-columns: 1fr;
       gap: var(--space-12);
@@ -94,7 +94,7 @@
     flex-direction: column;
     gap: var(--space-1);
     padding-bottom: var(--space-4);
-    border-bottom: 1px solid oklch(15% 0.015 270 / 0.6);
+    border-bottom: 1px solid oklch(15% 0.015 270deg / 60%);
   }
 
   .skill-group:last-child {

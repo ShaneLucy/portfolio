@@ -14,6 +14,8 @@
 
   let { project, links }: { project: Project; links?: Snippet } = $props();
 
+  const SLIDE_DURATION_MS = 350;
+
   let expanded = $state(false);
   const contentId = $derived(`project-${project.id}-content`);
 
@@ -42,7 +44,7 @@
   </div>
 
   {#if expanded}
-    <div id={contentId} class="card-detail" transition:slide={{ duration: motionStore.enabled ? 350 : 0, easing: cubicOut }}>
+    <div id={contentId} class="card-detail" transition:slide={{ duration: motionStore.enabled ? SLIDE_DURATION_MS : 0, easing: cubicOut }}>
       <p>{project.narrative}</p>
     </div>
   {/if}
@@ -51,7 +53,7 @@
 <style>
   .project-card {
     background: var(--surface-raised);
-    border: 1px solid oklch(15% 0.015 270 / 0.6);
+    border: 1px solid oklch(15% 0.015 270deg / 60%);
     border-radius: 0.5rem;
     overflow: hidden;
     transition: border-color var(--transition-normal);
@@ -59,7 +61,7 @@
 
   .project-card:hover,
   .project-card.expanded {
-    border-color: oklch(30% 0.02 270);
+    border-color: oklch(30% 0.02 270deg);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -100,11 +102,11 @@
   }
 
   .tech-badge {
-    background: oklch(14% 0.018 270);
+    background: oklch(14% 0.018 270deg);
     color: var(--text-secondary);
     padding: var(--space-1) var(--space-3);
     border-radius: 2rem;
-    border: 1px solid oklch(20% 0.015 270);
+    border: 1px solid oklch(20% 0.015 270deg);
   }
 
   .card-actions {
@@ -126,7 +128,7 @@
 
   .card-detail {
     padding: var(--space-6) var(--space-8) var(--space-8);
-    border-top: 1px solid oklch(15% 0.015 270 / 0.6);
+    border-top: 1px solid oklch(15% 0.015 270deg / 60%);
     color: var(--text-secondary);
     line-height: var(--leading-loose);
   }

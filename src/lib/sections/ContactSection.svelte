@@ -49,7 +49,7 @@
     display: inline-block;
     color: var(--text-primary);
     text-decoration: none;
-    border-bottom: 1px solid oklch(30% 0.02 270);
+    border-bottom: 1px solid oklch(30% 0.02 270deg);
     padding-bottom: var(--space-1);
     transition:
       border-color var(--transition-fast),

@@ -1,11 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { SvelteSet } from "svelte/reactivity";
   import { shaderStore } from "$lib/stores/shader.svelte";
   import { SECTION_ORDER } from "$lib/nav/sections.config";
 
   onMount(() => {
     // Maintain the full set so stale entries from a batch don't override the correct one.
-    const intersecting = new Set<string>();
+    const intersecting = new SvelteSet<string>();
 
     function pickActive() {
       // Among currently-intersecting sections, pick the one whose center
@@ -16,18 +17,16 @@
       let best: string | null = null;
       let bestDist = Infinity;
       for (const { id } of SECTION_ORDER) {
-        if (!intersecting.has(id)) {
-          continue;
-        }
-        const el = document.getElementById(id);
-        if (!el) {
-          continue;
-        }
-        const { top, height } = el.getBoundingClientRect();
-        const dist = Math.abs(top + height / 2 - mid);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = id;
+        if (intersecting.has(id)) {
+          const el = document.getElementById(id);
+          if (el) {
+            const { top, height } = el.getBoundingClientRect();
+            const dist = Math.abs(top + height / 2 - mid);
+            if (dist < bestDist) {
+              bestDist = dist;
+              best = id;
+            }
+          }
         }
       }
       if (best) {

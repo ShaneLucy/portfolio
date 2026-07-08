@@ -13,10 +13,11 @@
 html {
   /* Respect user's font size preference — never override rem base */
   font-size: 100%;
-  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
   text-size-adjust: none;
   scroll-behavior: smooth;
   color-scheme: dark;
+
   /* Offset anchor scroll targets below the fixed nav bar */
   scroll-padding-top: 4rem;
 }
@@ -40,7 +41,7 @@ body {
   min-height: 100svh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 /* ── Focus ─────────────────────────────────────────────────── */
@@ -90,7 +91,7 @@ a {
 }
 
 a:hover {
-  text-decoration-color: currentColor;
+  text-decoration-color: currentcolor;
 }
 
 /* ── Lists ─────────────────────────────────────────────────── */

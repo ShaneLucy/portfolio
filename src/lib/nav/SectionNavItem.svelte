@@ -54,7 +54,7 @@
   .nav-item[data-state="active"] .dot {
     background: var(--nav-dot-active);
     transform: scale(1);
-    box-shadow: 0 0 10px 4px oklch(72% 0.16 195 / 0.45);
+    box-shadow: 0 0 10px 4px oklch(72% 0.16 195deg / 45%);
   }
 
   /* Hover: scale up slightly for unvisited/visited */
@@ -73,6 +73,7 @@
     transition:
       color 200ms ease,
       opacity 200ms ease;
+
     /* Desktop: hide labels, show on hover/active */
     opacity: 0;
     pointer-events: none;
@@ -88,7 +89,7 @@
   }
 
   /* Mobile: always show labels */
-  @media (max-width: 1099px) {
+  @media (width <= 1099px) {
     .label {
       opacity: 1;
       pointer-events: auto;

@@ -26,7 +26,7 @@ export default defineConfig(
       // typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
       // see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
       "no-undef": "off",
-      "no-console": "error", // S106
+      "no-console": ["error", { allow: ["error", "warn", "info"] }], // S106
       "no-duplicate-imports": "error", // S3863
       "@typescript-eslint/no-non-null-assertion": "error", // S2966
       "no-magic-numbers": [
@@ -46,7 +46,7 @@ export default defineConfig(
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["vitest.config.ts"]
+          allowDefaultProject: ["vitest.config.ts", "playwright.config.ts"]
         }
       }
     },

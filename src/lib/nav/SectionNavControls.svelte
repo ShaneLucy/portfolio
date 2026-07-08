@@ -59,7 +59,7 @@
   }
 
   /* Desktop: next button sits at the bottom of the vertical track */
-  @media (min-width: 1100px) {
+  @media (width >= 1100px) {
     .ctrl-next-btn {
       order: 999;
     }
@@ -71,7 +71,7 @@
   }
 
   /* Mobile: rotate icons for horizontal layout and push next to end */
-  @media (max-width: 1099px) {
+  @media (width <= 1099px) {
     .ctrl-prev {
       transform: rotate(-90deg);
       display: inline-block;

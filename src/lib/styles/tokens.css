@@ -27,36 +27,36 @@
   --tracking-wide: 0.08em;
 
   /* ── Surfaces (invariant — do not shift with section) ───── */
-  --surface-base: oklch(6% 0.012 270);
-  --surface-raised: oklch(10% 0.015 270);
-  --surface-overlay: oklch(14% 0.018 270);
+  --surface-base: oklch(6% 0.012 270deg);
+  --surface-raised: oklch(10% 0.015 270deg);
+  --surface-overlay: oklch(14% 0.018 270deg);
 
   /* ── Text (always on surface tokens, never on shader) ───── */
-  --text-primary: oklch(95% 0.008 270);
-  --text-secondary: oklch(72% 0.01 270);
-  --text-tertiary: oklch(55% 0.01 270);
+  --text-primary: oklch(95% 0.008 270deg);
+  --text-secondary: oklch(72% 0.01 270deg);
+  --text-tertiary: oklch(55% 0.01 270deg);
 
   /* ── Focus ──────────────────────────────────────────────── */
-  --focus-ring: oklch(80% 0.18 195);
+  --focus-ring: oklch(80% 0.18 195deg);
 
   /* ── Cool Palette (aurora, deep water) ──────────────────── */
-  --cool-deep: oklch(22% 0.12 265);
-  --cool-mid: oklch(48% 0.18 295);
-  --cool-bright: oklch(72% 0.16 195);
-  --cool-accent: oklch(85% 0.12 185);
+  --cool-deep: oklch(22% 0.12 265deg);
+  --cool-mid: oklch(48% 0.18 295deg);
+  --cool-bright: oklch(72% 0.16 195deg);
+  --cool-accent: oklch(85% 0.12 185deg);
 
   /* ── Warm Palette (bioluminescence, fire) ───────────────── */
-  --warm-deep: oklch(22% 0.12 35);
-  --warm-mid: oklch(55% 0.2 50);
-  --warm-bright: oklch(78% 0.18 70);
-  --warm-accent: oklch(88% 0.14 80);
+  --warm-deep: oklch(22% 0.12 35deg);
+  --warm-mid: oklch(55% 0.2 50deg);
+  --warm-bright: oklch(78% 0.18 70deg);
+  --warm-accent: oklch(88% 0.14 80deg);
 
   /* ── Section Nav Indicator ──────────────────────────────── */
-  --nav-dot-unvisited: oklch(32% 0.04 195);
-  --nav-dot-visited: oklch(54% 0.1 195);
-  --nav-dot-active: oklch(72% 0.16 195);
-  --nav-track-unvisited: oklch(28% 0.03 195 / 0.6);
-  --nav-track-visited: oklch(52% 0.09 195 / 0.75);
+  --nav-dot-unvisited: oklch(32% 0.04 195deg);
+  --nav-dot-visited: oklch(54% 0.1 195deg);
+  --nav-dot-active: oklch(72% 0.16 195deg);
+  --nav-track-unvisited: oklch(28% 0.03 195deg / 60%);
+  --nav-track-visited: oklch(52% 0.09 195deg / 75%);
 
   /* ── Grid ───────────────────────────────────────────────── */
   --grid-columns: 12;
@@ -75,7 +75,6 @@
   --space-16: 4rem;
   --space-24: 6rem;
   --space-32: 8rem;
-
   --section-padding-y: clamp(4rem, 8vw, 10rem);
 
   /* ── Transition ─────────────────────────────────────────── */
