@@ -11,8 +11,8 @@
 </script>
 
 <a href="#{id}" class="nav-item" data-state={state} aria-current={state === "active" ? "true" : undefined}>
-  <span class="label">{label}</span>
   <span class="dot" aria-hidden="true"></span>
+  <span class="label">{label}</span>
 </a>
 
 <style>
@@ -70,6 +70,9 @@
     text-transform: uppercase;
     color: var(--text-secondary);
     white-space: nowrap;
+
+    /* Readable against any WebGL shader background */
+    text-shadow: 0 1px 4px oklch(0% 0 0deg / 60%);
     transition:
       color 200ms ease,
       opacity 200ms ease;
@@ -100,9 +103,10 @@
       color: var(--nav-dot-active);
     }
 
-    /* Mobile: dot sits below the label on the track */
+    /* Mobile: dot on track (bottom), label floats above.
+       Dot is first in HTML so column-reverse puts it below the label. */
     .nav-item {
-      flex-direction: column;
+      flex-direction: column-reverse;
       gap: 0.25rem;
       align-items: center;
       justify-content: flex-end;

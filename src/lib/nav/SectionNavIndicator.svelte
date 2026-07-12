@@ -97,7 +97,9 @@
   .nav-inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    /* Left-align so the dot column (track axis) is on the left */
+    align-items: flex-start;
     gap: 0;
   }
 
@@ -106,7 +108,9 @@
   .item-wrap {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    /* Left-align so segment sits under the dot, not the label */
+    align-items: flex-start;
   }
 
   .segment {
@@ -114,7 +118,10 @@
     width: 1px;
     height: 80px;
     overflow: visible;
-    margin: -24px auto 0;
+
+    /* 5px = half the dot width (10px), centres segment on dot axis.
+       -24px overlap pulls segment top up to connect with dot above. */
+    margin: -24px 0 0 4.5px;
     z-index: 0;
   }
 
@@ -175,10 +182,10 @@
       position: relative;
     }
 
-    /* Mobile: horizontal segments */
+    /* Mobile: horizontal segments aligned to the dot at the bottom */
     .item-wrap {
       flex-direction: row;
-      align-items: center;
+      align-items: flex-end;
     }
 
     .segment {
@@ -186,6 +193,10 @@
       height: 1px;
       margin-top: 0;
       margin-left: -24px;
+
+      /* Raise by half the dot height (5px) minus half segment height (0.5px)
+         so the segment centre aligns with the dot centre */
+      margin-bottom: 4.5px;
     }
 
     .segment-bg,
