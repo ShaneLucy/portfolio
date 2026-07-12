@@ -53,6 +53,10 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-16);
     align-items: start;
+    background: var(--surface-glass);
+    backdrop-filter: blur(var(--surface-glass-blur));
+    border-radius: 1rem;
+    padding: var(--space-12);
   }
 
   @media (width <= 768px) {
@@ -94,7 +98,7 @@
     flex-direction: column;
     gap: var(--space-1);
     padding-bottom: var(--space-4);
-    border-bottom: 1px solid oklch(15% 0.015 270deg / 60%);
+    border-bottom: 1px solid color-mix(in oklch, var(--surface-raised) 60%, transparent);
   }
 
   .skill-group:last-child {

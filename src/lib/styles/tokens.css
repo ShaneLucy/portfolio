@@ -31,10 +31,19 @@
   --surface-raised: oklch(10% 0.015 270deg);
   --surface-overlay: oklch(14% 0.018 270deg);
 
-  /* ── Text (always on surface tokens, never on shader) ───── */
+  /* ── Text ───────────────────────────────────────────────── */
+
+  /* Sections sit over the animated shader with no opaque background.
+     Secondary and tertiary are kept near-white so they remain legible
+     against the shader's bright peaks (oklch 85–88%). Visual hierarchy
+     is achieved through size, weight, and spacing — not lightness alone. */
   --text-primary: oklch(95% 0.008 270deg);
-  --text-secondary: oklch(72% 0.01 270deg);
-  --text-tertiary: oklch(55% 0.01 270deg);
+  --text-secondary: oklch(92% 0.008 270deg);
+  --text-tertiary: oklch(82% 0.008 270deg);
+
+  /* ── Content Surface (glassmorphism backdrop for prose areas) */
+  --surface-glass: color-mix(in oklch, var(--surface-base) 65%, transparent);
+  --surface-glass-blur: 12px;
 
   /* ── Focus ──────────────────────────────────────────────── */
   --focus-ring: oklch(80% 0.18 195deg);

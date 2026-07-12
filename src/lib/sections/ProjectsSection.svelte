@@ -29,12 +29,25 @@
         <ProjectCard {project}>
           {#snippet links()}
             {#if project.id === "db-documenter"}
-              <a href="https://github.com/shanelucy/db-documenter" class="card-link type-label" target="_blank" rel="noopener noreferrer"
-                >GitHub ↗</a
+              <a
+                href="https://github.com/shanelucy/db-documenter"
+                class="card-link type-label"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="db-documenter on GitHub (opens in a new tab)"
               >
+                GitHub <span aria-hidden="true">↗</span>
+              </a>
             {:else if project.id === "blog"}
-              <a href="https://github.com/shanelucy/blog" class="card-link type-label" target="_blank" rel="noopener noreferrer">GitHub ↗</a
+              <a
+                href="https://github.com/shanelucy/blog"
+                class="card-link type-label"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Travel Blog on GitHub (opens in a new tab)"
               >
+                GitHub <span aria-hidden="true">↗</span>
+              </a>
             {/if}
           {/snippet}
         </ProjectCard>

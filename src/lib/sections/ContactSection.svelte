@@ -4,10 +4,20 @@
     <p class="contact-lead">Open to interesting problems. Let's talk.</p>
     <ul class="contact-links" role="list">
       <li>
-        <a href="mailto:shanelucy01@protonmail.com" class="contact-link type-label"> Email ↗ </a>
+        <a href="mailto:shanelucy01@protonmail.com" class="contact-link type-label">
+          Email <span aria-hidden="true">↗</span>
+        </a>
       </li>
       <li>
-        <a href="https://github.com/shanelucy" class="contact-link type-label" target="_blank" rel="noopener noreferrer"> GitHub ↗ </a>
+        <a
+          href="https://github.com/shanelucy"
+          class="contact-link type-label"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile (opens in a new tab)"
+        >
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
       </li>
     </ul>
   </div>
@@ -22,6 +32,10 @@
 
   .contact-inner {
     max-width: 48rem;
+    background: var(--surface-glass);
+    backdrop-filter: blur(var(--surface-glass-blur));
+    border-radius: 1rem;
+    padding: var(--space-12);
   }
 
   .section-heading {
@@ -49,7 +63,7 @@
     display: inline-block;
     color: var(--text-primary);
     text-decoration: none;
-    border-bottom: 1px solid oklch(30% 0.02 270deg);
+    border-bottom: 1px solid var(--surface-overlay);
     padding-bottom: var(--space-1);
     transition:
       border-color var(--transition-fast),

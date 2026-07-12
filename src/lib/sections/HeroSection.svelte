@@ -3,7 +3,10 @@
     <div class="hero-content">
       <h1 id="hero-heading" class="type-display hero-headline">Shane Lucy</h1>
       <p class="hero-subtext">Full-stack developer. Interfaces that earn a second look.</p>
-      <a href="#projects" class="hero-cta type-label" aria-label="View my projects"> See the work ↓ </a>
+      <a href="#projects" class="hero-cta type-label">
+        See the work
+        <span aria-hidden="true">↓</span>
+      </a>
     </div>
   </div>
 </section>
@@ -25,6 +28,10 @@
 
   .hero-content {
     max-width: 70rem;
+    background: var(--surface-glass);
+    backdrop-filter: blur(var(--surface-glass-blur));
+    border-radius: 1rem;
+    padding: var(--space-12);
   }
 
   .hero-headline {

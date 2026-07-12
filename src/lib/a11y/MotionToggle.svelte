@@ -11,6 +11,7 @@
   class="motion-toggle type-label"
   onclick={() => motionStore.toggle()}
   aria-label={motionStore.enabled ? "Pause animations" : "Enable animations"}
+  aria-pressed={motionStore.enabled}
 >
   {motionStore.enabled ? "Pause" : "Play"}
 </button>
@@ -22,7 +23,7 @@
     right: var(--space-6);
     background: var(--surface-raised);
     color: var(--text-secondary);
-    border: 1px solid oklch(20% 0.015 270deg);
+    border: 1px solid var(--surface-overlay);
     padding: var(--space-2) var(--space-4);
     border-radius: 2rem;
     cursor: pointer;
@@ -34,6 +35,6 @@
 
   .motion-toggle:hover {
     color: var(--text-primary);
-    border-color: oklch(35% 0.02 270deg);
+    border-color: var(--text-tertiary);
   }
 </style>

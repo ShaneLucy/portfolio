@@ -19,9 +19,9 @@
     left: 0;
     right: 0;
     z-index: 50;
-    background: oklch(6% 0.012 270deg / 85%);
+    background: color-mix(in oklch, var(--surface-base) 85%, transparent);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid oklch(15% 0.015 270deg / 60%);
+    border-bottom: 1px solid color-mix(in oklch, var(--surface-raised) 60%, transparent);
   }
 
   .nav-inner {

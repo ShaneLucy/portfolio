@@ -37,8 +37,14 @@
       {#if links}
         {@render links()}
       {/if}
-      <button class="card-expand type-label" onclick={toggle} aria-expanded={expanded} aria-controls={contentId}>
-        {expanded ? "Less ↑" : "More ↓"}
+      <button
+        class="card-expand type-label"
+        onclick={toggle}
+        aria-expanded={expanded}
+        aria-controls={contentId}
+        aria-label={expanded ? `Collapse ${project.title} details` : `Expand ${project.title} details`}
+      >
+        <span aria-hidden="true">{expanded ? "Less ↑" : "More ↓"}</span>
       </button>
     </div>
   </div>
@@ -47,13 +53,15 @@
     <div id={contentId} class="card-detail" transition:slide={{ duration: motionStore.enabled ? SLIDE_DURATION_MS : 0, easing: cubicOut }}>
       <p>{project.narrative}</p>
     </div>
+  {:else}
+    <div id={contentId} hidden></div>
   {/if}
 </article>
 
 <style>
   .project-card {
     background: var(--surface-raised);
-    border: 1px solid oklch(15% 0.015 270deg / 60%);
+    border: 1px solid color-mix(in oklch, var(--surface-raised) 60%, transparent);
     border-radius: 0.5rem;
     overflow: hidden;
     transition: border-color var(--transition-normal);
@@ -61,7 +69,7 @@
 
   .project-card:hover,
   .project-card.expanded {
-    border-color: oklch(30% 0.02 270deg);
+    border-color: var(--surface-overlay);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -102,11 +110,11 @@
   }
 
   .tech-badge {
-    background: oklch(14% 0.018 270deg);
+    background: var(--surface-overlay);
     color: var(--text-secondary);
     padding: var(--space-1) var(--space-3);
     border-radius: 2rem;
-    border: 1px solid oklch(20% 0.015 270deg);
+    border: 1px solid color-mix(in oklch, var(--surface-overlay) 80%, transparent);
   }
 
   .card-actions {
@@ -128,7 +136,7 @@
 
   .card-detail {
     padding: var(--space-6) var(--space-8) var(--space-8);
-    border-top: 1px solid oklch(15% 0.015 270deg / 60%);
+    border-top: 1px solid color-mix(in oklch, var(--surface-raised) 60%, transparent);
     color: var(--text-secondary);
     line-height: var(--leading-loose);
   }
