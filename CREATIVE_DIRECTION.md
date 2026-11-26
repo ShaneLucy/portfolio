@@ -28,7 +28,7 @@ The portfolio is a paper pop-up book, and each project is a place.
 
 ### The Experience
 
-The visitor lands on a closed book lying under a lamp: white card, a cut-paper title, one colour. Scrolling opens it. Each spread is a project, and each project is a small place that rises out of the fold as the page opens, then folds flat again as you move on. After the projects comes the colophon (About), then the back cover (Contact).
+The visitor lands on a closed book lying under a lamp: white card, a cut-paper title, one colour. Scrolling opens it. Each spread is a project, and each project is a small place that rises out of the fold as the page opens, then folds flat again as you move on. After the projects comes the colophon (About), then the last spread, inside the back cover (Contact).
 
 The book is the atmosphere and the metaphor. Everything you read is real HTML beside it.
 
@@ -41,12 +41,12 @@ The book is the atmosphere and the metaphor. Everything you read is real HTML be
 
 | Section       | In the book            | Place                                                                                                                                                                                                                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hero          | Cover                  | The name as cut-paper letterforms rising off the cover. The real `h1` stays in the HTML.                                                                                                                                                                                |
+| Hero          | Cover                  | The name in cut-paper letters, raised on thin spacers. They don't move; the lamp does the work as it swings. A closed book has no fold on its outside, so nothing on the cover can pop up. The real `h1` stays in the HTML.                                             |
 | db-documenter | Spread                 | A map room: a cartographer's table where a paper map rises into a small town, with database tables as buildings and relationships as roads. The library literally draws maps of databases.                                                                              |
 | Travel Blog   | Spread                 | A tunnel-book horizon. Each trip is one layer of a deep stacked scene, seen through the open page: harbour walls up front, then rooftops and towers, with Norway's mountains at the back. Mostly skyline and landscape bands, so it doesn't repeat the map room's town. |
 | solar-system  | Spread (if it's ready) | A paper orrery: nested rings that swing up as the page opens                                                                                                                                                                                                            |
 | About         | Colophon               | The maker's workbench: cutting mat, scalpel, steel ruler, offcuts                                                                                                                                                                                                       |
-| Contact       | Back cover             | An envelope that pops open into a letter                                                                                                                                                                                                                                |
+| Contact       | Last spread            | An envelope that pops open into a letter. It sits inside the back cover, not on it, because it needs a fold to drive it.                                                                                                                                                |
 
 - **solar-system is conditional.** It's in only if it's ready in time. Its spread gets built last, and the book has to work with either two or three project spreads.
 - **Pretty Good Playground is out**, by choice.
@@ -126,5 +126,5 @@ Decided on 2026-11-26: the place for each spread, the scroll model, the text lay
 - [ ] Accent colour for each spread
 - [ ] Typography: keep Fraunces and Inter, or revise for the book
 - [ ] Which silhouette each trip contributes to the travel spread's layers, and in what order
-- [ ] Technical plan (raw Three.js vs Threlte, geometry pipeline, shadow technique, deployment), for the tech-lead planning step. The deploy workflow currently targets the blog's Cloudflare Pages project.
+- [ ] Technical decisions: see `TECHNICAL_PLAN.md` (open decisions D2–D7 and D9–D12, settled after the V-fold spike)
 - [ ] Connect the Blender MCP add-on to Claude Code
