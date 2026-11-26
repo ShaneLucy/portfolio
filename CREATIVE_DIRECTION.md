@@ -41,7 +41,7 @@ The book is the atmosphere and the metaphor. Everything you read is real HTML be
 
 | Section       | In the book            | Place                                                                                                                                                                                                                                                                   |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hero          | Cover                  | The name in cut-paper letters, raised on thin spacers. They don't move; the lamp does the work as it swings. A closed book has no fold on its outside, so nothing on the cover can pop up. The real `h1` stays in the HTML.                                             |
+| Hero          | Cover                  | The name in cut-paper letters, raised on thin spacers. They don't move; the cover's light rakes across them, so the letters read through their shadows. A closed book has no fold on its outside, so nothing on the cover can pop up. The real `h1` stays in the HTML.  |
 | db-documenter | Spread                 | A map room: a cartographer's table where a paper map rises into a small town, with database tables as buildings and relationships as roads. The library literally draws maps of databases.                                                                              |
 | Travel Blog   | Spread                 | A tunnel-book horizon. Each trip is one layer of a deep stacked scene, seen through the open page: harbour walls up front, then rooftops and towers, with Norway's mountains at the back. Mostly skyline and landscape bands, so it doesn't repeat the map room's town. |
 | solar-system  | Spread (if it's ready) | A paper orrery: nested rings that swing up as the page opens                                                                                                                                                                                                            |
@@ -58,12 +58,15 @@ The book is the atmosphere and the metaphor. Everything you read is real HTML be
 - **White card**, cut and folded in the spirit of origamic architecture. Light and shadow do the work.
 - **One accent stock per spread.** The accent carries the colour change from section to section, replacing Liquid Light's cool/warm palette.
 - **Real paper qualities:** visible fibre, slightly soft edges, visible card thickness at the cuts, a hint of light coming through thin card.
-- **Lighting is the whole look.** One warm key light with soft real-time shadows. Nothing is baked: pieces move as they fold, so baked shadows would be wrong mid-fold.
+- **Lighting is the whole look.** One warm key light, placed by hand for each spread, with soft real-time shadows. Nothing is baked: pieces move as they fold, so baked shadows would be wrong mid-fold.
 - **No illustration.** Every shape has to read from its silhouette alone. That's the design discipline this direction demands, and it's what keeps it editorial rather than a children's book.
 
-### The One Interaction
+### Light and Interaction
 
-The pointer moves the lamp. Shadows swing across the spread as if you're tilting the book under a light. It's contained and tactile, and it shows off the one thing this look depends on. On touch screens the lamp drifts slowly by itself. With reduced motion or the motion toggle off, the lamp stays still. This replaces Liquid Light's pointer trace.
+- **The light is fixed, on every device.** Each spread has its own hand-placed lamp position. For example: low raking light across the map room, or light from behind through the travel layers.
+- **It moves only with the page.** As a page turns, the light eases from one spread's position to the next, driven by scroll. Nothing on the stage moves by itself.
+- **Scroll is the only interaction.** The page turns are the interaction; there's nothing for the pointer to do, and nothing that's mouse-only. This replaces Liquid Light's pointer trace.
+- **Changed on 2026-11-26.** The earlier plan had the pointer moving the lamp on desktop and a self-drifting lamp on phones. Both were dropped the same day.
 
 ---
 
@@ -121,7 +124,7 @@ The same principles as before, all still in force:
 
 ## Open Questions
 
-Decided on 2026-11-26: the place for each spread, the scroll model, the text layout, the pointer interaction, and launching all at once.
+Decided on 2026-11-26: the place for each spread, the scroll model, the text layout, light and interaction (fixed light placed per spread, scroll only), and launching all at once.
 
 - [ ] Accent colour for each spread
 - [ ] Typography: keep Fraunces and Inter, or revise for the book

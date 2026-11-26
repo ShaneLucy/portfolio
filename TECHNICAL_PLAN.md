@@ -6,13 +6,9 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 ## Status
 
-**Decided (2026-11-26):**
-
-- **D1:** three.js directly, pinned to exactly `0.187.0`.
-- **D8:** the cover is raised relief.
-- **Spike:** it's built on `main` in the working tree. It's never committed, and it's discarded afterwards.
-
-**Open:** D2–D7 and D9–D12. They get settled at the spike gate; D3 and D10 depend on what the spike measures. They're listed under [Open Decisions](#open-decisions).
+- **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
+- **Every decision, D1–D13, is settled.** They're listed under [Decisions](#decisions).
+- **Phase 2 is next.**
 
 ---
 
@@ -120,7 +116,7 @@ Each wing's frame is then (u, c, u × c).
   - nothing ever sticks out past the page edges;
   - non-adjacent pieces never intersect (triangle tests with bounding-box culling).
 - **Card thickness.** Valley folds hinge on the inner surface and mountain folds on the outer one. Glue tabs are offset by the card thickness.
-- **Pure and unit-tested:** all of the above, plus the leaf-to-open mapping, scroll map, springs, lamp mapping and drift, quality governor and the stage state machine.
+- **Pure and unit-tested:** all of the above, plus the leaf-to-open mapping, scroll map, springs, lamp-pose interpolation, quality governor and the stage state machine.
 
 ## 4. Geometry Pipeline
 
@@ -152,16 +148,17 @@ Each wing's frame is then (u, c, u × c).
   - The shadow camera is fitted tightly to the book for every lamp position. The book never moves, so texel density stays high.
   - Shadow map 2048² on desktop, 1024² on mobile.
 - **Fill.** A `HemisphereLight` with a warm "bounced paper" ground colour. White on white looks dead without bounce light.
-- **Tone mapping.** `NeutralToneMapping`, which keeps white white and the accents true. A/B it against AgX in the spike.
-- **Soft shadows** are D3.
+- **Tone mapping.** `NeutralToneMapping`, which keeps white white and the accents true. A/B it against AgX in Phase 3.
+- **Soft shadows (D3):** PCSS on every device to start with, and the quality governor steps down to PCF when a device misses budget.
   - If creases look like they float, add an analytic crease AO. Every hinge and its angle are known, so darken by distance to the crease times how closed the fold is.
   - That's nearly free, whereas SSAO or GTAO would be desktop-only.
 - **Desk.** A shadow-catcher plane whose alpha fades radially, over the CSS desk colour, so the edge of the stage is invisible.
-- **Pointer lamp.**
-  - `pointermove` (passive, mouse and pen only) at document level.
-  - The pointer maps to azimuth and elevation inside a bounded cap, which avoids grazing angles, shadow acne and peter-panning. It's smoothed with a spring.
-  - On touch, the lamp drifts on a slow Lissajous path inside a smaller cap, as a pure function of time.
-  - When the pointer leaves, the lamp eases back to its canonical pose, which is also the pose used for the stills.
+- **Lamp poses, one per spread (D13).**
+  - Each spread's definition includes a lamp pose: azimuth, elevation and distance, kept inside a safe range that avoids grazing angles, shadow acne and peter-panning.
+  - During a page turn, the lamp interpolates from the outgoing spread's pose to the incoming one's, driven by the same eased turn progress as the leaf.
+  - The shadow camera is refitted for each pose.
+  - Each spread's still uses that spread's pose.
+  - There's no pointer input and no automatic drift.
 - **Mobile tier.** 1024² shadow map, PCF, no shadow lookup for translucency, coarser curve flattening.
 
 ## 6. Performance and Loading
@@ -170,22 +167,23 @@ Each wing's frame is then (u, c, u × c).
   - First paint is the prerendered HTML plus the cover still: `<enhanced:img>` with an AVIF/WebP srcset, width and height, `fetchpriority="high"`, preloaded, never lazy.
   - Then, in idle time: import the chunk, build, `compileAsync`, render hidden, and swap once that frame has been presented.
   - The stage is a fixed aspect-ratio box, and the camera, lamp and framing match the still exactly, so the swap is invisible. One aspect ratio at every size means one set of stills.
-- **Budget** is D10. Measure the spike's chunk with rollup-plugin-visualizer, then enforce the result in CI.
+- **Budget (D10):** initial JS ≤ 150 kB gzip, the deferred 3D chunk ≤ 200 kB gzip, textures ≤ 250 kB, all enforced in CI. The spike's chunk (three.js plus a whole scene) measured 152 kB.
 - **DPR and quality.**
   - DPR is capped at 1.5 with MSAA on. The shader-era 0.5× on mobile would wreck thin card edges.
-  - A pure quality governor with hysteresis steps DPR down from 1.5 to 1.0, then drops the shadow tier, when p95 frame time stays over budget. The budgets are 16.7 ms on desktop and 33 ms on mobile.
+  - A pure quality governor with hysteresis steps down when p95 frame time stays over budget. The budgets are 16.7 ms on desktop and 33 ms on mobile.
+  - The steps run from PCSS to PCF (2048²), then DPR 1.5 to 1.0, then PCF at 1024².
+  - Every device starts on PCSS (D3), so the first evaluation window has to be short. A weaker phone (the Galaxy S9 measured 35 ms on PCSS) should step down within a second or two, not stutter for longer.
   - Below the lowest tier, the stage goes to `failed` and shows stills.
 - **Render only when something changed.**
-  - A frame is needed when the scroll target differs from what's rendered, a spring is still settling, the lamp is moving, or after a resize or asset load. Otherwise call `setAnimationLoop(null)`.
+  - A frame is needed when the scroll target differs from what's rendered, a spring is still settling, or after a resize or asset load. The light only moves during page turns, so a settled spread renders nothing. Otherwise call `setAnimationLoop(null)`.
   - `shadowMap.autoUpdate = false`, re-rendering shadows only when something changed.
   - Stop when the tab is hidden or the stage is off-screen.
-  - On touch, drift-only frames are capped at 30 fps.
 - **INP.** The scroll handler only stores `scrollY`, there are no per-frame layout reads, and geometry builds are chunked.
 - **CLS.** The stage box is reserved up front, and the still and the canvas share it.
 
 ## 7. Accessibility
 
-- **Still mode.** How the stills are produced is D6.
+- **Still mode.** The stills come from the local capture script (D6, Phase 4).
   - Triggered by reduced motion, the toggle being off, no WebGL 2, a lost context, or the quality governor hitting its floor.
   - It shows the active spread's still, fully open, and swaps instantly when `activeSection` changes.
   - If motion is off from load, three is never imported.
@@ -193,7 +191,7 @@ Each wing's frame is then (u, c, u × c).
   - Turning motion off stops the loop and shows the still. The context is kept, paused, so turning it back on is instant.
   - Turning motion on imports the chunk if needed and swaps after the first frame.
 - **Decorative contract.** The stage wrapper has `aria-hidden="true"` and stills have `alt=""`. All content is in the HTML column, on a surface token.
-- **WCAG 2.2.2.** The touch drift is automatic motion lasting more than 5 seconds. The motion toggle covers it, so the toggle has to stay reachable on phones.
+- **WCAG 2.2.2.** There's no automatic motion. The pages and light move only with scroll, so nothing on the stage moves by itself.
 - **WCAG 2.3.1.** A fast riffle sweeps large shadows across the stage. The spring's maximum angular speed caps it at two turns per second or fewer.
 - **WCAG 1.4.10.** At 400% zoom the viewport is about 320 × 256 CSS px, and a sticky stage would eat it. Unstick below a named minimum viewport height (D5).
 - **Smooth scroll** is off under reduced motion.
@@ -208,27 +206,32 @@ Each wing's frame is then (u, c, u × c).
   - Every spread passes its validation suite.
   - Leaf-to-open mapping.
   - Scroll map: monotonic, windows don't overlap, and each turn's midpoint lands on a section boundary.
-  - Springs, lamp bounds, quality governor, path parser.
+  - Springs, lamp poses within their safe range, lamp-pose interpolation, quality governor, path parser.
   - The accent colours in CSS and TS match.
 - **jsdom tests:**
   - `BookController` lifecycle, using three mocks in the style of solar-system's `SceneController.test.ts`. Dispose must stop the loop, remove listeners, and dispose geometry, materials and textures; solar-system's `REVIEW.md` items M3 and M4 are exactly these leaks.
   - `BookStage` never imports the scene in still mode (mock the dynamic import), swaps after the first frame, and falls back to stills when the context is lost.
 - **Benchmarks.** Port `bench`, `bench:ci` and `check-bench.ts` from solar-system. Bench the per-frame solve for two spreads and a full spread build.
 - **Manual and visual.**
-  - A dev-only capture mode, `?spread=&open=&lamp=`.
-  - A checklist per spread at open 0, 0.25, 0.5, 0.75 and 1, plus the lamp at its extremes.
+  - A dev-only capture mode, `?spread=&open=`.
+  - A checklist per spread at open 0, 0.25, 0.5, 0.75 and 1, plus mid-turn, where the light sits between two spreads' poses.
   - Real-device performance passes.
-  - No pixel-diff tests of WebGL; they're flaky across GPUs. Browser tests in CI are D12.
+  - No pixel-diff tests of WebGL; they're flaky across GPUs.
+  - No browser tests in CI (D12). axe, still mode end to end, and the no-WebGL fallback are checked by hand, using this checklist and the one in §7.
 
 ## 9. Deployment
 
 - **Build.** `adapter-static`, `prerender = true`, SSR on, `strict: true`.
+- **Target (D11): Workers static assets.**
+  - A `wrangler.jsonc` points its assets directory at the build output, and deploys use `wrangler deploy` rather than `pages deploy`.
+  - Before launch, builds go to private preview URLs behind Cloudflare Access, so only Shane can open them.
+  - The exact config for both is checked against Cloudflare's current docs in Phase 2.
 - **Workflow.**
-  - Fix the project name (D11 decides the target).
+  - Replace the `pages deploy --project-name=blog` step with a Workers deploy.
   - Restore `on: workflow_run`.
   - Check out `ref: ${{ github.event.workflow_run.head_sha }}`. As written, it would deploy whatever is on main at deploy time, not the commit that passed Check.
   - Pin `bun-version` instead of `latest`.
-- **Caching.** Add `static/_headers` with immutable caching for `/_app/immutable/*`. Stills go through Vite, so they get hashed names too.
+- **Caching.** Add a `_headers` file with immutable caching for `/_app/immutable/*`, after confirming that Workers static assets honours it. Stills go through Vite, so they get hashed names too.
 - **Cleanup.**
   - Delete the `process-images` script entry from `package.json`: `scripts/process-images.ts` doesn't exist.
   - Move `@vitest/browser` out of `dependencies`. Nothing imports it or `vitest-browser-svelte`.
@@ -249,117 +252,58 @@ Teardown doesn't depend on the spike's result, since Liquid Light is out either 
 
 ---
 
-## Decided
+## Decisions
 
-| ID  | Decision                                                                                                                                                                                                                                                                             |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| D1  | **three.js directly, `0.187.0` pinned.** Reuses solar-system's factory, controller, sizer, mocks and disposal lessons. The hard parts are pure maths feeding a flat, matrix-driven scene graph, which a declarative library wouldn't help with. (Rejected: Threlte, WebGPURenderer.) |
-| D8  | **Raised-relief cover.** Cut letters on thin spacers, not moving; the lamp does the work. The first 3D frame matches the LCP still exactly. Contact's envelope goes on the last inside spread, because a closed book's outside has no fold to drive a pop-up.                        |
+All settled on 2026-11-26.
 
-## Open Decisions
-
-These get settled at the spike gate. The tech lead's recommendation is listed first in each.
-
-- **D2. SvelteKit 3**
-  - Migrate in Phase 2, before new code: `sv migrate sveltekit-3`, config into `vite.config.ts`, `$lib` to `#lib` with extensions, tsconfig extends `$app/tsconfig`, Svelte ≥ 5.57.1, Vite ≥ 8.0.12, then `adapter-static@4`. The codebase is at its smallest now.
-  - Or stay on 2.70.x with `adapter-static@3` and migrate after launch, on a bigger codebase.
-  - Or migrate just before launch. Avoid that: it touches every file after testing is done.
-- **D3. Soft shadows**
-  - PCSS through a patched shadow chunk on desktop, PCF on mobile, confirmed side by side in the spike. It's contact-hardening, like real paper under a lamp. The cost is about 34 taps per fragment, patching internal chunks, and linearising the spot light's depth.
-  - Or `PCFShadowMap` everywhere: cheapest, but the uniform blur makes contact edges float.
-  - `VSMShadowMap` is likely broken for the tunnel spread, because light bleeds where occluders overlap in depth.
-- **D4. Stage footprint on desktop**
-  - A bounded sticky stage: a fixed aspect-ratio box in its own column, with a transparent canvas over the CSS desk colour. Fewer pixels, an exact still swap and clean stacking on phones.
-  - Or a full-viewport canvas behind everything. More atmospheric, but about twice the pixels, and the framing changes with aspect ratio.
-- **D5. Phone layout**
-  - A sticky book band at the top, with text scrolling under it. It unsticks below a named minimum viewport height, showing only the cover still.
-  - Or the canvas moves into each section's slot, with no page turns on phones.
-  - Or stills only on phones, kept as the quality governor's fallback.
-- **D6. How stills are produced**
-  - A local `bun run stills`: Playwright drives `vite dev` in capture mode on your GPU, plus a hash of the inputs that CI checks. The stills are pixel-identical to the live first frame.
-  - Or the same capture in CI. Chrome's software WebGL is now opt-in and slow.
-  - Blender renders won't match the live render, so they're broken for the cover swap.
-  - Rendering one live frame is broken for no-WebGL users.
-- **D7. Shape authoring**
-  - `d` strings in each `definition.ts`, with a small parser. The fewest moving parts.
-  - Or draw in a vector tool and convert with `bun run shapes`.
-  - Shipping SVG files parsed at runtime: avoid.
-- **D9. Sections and nav**
-  - One DOM section per spread, generated from the registry, with the rail showing every spread.
-  - Or keep a "Projects" wrapper section and a four-dot rail.
-- **D10. JS budget**
-  - Split it: initial JS ≤ 150 kB gzip, the deferred 3D chunk ≤ 200 kB gzip, textures ≤ 250 kB, enforced in CI. Final numbers come after the spike measures.
-  - Keeping one 150 kB budget is probably unachievable with three on the route.
-- **D11. Cloudflare target**
-  - A new Pages project with `--project-name=portfolio`, same setup as the blog and solar-system.
-  - Or Workers static assets, which Cloudflare now recommends for new projects.
-  - Side question: Access-protected previews before launch?
-- **D12. Browser tests in CI**
-  - A small Chromium-only Playwright suite: axe in both modes, still mode end to end, and the fallback with WebGL disabled.
-  - Or Vitest plus a manual checklist only.
+- **D1. Rendering:** three.js directly, pinned to `0.187.0`. It reuses solar-system's factory, controller, sizer, mocks and disposal lessons. (Rejected: Threlte, WebGPURenderer.)
+- **D2. SvelteKit 3:** migrate in Phase 2, before new code. Run `sv migrate sveltekit-3`: config moves into `vite.config.ts`, `$lib` becomes `#lib` with file extensions, tsconfig extends `$app/tsconfig`, Svelte ≥ 5.57.1, Vite ≥ 8.0.12. Then use `adapter-static@4`.
+- **D3. Shadows:** PCSS on every device to start with. The quality governor steps a device down to PCF when it misses its frame budget. That gives the best look on capable phones (the iPhone 14 Pro held 18 ms). The cost is that weaker phones stutter briefly before stepping down, so keep the governor's first window short (§6).
+- **D4. Desktop stage:** a bounded sticky stage. A fixed aspect-ratio box in its own column, with a transparent canvas over the CSS desk colour.
+- **D5. Phones:** a sticky book band at the top, with text scrolling under it and pages turning as on desktop. Below a named minimum viewport height (landscape phones, 400% zoom), it unsticks and shows only a still.
+- **D6. Stills:** a local `bun run stills` that captures every spread through the real renderer on Shane's GPU. It writes a hash of the inputs, and CI fails if the stills are stale. See the Playwright lesson in Phase 1.
+- **D7. Shapes:** SVG `d` strings in each spread's `definition.ts`, read by a small parser, as in the spike.
+- **D8. Cover:** raised relief. Cut letters on thin spacers, not moving, with the cover's light doing the work. Contact's envelope goes on the last inside spread, because a closed book's outside has no fold to drive a pop-up.
+- **D9. Sections:** one DOM section per spread, generated from the registry. The rail shows every spread, and the top nav's Projects link points at the first project spread.
+- **D10. JS budget:** initial JS ≤ 150 kB gzip, the deferred 3D chunk ≤ 200 kB gzip, textures ≤ 250 kB, all enforced in CI. The spike's chunk measured 152 kB.
+- **D11. Cloudflare:** Workers static assets, not Pages. Builds deploy to private preview URLs behind Cloudflare Access before launch.
+- **D12. Browser tests:** none in CI. Vitest plus the manual checklists (§7, §8). axe is run by hand.
+- **D13. Light:** fixed on every device and placed per spread, easing between poses as pages turn. Scroll is the only interaction, with no pointer lamp and no drift on phones. This replaced the pointer-driven lamp the same day.
 
 ---
 
 ## Phased Build Plan
 
-### Phase 1: V-fold Spike (throwaway) [M]
+### Phase 1: V-fold Spike (done 2026-11-26)
 
-**Where.** On `main`, in the working tree, never committed. Start from a clean tree, so commit the docs first.
+It was built on `main`, never committed, and discarded after the gate.
 
-- Keep the spike in its own folders: `src/routes/spike/`, `src/lib/spike/`, `test/lib/spike/`, and `static/spike/` for the printable template.
-- The one tracked file it touches is a temporary guard in `src/routes/+layout.svelte`, which skips the old site shell on `/spike`. Without it the Liquid Light shader keeps rendering behind the spike and skews the frame timings.
-- Discarding it means deleting those folders and restoring `src/routes/+layout.svelte`, `package.json` and `bun.lock` (plus any other tracked file the build report lists).
-- Don't stage or commit any of it.
-- No time-box (Shane's call, 2026-11-26).
+**Results:**
 
-**What to build.**
+- **Mechanics (criterion 1):** passed in tests. The V-fold stayed rigid to within 1e-6 rad at every 1° step, nothing intersected, and everything folded flat when closed.
+- **Size (criterion 7):** three.js plus a whole scene came to 152 kB gzip in one lazily loaded chunk.
+- **Performance (criterion 6):** at desktop quality (PCSS, 2048² shadow map), an iPhone 14 Pro hit p95 18 ms and a Galaxy S9 hit p95 35 ms. That's 2 ms over the phone budget before any step-down. No desktop figure was recorded.
+- **Photo match and blind check (criteria 2 and 3):** skipped, by Shane's choice. He reviewed the spike and judged it will read as paper with refinement.
+- **Lamp artefacts and scroll feel (criteria 4 and 5):** not formally checked.
 
-- A three.js route with two rigid leaves that have thickness, lying on a desk.
-- On one spread, a tiny real motif:
-  - a mountain as the V-fold, with its apex on the gutter;
-  - a gabled house front as the parallel fold (a general four-bar standing flat).
-- A 1:1 printable SVG template of both pieces (outlines, crease lines, glue tabs, in mm) at `static/spike/template.svg`, generated from the same shape data, so the real card fold matches the render.
-- The camera's position and angle, written down in the spike, so the reference photo can be taken from the same viewpoint.
-- Page scroll scrubs the leaf from θ = 0 to π.
-- A spot-light lamp that follows the pointer.
-- The paper material with fibre, cut-edge material and the translucency term.
-- A PCF/PCSS toggle in the query string, the DPR cap, MSAA and a frame-time overlay.
+**Lessons for Phase 3:**
 
-**Needed from Shane:**
-
-- Print `static/spike/template.svg` at 100%, then cut, fold and glue the two pieces into a two-page card spread. Photograph it under a desk lamp from the viewpoint the spike gives.
-- Find three people for the blind check.
-- Find a mid-range Android phone to test on.
-
-**"Convincing" means all of these:**
-
-1. **Mechanics (tested):** V-fold wing angle drift under 1e-6 rad across φ from 0 to π in 1° steps. No piece-to-piece or piece-to-page intersection at any step, and both pieces fold completely flat inside the page at φ = 0.
-2. **Matches the photo:** at the same lamp angle, the render has the same shadow structure. Contact at glue lines and creases is crisp, the penumbra widens with distance, and faces separate by light alone, with no outlines.
-3. **Blind check:** show a 10-second capture to three people (one a designer if possible) with no context. At least two describe it as paper or card, not "3D model" or "plastic".
-4. **Lamp:** it swings across its full range with no acne, peter-panning or shimmer.
-5. **Scroll:** scrubbing feels attached to the scroll, with no long tasks over 50 ms while scrolling.
-6. **Performance:** desktop p95 ≤ 16.7 ms at DPR 1.5 with the chosen shadows, and the reference Android at p95 ≤ 33 ms on the mobile tier.
-7. **Measured:** the gzip size of the spike's 3D chunk, which feeds D10.
-
-**Rethink the direction if any of these happen:**
-
-- Only PCSS reads as paper, and the phone can't hold 33 ms even at DPR 1 with 1024² PCF. The choices then are live 3D on desktop with stills on phones, or a deliberately less photoreal look. Baking is ruled out because pieces move.
-- The rigid leaf turn reads as "a 3D model of a book". Fixing that means bending pages, which is a much bigger build.
-- The chunk is over about 250 kB gzip with no obvious cut. Revisit D10.
-
-**Gate:** review the results, settle D3, D10 and the other open decisions, then discard the spike.
+- **PCSS patch:** three r187's own PCSS example patches the shadow chunk with a string replace that no longer matches r187's chunk (a blank line differs), so it silently does nothing. Patch against a unique statement instead, and test the patch against the installed shader text so a three.js upgrade fails loudly.
+- **Upright faces:** the house four-bar leaned back like one side of a tent at full open, so from the camera it read as a slab, not a house front. A face that should stand upright at 180° needs a mechanism designed for that.
+- **Spine gap:** hinging the pages 1 mm above their faces (a 2 mm gap when closed) let thick card fold flat. It leaves about 1.4 mm of slop at the crease mid-fold.
+- **Playwright under bun:** `chromium.launch()` hangs under bun on Shane's machine. The spike captured screenshots by running `chrome-headless-shell` directly, and the stills script (D6) will need the same workaround.
 
 ### Phase 2: Foundation and Still-Mode Book [L]
 
 - **Work:**
   - SvelteKit 3 (D2) and adapter-static.
-  - Deploy fix and previews (D11).
+  - The Workers deploy and private previews (D11).
   - Teardown (§10).
   - Registry, `sectionStore` and per-spread sections (D9).
   - Sticky stage layout with placeholder stills (D4, D5).
   - The inline `data-motion` script and the self-initialising motion store.
-  - The stage state machine, the CI size check and Playwright (D12).
-- **Exit:** the whole site works end to end in still mode at 320 px, 200% and 400% zoom, and axe is clean. The reduced-motion version gets built first; live mode only ever adds to it.
+  - The stage state machine and the CI size check (D10).
+- **Exit:** the whole site works end to end in still mode at 320 px, 200% and 400% zoom, and axe (run by hand) is clean. The reduced-motion version gets built first; live mode only ever adds to it.
 
 ### Phase 3: Engine [XL]
 
@@ -368,7 +312,7 @@ These get settled at the spike gate. The tech lead's recommendation is listed fi
   - Path parser and extrusion.
   - Factory, controller and sizer ported from solar-system.
   - Leaves, scroll map and springs.
-  - Paper material, lamp, the chosen shadows and the quality governor.
+  - Paper material, per-spread lamp poses, the chosen shadows and the quality governor.
   - Render on demand, the still-to-live swap and capture mode.
 - **Exit:** a blank-paged book with the right number of leaves turns under scroll, the cover swap is invisible, and budgets are met on desktop and on the reference phone.
 
@@ -381,7 +325,7 @@ These get settled at the spike gate. The tech lead's recommendation is listed fi
 
 - **Order:** cover, then the db-documenter map room, the travel tunnel, the About workbench, and the Contact envelope (last inside spread).
 - **Each spread goes through:**
-  - Silhouettes and accent, with a design review against the creative direction.
+  - Silhouettes, accent and lamp pose, with a design review against the creative direction.
   - Its mechanism definition, with the validation suite green.
   - Stills regenerated.
   - A performance check on the reference phone and an a11y spot check.
