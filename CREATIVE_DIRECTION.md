@@ -30,21 +30,27 @@ The portfolio is a paper pop-up book, and each project is a place.
 
 The visitor lands on a closed book lying under a lamp: white card, a cut-paper title, one colour. Scrolling opens it. Each spread is a project, and each project is a small place that rises out of the fold as the page opens, then folds flat again as you move on. After the projects comes the colophon (About), then the back cover (Contact).
 
-The book is the atmosphere and the metaphor. Everything you read is real HTML beside or over it.
+The book is the atmosphere and the metaphor. Everything you read is real HTML beside it.
+
+### Moving Through the Book
+
+- **The pages turn and the camera stays still.** The book sits in a fixed three-quarter view. Scrolling turns each page, so one pop-up folds flat as the next one rises. The camera never travels, which keeps the motion on-axis and easy on people with motion sensitivity.
+- **Text sits beside the book.** On desktop it's a text column next to a sticky book. On phones the book stacks above the text. That leaves the whole spread for the pop-up, and the text reflows at 400% zoom without fighting the 3D.
 
 ### Structure
 
-| Section       | In the book            | Place (proposal, still open)                                                                                                               |
-| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Hero          | Cover                  | The name as cut-paper letterforms rising off the cover                                                                                     |
-| db-documenter | Spread                 | A map room. The schema unfolds as a paper map: tables as buildings, relationships as roads. The library literally draws maps of databases. |
-| Travel Blog   | Spread                 | A road winding through a coastal town, ideally a real place from the blog                                                                  |
-| solar-system  | Spread (if it's ready) | A paper orrery: nested rings that swing up as the page opens                                                                               |
-| About         | Colophon               | The maker's workbench: cutting mat, scalpel, steel ruler, offcuts                                                                          |
-| Contact       | Back cover             | An envelope that pops open into a letter                                                                                                   |
+| Section       | In the book            | Place                                                                                                                                                                                                                                                                   |
+| ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hero          | Cover                  | The name as cut-paper letterforms rising off the cover. The real `h1` stays in the HTML.                                                                                                                                                                                |
+| db-documenter | Spread                 | A map room: a cartographer's table where a paper map rises into a small town, with database tables as buildings and relationships as roads. The library literally draws maps of databases.                                                                              |
+| Travel Blog   | Spread                 | A tunnel-book horizon. Each trip is one layer of a deep stacked scene, seen through the open page: harbour walls up front, then rooftops and towers, with Norway's mountains at the back. Mostly skyline and landscape bands, so it doesn't repeat the map room's town. |
+| solar-system  | Spread (if it's ready) | A paper orrery: nested rings that swing up as the page opens                                                                                                                                                                                                            |
+| About         | Colophon               | The maker's workbench: cutting mat, scalpel, steel ruler, offcuts                                                                                                                                                                                                       |
+| Contact       | Back cover             | An envelope that pops open into a letter                                                                                                                                                                                                                                |
 
 - **solar-system is conditional.** It's in only if it's ready in time. Its spread gets built last, and the book has to work with either two or three project spreads.
 - **Pretty Good Playground is out**, by choice.
+- **The travel spread grows with the blog.** The trips so far are Norway, Barcelona, Tossa de Mar, Munich and Rethymno. A new trip adds a layer instead of a new scene. It'll get muddy past about six layers, so when that happens, layers get merged or retired.
 - **Adding work later is costly.** Every new project means a new spread to design and build, not just a new card. That's the ongoing price of project-as-place.
 
 ### The Look
@@ -57,7 +63,7 @@ The book is the atmosphere and the metaphor. Everything you read is real HTML be
 
 ### The One Interaction
 
-_Proposal, still open:_ the pointer moves the lamp. Shadows swing across the spread as if you're tilting the book under a light. It's bounded and tactile, and it shows off the one thing this look depends on. It replaces Liquid Light's pointer trace.
+The pointer moves the lamp. Shadows swing across the spread as if you're tilting the book under a light. It's contained and tactile, and it shows off the one thing this look depends on. On touch screens the lamp drifts slowly by itself. With reduced motion or the motion toggle off, the lamp stays still. This replaces Liquid Light's pointer trace.
 
 ---
 
@@ -67,7 +73,7 @@ This is an outline. The full plan comes out of the tech-lead planning step.
 
 - **Rendering:** Three.js, as in `solar-system`. A `<canvas aria-hidden="true">` behind the DOM that's never needed for content, the same contract as today.
 - **Geometry, mostly in code:** cut shapes are defined as 2D paths (SVG), extruded to card thickness and parented on hinges. Each spread is driven by a single `open` value from 0 to 1, scrubbed by scroll.
-- **Pop-up mechanics:** parallel folds (box-like pieces) are simple kinematics. V-folds need their angles solved from the page angle. This is the hardest part to make convincing, so it gets prototyped first.
+- **Pop-up mechanics:** parallel folds (box-like pieces, and the travel spread's layers) are simple kinematics. V-folds need their angles solved from the page angle. This is the hardest part to make convincing, so it gets prototyped first.
 - **Blender, via the Blender Lab MCP add-on:** for blocking out spreads from reference images and for the odd non-flat hero piece. The add-on is installed in Blender 5.2 but isn't connected to Claude Code yet.
 - **Shadows:** soft real-time shadow maps, at lower resolution on mobile.
 - **Loading:** first paint shows a pre-rendered still of the cover, and Three.js and the scene load after it. Rendering pauses when the canvas is off-screen or the tab is hidden. Device pixel ratio is capped.
@@ -100,7 +106,7 @@ The same principles as before, all still in force:
 - **Pop-up mechanics can look fake.** Pieces that clip or move wrongly break the illusion straight away. Prototype one V-fold early.
 - **White on white can go flat.** With weak lighting the whole thing looks like an untextured model, so lighting gets tuned before anything else.
 - **Twee.** Paper and pop-ups can tip into children's-book territory. Restraint in the accents and the typography keeps it editorial.
-- **Stalling.** There's no deadline, and the last attempt sat untouched from July to November. Each spread can ship on its own. _Proposal:_ ship the cover and the first spread before building the rest.
+- **Stalling.** There's no deadline, the book launches all at once (decided), and the last attempt sat untouched from July to November. Nothing goes live until the whole book is done, so keep the build moving spread by spread.
 - **The solar-system dependency.** Its spread is built last, and the book is designed to stand without it.
 
 ---
@@ -115,12 +121,10 @@ The same principles as before, all still in force:
 
 ## Open Questions
 
-- [ ] Place for each spread (proposals in the Structure table)
+Decided on 2026-11-26: the place for each spread, the scroll model, the text layout, the pointer interaction, and launching all at once.
+
 - [ ] Accent colour for each spread
-- [ ] Where the text sits: on the facing page of each spread, or in a column beside the book
-- [ ] How scroll moves through the book: pages turn under a fixed camera, or the camera travels
-- [ ] Pointer interaction: the lamp proposal, or something else
 - [ ] Typography: keep Fraunces and Inter, or revise for the book
-- [ ] Ship order: cover and first spread first (proposal)
-- [ ] Technical plan (raw Three.js vs Threlte, geometry pipeline, shadow technique), for the tech-lead planning step
+- [ ] Which silhouette each trip contributes to the travel spread's layers, and in what order
+- [ ] Technical plan (raw Three.js vs Threlte, geometry pipeline, shadow technique, deployment), for the tech-lead planning step. The deploy workflow currently targets the blog's Cloudflare Pages project.
 - [ ] Connect the Blender MCP add-on to Claude Code
