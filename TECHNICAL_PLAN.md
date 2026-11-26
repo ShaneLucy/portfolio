@@ -306,14 +306,20 @@ These get settled at the spike gate. The tech lead's recommendation is listed fi
 
 **Where.** On `main`, in the working tree, never committed. Start from a clean tree, so commit the docs first.
 
-- Keep the spike in its own folders (`src/routes/spike/`, `src/lib/spike/`).
-- Discarding it means deleting those folders and restoring `package.json` and `bun.lock`.
+- Keep the spike in its own folders: `src/routes/spike/`, `src/lib/spike/`, `test/lib/spike/`, and `static/spike/` for the printable template.
+- The one tracked file it touches is a temporary guard in `src/routes/+layout.svelte`, which skips the old site shell on `/spike`. Without it the Liquid Light shader keeps rendering behind the spike and skews the frame timings.
+- Discarding it means deleting those folders and restoring `src/routes/+layout.svelte`, `package.json` and `bun.lock` (plus any other tracked file the build report lists).
 - Don't stage or commit any of it.
+- No time-box (Shane's call, 2026-11-26).
 
 **What to build.**
 
 - A three.js route with two rigid leaves that have thickness, lying on a desk.
-- On one spread: one V-fold with its apex on the gutter, and one parallel fold (a general four-bar standing flat).
+- On one spread, a tiny real motif:
+  - a mountain as the V-fold, with its apex on the gutter;
+  - a gabled house front as the parallel fold (a general four-bar standing flat).
+- A 1:1 printable SVG template of both pieces (outlines, crease lines, glue tabs, in mm) at `static/spike/template.svg`, generated from the same shape data, so the real card fold matches the render.
+- The camera's position and angle, written down in the spike, so the reference photo can be taken from the same viewpoint.
 - Page scroll scrubs the leaf from θ = 0 to π.
 - A spot-light lamp that follows the pointer.
 - The paper material with fibre, cut-edge material and the translucency term.
@@ -321,7 +327,7 @@ These get settled at the spike gate. The tech lead's recommendation is listed fi
 
 **Needed from Shane:**
 
-- Fold the same two pieces from real card and photograph them under a desk lamp from the same three-quarter angle.
+- Print `static/spike/template.svg` at 100%, then cut, fold and glue the two pieces into a two-page card spread. Photograph it under a desk lamp from the viewpoint the spike gives.
 - Find three people for the blind check.
 - Find a mid-range Android phone to test on.
 
@@ -340,7 +346,6 @@ These get settled at the spike gate. The tech lead's recommendation is listed fi
 - Only PCSS reads as paper, and the phone can't hold 33 ms even at DPR 1 with 1024² PCF. The choices then are live 3D on desktop with stills on phones, or a deliberately less photoreal look. Baking is ruled out because pieces move.
 - The rigid leaf turn reads as "a 3D model of a book". Fixing that means bending pages, which is a much bigger build.
 - The chunk is over about 250 kB gzip with no obvious cut. Revisit D10.
-- The spike runs past twice its time-box. That's the signal to cut scope, for example fewer spreads.
 
 **Gate:** review the results, settle D3, D10 and the other open decisions, then discard the spike.
 
