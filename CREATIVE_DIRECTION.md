@@ -1,6 +1,6 @@
-# Portfolio Creative Direction: Liquid Light
+# Portfolio Creative Direction: Pop-up Book
 
-_Session date: 2026-06-06 — to be refined in a subsequent session_
+_Revised 2026-11-26. Replaces "Liquid Light" (June 2026), which is still in git history._
 
 ---
 
@@ -8,107 +8,119 @@ _Session date: 2026-06-06 — to be refined in a subsequent session_
 
 **Owner:** Senior full-stack software engineer, backend-heavy by professional experience.
 
-**Portfolio purpose:** Prove exceptional front-end and design capability — the resume already covers backend. The target audience includes recruiters, hiring managers, and senior designers / creative directors. The portfolio must make a creative director stop and ask "who built this?" — not "neat CSS trick."
-
-**The bar:** The previous portfolio recreated a minimal Ubuntu desktop environment in the browser. This must clear that bar but be entirely different.
+**Purpose:** Prove front-end and design craft. The CV already covers backend. The audience is recruiters, hiring managers, senior designers and creative directors. The bar hasn't changed: a creative director should stop and ask "who built this?", not "neat trick."
 
 **Hard constraints:**
 
-- WCAG 2.2 AA accessibility — non-negotiable, not caveated
-- Must showcase taste and design sensibility, not just technical ability
-- 3D or shader-based (user requirement going into final decision)
+- WCAG 2.2 AA. Non-negotiable.
+- Artistic, and genuinely 3D.
+- Taste first, technique second. The 3D has to look like design work, not a tech demo.
+
+**How we got here.** The first portfolio recreated an Ubuntu desktop in the browser. In June 2026 the pivot was "Liquid Light", a fullscreen fluid shader behind the content. Most of it got built, but the result looked like a familiar noise gradient rather than something authored. It wasn't 3D, and the content sat on frosted-glass panels, a look we'd already called saturated. It was reviewed and replaced on 2026-11-26.
+
+**A correction to the June reasoning.** 3D was given up for accessibility, but that argument applied to a walkable 3D office where the content lived inside the scene. A decorative 3D canvas behind the real DOM is exactly as accessible as a 2D shader. What 3D really costs is performance, bundle size and the time to make assets.
 
 ---
 
-## Concepts Considered & Discarded
+## The Concept
 
-The following were explored and set aside:
-
-- **3D Home Office** (original idea) — Three.js, first-person POV from desk chair, monitors as content panels. Critique: genre is saturated; free-look navigation kills discoverability for time-poor recruiters; requires a full parallel accessible DOM site (two portfolios of effort); reads as "engineer doing 3D" rather than design craft.
-- **Letterform** — editorial magazine / living type specimen. Strong design signal but no 3D/shader element.
-- **The Cut** — scroll-driven cinematic motion design. Strong motion-design signal but no 3D/shader element.
-- **Atelier** — generative-design studio where the visitor co-creates the site's visual identity. Interesting systems signal but no 3D/shader element.
-- **Reactive** — micro-interaction playground. No 3D/shader element.
-- **Risograph Engine** — real-time riso-print shader post-process. Highest taste/rarity signal, cleanest accessibility, but user gravitated toward fluid/light aesthetic.
-- **Depth of Field** — first-person photographic 3D with authored camera shots and real bokeh. Closest to the 3D Office idea; re-incurs the parallel-accessible-build cost.
-- **Loom** — real-time GPU cloth simulation. Warm and rare; hardest to make look expensive.
-- **Camera Obscura** — refraction/caustics/dispersion shader; reveal-by-light dark UI. Strong optical flex but "dark + glass + glow" aesthetic is currently saturated (glassmorphism fatigue).
-
----
-
-## Chosen Direction: Liquid Light
+The portfolio is a paper pop-up book, and each project is a place.
 
 ### The Experience
 
-The visitor lands in a dark, calm space occupied by a single slow-moving field of light — think backlit ink in water, or aurora behaving like liquid. It responds to the pointer (pushing/disturbing the fluid), and scrolling shifts its temperature and palette. As sections change, the field recomposes itself into the backdrop for that content. The restraint is the flex: one gorgeous, custom, performant visual system carried with total confidence, rather than a wall of effects.
+The visitor lands on a closed book lying under a lamp: white card, a cut-paper title, one colour. Scrolling opens it. Each spread is a project, and each project is a small place that rises out of the fold as the page opens, then folds flat again as you move on. After the projects comes the colophon (About), then the back cover (Contact).
 
-### Why This Concept
+The book is the atmosphere and the metaphor. Everything you read is real HTML beside or over it.
 
-- The wow factor and the content are not in tension — the shader frames and responds to content rather than hiding it
-- Reads immediately as front-end and design craft: shader artistry, colour science, motion restraint, typographic confidence
-- Accessible by construction (see below) — no parallel site required
-- Rare in the portfolio space; not a saturated genre
-- Confirmed visual reference: **Active Theory** (activetheory.net) — a Los Angeles creative studio whose WebGL/real-time 3D work is the closest public reference for this aesthetic
+### Structure
 
-### Core Technical Approach
+| Section       | In the book            | Place (proposal, still open)                                                                                                               |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hero          | Cover                  | The name as cut-paper letterforms rising off the cover                                                                                     |
+| db-documenter | Spread                 | A map room. The schema unfolds as a paper map: tables as buildings, relationships as roads. The library literally draws maps of databases. |
+| Travel Blog   | Spread                 | A road winding through a coastal town, ideally a real place from the blog                                                                  |
+| solar-system  | Spread (if it's ready) | A paper orrery: nested rings that swing up as the page opens                                                                               |
+| About         | Colophon               | The maker's workbench: cutting mat, scalpel, steel ruler, offcuts                                                                          |
+| Contact       | Back cover             | An envelope that pops open into a letter                                                                                                   |
 
-- **Framework:** SvelteKit
-- **Rendering:** WebGL — a `<canvas aria-hidden="true">` decorative layer behind the real DOM; the canvas is never load-bearing for content
-- **Shader approach:** Custom GLSL fragment shaders; fluid simulation (Navier-Stokes or simplex noise field), real-time reactive to scroll position and pointer
-- **Colour:** OKLCH colour space for perceptually smooth, accurate gradients (not muddy RGB lerps)
-- **Animation loop:** `requestAnimationFrame` with FPS budgeting; `IntersectionObserver` to pause the shader when off-screen
+- **solar-system is conditional.** It's in only if it's ready in time. Its spread gets built last, and the book has to work with either two or three project spreads.
+- **Pretty Good Playground is out**, by choice.
+- **Adding work later is costly.** Every new project means a new spread to design and build, not just a new card. That's the ongoing price of project-as-place.
 
-### Three Key Refinements (proposed in session)
+### The Look
 
-1. **Content-reactive shader state** — the palette, density, and flow of the fluid shift per content section and settle around focused elements. The shader is not ambient wallpaper; it actively responds to what the visitor is reading. This is what makes it feel _designed_, not looping.
+- **White card**, cut and folded in the spirit of origamic architecture. Light and shadow do the work.
+- **One accent stock per spread.** The accent carries the colour change from section to section, replacing Liquid Light's cool/warm palette.
+- **Real paper qualities:** visible fibre, slightly soft edges, visible card thickness at the cuts, a hint of light coming through thin card.
+- **Lighting is the whole look.** One warm key light with soft real-time shadows. Nothing is baked: pieces move as they fold, so baked shadows would be wrong mid-fold.
+- **No illustration.** Every shape has to read from its silhouette alone. That's the design discipline this direction demands, and it's what keeps it editorial rather than a children's book.
 
-2. **Severe editorial typography as the co-star** — an expressive display face, tight modular type scale, strict grid discipline. The shader does the emotional/atmospheric work; the typography does the intellectual/structural work. Together they signal a complete design sensibility. Neither works alone.
+### The One Interaction
 
-3. **One bounded mark-making interaction** — a single moment where the visitor's pointer leaves a lasting trace in the fluid (a stroke, a ripple that persists briefly before dissolving). Makes the piece tactile and personal without gimmick. One interaction, done perfectly, is more impressive than five mediocre ones.
-
-### Spatial Depth Variant
-
-Rather than full 3D, the recommended execution adds **layered parallax and subtle Z-axis motion** to create perceived depth and a sense of place — evoking spatial presence without the performance and accessibility costs of Three.js. This is the hybrid that _adds_ to Liquid Light rather than diluting it.
-
-### Accessibility Strategy
-
-This is the primary reason Liquid Light was recommended over 3D alternatives:
-
-- The canonical site is a **fully semantic, accessible DOM** — real text, real headings, real landmarks, full keyboard navigation, correct reading order
-- The WebGL canvas is `aria-hidden="true"` and sits behind the content layer; removing it entirely leaves a fully functional site
-- Text is **never rendered on the shader** — it always sits on a guaranteed-contrast surface so contrast cannot drift below 4.5:1 regardless of shader state
-- `prefers-reduced-motion`: the live fluid field is replaced with a **single static rendered gradient** (still beautiful; zero motion). This is designed as a first-class experience, not a fallback.
-- A visible "pause motion" toggle, persisted across sessions
-- All font sizes in relative units (`rem`/`clamp()`); survives 200% zoom and 400% reflow (WCAG 1.4.4, 1.4.10)
-- Variable-font axis animation (if used for typography) is gated behind `prefers-reduced-motion`
-- Contrast checked at every font weight if a variable font is used (thin weights are a common AA failure)
+_Proposal, still open:_ the pointer moves the lamp. Shadows swing across the spread as if you're tilting the book under a light. It's bounded and tactile, and it shows off the one thing this look depends on. It replaces Liquid Light's pointer trace.
 
 ---
 
-## Visual References
+## Technical Approach
 
-- **Active Theory** — activetheory.net — primary reference; creative studio, WebGL/real-time fluid and light as design material
-- **Robert Hodgin (flight404)** — generative artist; canonical reference for light-as-fluid simulations
-- **akella / Yuri Artiukh** — creative coder; WebGL portfolio experiments closest to this brief
-- **bgstaal** — creative coder; fluid/shader aesthetic
-- **David Li** — particle and fluid simulations, high craft
-- **Patricio Gonzalez Vivo (Book of Shaders)** — foundational GLSL reference; his own work is a good aesthetic benchmark
-- **Awwwards WebGL category** — living archive of current-state-of-the-art WebGL portfolio work
-- **Codrops Playground** — living reference for creative front-end experiments
+This is an outline. The full plan comes out of the tech-lead planning step.
 
----
+- **Rendering:** Three.js, as in `solar-system`. A `<canvas aria-hidden="true">` behind the DOM that's never needed for content, the same contract as today.
+- **Geometry, mostly in code:** cut shapes are defined as 2D paths (SVG), extruded to card thickness and parented on hinges. Each spread is driven by a single `open` value from 0 to 1, scrubbed by scroll.
+- **Pop-up mechanics:** parallel folds (box-like pieces) are simple kinematics. V-folds need their angles solved from the page angle. This is the hardest part to make convincing, so it gets prototyped first.
+- **Blender, via the Blender Lab MCP add-on:** for blocking out spreads from reference images and for the odd non-flat hero piece. The add-on is installed in Blender 5.2 but isn't connected to Claude Code yet.
+- **Shadows:** soft real-time shadow maps, at lower resolution on mobile.
+- **Loading:** first paint shows a pre-rendered still of the cover, and Three.js and the scene load after it. Rendering pauses when the canvas is off-screen or the tab is hidden. Device pixel ratio is capped.
 
-## Open Questions for Next Session
+### Kept From the Current Build
 
-The following should be resolved before implementation begins:
+Semantic sections, section nav and tracker, the motion store and toggle, the skip link, the a11y fixes and the tests. Fraunces suits a book well. Whether to keep it with Inter or revise the type is still open.
 
-- [ ] **Display typeface selection** — which expressive display face pairs with the fluid aesthetic? (serif with optical personality vs. contemporary grotesque vs. variable face with extreme weight range)
-- [ ] **Colour palette direction** — warm (amber/gold/deep orange — fire, bioluminescence) vs. cool (aqua/violet/deep blue — deep water, aurora) vs. shifting (palette rotates per section)
-- [ ] **Content sections** — what pages/sections does the portfolio need? (e.g. hero/intro, about, projects, contact — and are there any non-standard sections?)
-- [ ] **Project content** — which projects will be featured, and is there a preferred format for case studies?
-- [ ] **Domain and deployment target** — already decided or still open?
-- [ ] **Full creative system** — type scale, section-reactive shader state model, AA-safe contrast token set, phased build plan — to be developed once above questions are answered
+### Replaced
+
+`ShaderCanvas` (the noise shader), the CSS parallax, the frosted-glass surfaces and the cool/warm palette tokens. `DESIGN_SYSTEM.md` still describes Liquid Light. It'll be rewritten once the visual system is worked out.
 
 ---
 
-_Document created from the creative brainstorm session on 2026-06-06. All decisions above reflect the conversation; nothing has been implemented yet._
+## Accessibility
+
+The same principles as before, all still in force:
+
+- **The DOM is canonical:** real headings, landmarks, reading order and keyboard navigation. Remove the canvas and the site still works.
+- **Text is never rendered in the canvas or straight onto lit paper.** It always sits on a surface token with guaranteed contrast, so a passing shadow can never drop it below 4.5:1.
+- **`prefers-reduced-motion` and the motion toggle:** each spread is shown fully open as a still, with no page turns and no camera moves. That's a first-class version, not a fallback.
+- **No WebGL:** the same pre-rendered stills.
+- **No large camera swoops.** Page turns stay on-axis to avoid vestibular triggers.
+- **Relative font sizes throughout.** The site survives 200% zoom and 400% reflow.
+
+---
+
+## Risks
+
+- **Pop-up mechanics can look fake.** Pieces that clip or move wrongly break the illusion straight away. Prototype one V-fold early.
+- **White on white can go flat.** With weak lighting the whole thing looks like an untextured model, so lighting gets tuned before anything else.
+- **Twee.** Paper and pop-ups can tip into children's-book territory. Restraint in the accents and the typography keeps it editorial.
+- **Stalling.** There's no deadline, and the last attempt sat untouched from July to November. Each spread can ship on its own. _Proposal:_ ship the cover and the first spread before building the rest.
+- **The solar-system dependency.** Its spread is built last, and the book is designed to stand without it.
+
+---
+
+## References
+
+- **Robert Sabuda and Matthew Reinhart:** pop-up engineering at its best
+- **Masahiro Chatani:** origamic architecture, buildings cut and folded from single sheets of white card
+- **David A. Carter, _White Noise_:** an all-white pop-up book, proof that white card alone can carry it
+
+---
+
+## Open Questions
+
+- [ ] Place for each spread (proposals in the Structure table)
+- [ ] Accent colour for each spread
+- [ ] Where the text sits: on the facing page of each spread, or in a column beside the book
+- [ ] How scroll moves through the book: pages turn under a fixed camera, or the camera travels
+- [ ] Pointer interaction: the lamp proposal, or something else
+- [ ] Typography: keep Fraunces and Inter, or revise for the book
+- [ ] Ship order: cover and first spread first (proposal)
+- [ ] Technical plan (raw Three.js vs Threlte, geometry pipeline, shadow technique), for the tech-lead planning step
+- [ ] Connect the Blender MCP add-on to Claude Code
