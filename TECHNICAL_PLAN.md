@@ -7,8 +7,8 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 ## Status
 
 - **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
-- **Every decision, D1–D13, is settled.** They're listed under [Decisions](#decisions).
-- **Phase 2 is next.**
+- **Every decision, D1–D25, is settled.** They're listed under [Decisions](#decisions). D14–D25 were settled when planning Phase 2.
+- **Phase 2 is planned and not started.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
 
 ---
 
@@ -18,6 +18,29 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 - **SvelteKit 3 is `latest` (3.4.1).** The 2.x line continues as 2.70.4, and `@sveltejs/adapter-static` 4.x requires Kit 3.
 - **three.js is at r187 (`0.187.0`).** r186 removed `PCFSoftShadowMap`, and plain `PCFShadowMap` has been soft since r182. r187 stopped `setViewport` and `setScissor` scaling by pixel ratio. solar-system's `RendererSizer` sets the pixel ratio to 1, so it should be unaffected; verify that when porting it.
 - **Bundle size.** solar-system's 3D route chunk (r185, the GLTF, Draco and KTX2 loader wrappers, and scene code) is about 722 kB raw, about 190 kB gzip. The book's chunk will be smaller, but three dominates it, so the 150 kB-per-route budget needs a decision (D10).
+
+**Checked again while planning Phase 2 (2026-11-26):**
+
+- **The baseline isn't green.**
+  - `prettier --check` fails on `package.json` and `src/routes/+layout.svelte`.
+  - GitHub's Check workflow is reported to have failed on every run since July 2026. The logs need a sign-in, so the failing step isn't confirmed. The format step runs first, so it's the likely cause.
+  - Deploy only fires after a green Check, so Check must be fixed before any deploy.
+- **Versions.**
+  - Kit 3.4.1 needs Svelte ≥ 5.57.1, Vite ≥ 8.0.12 and Node ≥ 22.17.
+  - adapter-static is at 4.0.1.
+  - TypeScript's `latest` on npm is 7.0.2, but Kit, svelte-check and typescript-eslint all cap at 6, so the project stays on 6.0.x.
+- **The migration.**
+  - `sv migrate sveltekit-3` has to run as one pass (`--tasks all`). The docs say a partial run leaves the project broken.
+  - It moves config into `vite.config.ts`, rewrites `$lib` to `#lib`, and switches tsconfig to `$app/tsconfig`.
+  - It doesn't switch adapters.
+  - The generated tsconfig lives in `node_modules/$app`, so CI needs `svelte-kit sync` before eslint.
+- **Prerendering checks anchors.** Prerendering fails the build on a same-page `#id` link with no matching id.
+- **Cloudflare.**
+  - Workers "preview URLs" are now called version URLs.
+  - Branch previews (`wrangler preview`) are public by default.
+  - A Worker's Access tab can protect "All traffic" (`workers.dev` and previews) or "Previews only". It needs Zero Trust turned on.
+  - `_headers` is honoured for static assets, and goes in the assets directory.
+- **Initial JS** for `/` is about 41 kB gzip today.
 
 ---
 
@@ -35,7 +58,10 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
   - Set `prerender = true` in the root `+layout.ts`.
   - `BookStage` prerenders the cover still plus an empty canvas.
   - The 3D module loads with `import()` inside an `$effect`, after first paint and idle time, and only when motion is on and WebGL 2 is available.
-- **Keep three out of the initial chunk.** An ESLint `no-restricted-imports` rule allows `three` only under `src/lib/book/scene/**`. A CI size check reads the Vite manifest, following the same pattern as solar-system's `check-bench.ts`.
+- **Keep three out of the initial chunk.**
+  - An ESLint `no-restricted-imports` rule allows `three` only under `src/lib/book/scene/**`. It goes in during Phase 2 (D25).
+  - A CI size check measures what `build/index.html` loads (D24).
+  - solar-system's `check-bench.ts` pattern doesn't carry over: adapter-static doesn't copy the Vite manifest into `build/`.
 - **Adapter: `adapter-static`.** The site needs no server. Which version depends on D2.
 
 ## 2. Scene Architecture
@@ -65,13 +91,14 @@ src/lib/book/BookStage.svelte
   - Section offsets are cached with a `ResizeObserver` and re-measured after `document.fonts.ready`. Each frame reads only `scrollY`.
   - Leaf _i_ turns over a window centred on the moment the boundary between sections _i_ and _i+1_ crosses the reading line: θᵢ = π · ease(t).
   - The reading line is a named constant shared with `SectionTracker` (rootMargin −40%/−40%). So the turn midpoint, the active-section switch and the aria-live announcement all happen together.
-  - Sections get a min-height so turn windows can't overlap, and a test asserts it.
+  - Today's tracker doesn't guarantee that. It picks the section whose centre is nearest the viewport middle, so the switch point drifts with section height. On phones, the viewport middle isn't the middle of the text below the band either. This gets settled in Phase 2, step 6.
+  - Sections get a min-height so turn windows can't overlap. jsdom has no layout, so the min-height is a TS constant applied as an inline custom property, and the test checks the constant.
 - **Smoothing.** The rendered leaf angle follows its scroll target through a critically damped spring with a maximum angular speed. Mouse-wheel steps come out smooth, and anchor jumps riffle through the pages instead of teleporting.
 - **Stores.** `shaderStore` becomes `sectionStore`, since it only holds the active section now. `SectionId` derives from the registry. `motionStore` stays.
 - **Bug to fix along the way.** `motionStore.init()` runs in `MotionToggle`'s `onMount`. If `BookStage`'s effect runs first, it sees the default "motion on" and starts downloading three for a reduced-motion user.
   - Make the store initialise itself on its first browser read.
   - Add a tiny inline head script that sets `data-motion` on `<html>` from the same localStorage key, so CSS picks the right mode before first paint.
-- **The stage state machine is a pure function.** Its states are `still | loading | live | failed`. Its inputs are: the motion setting, WebGL 2 availability, chunk loaded, first frame presented, context lost, and quality floor breached. It's unit-testable, and it's what guarantees reduced-motion users never download three.
+- **The stage state machine is a pure function.** Its states are `still | loading | live | failed`. Its inputs are: the motion setting, WebGL 2 availability, a viewport below the minimum height (D18), chunk loaded, first frame presented, context lost, and quality floor breached. It's unit-testable, and it's what guarantees reduced-motion users never download three.
 
 ## 3. Pop-up Mechanics
 
@@ -184,7 +211,7 @@ Each wing's frame is then (u, c, u × c).
 ## 7. Accessibility
 
 - **Still mode.** The stills come from the local capture script (D6, Phase 4).
-  - Triggered by reduced motion, the toggle being off, no WebGL 2, a lost context, or the quality governor hitting its floor.
+  - Triggered by reduced motion, the toggle being off, no WebGL 2, a viewport below the minimum height (D18), a lost context, or the quality governor hitting its floor.
   - It shows the active spread's still, fully open, and swaps instantly when `activeSection` changes.
   - If motion is off from load, three is never imported.
 - **Toggling at runtime.**
@@ -194,7 +221,8 @@ Each wing's frame is then (u, c, u × c).
 - **WCAG 2.2.2.** There's no automatic motion. The pages and light move only with scroll, so nothing on the stage moves by itself.
 - **WCAG 2.3.1.** A fast riffle sweeps large shadows across the stage. The spring's maximum angular speed caps it at two turns per second or fewer.
 - **WCAG 1.4.10.** At 400% zoom the viewport is about 320 × 256 CSS px, and a sticky stage would eat it. Unstick below a named minimum viewport height (D5).
-- **Smooth scroll** is off under reduced motion.
+- **Smooth scroll** is off under reduced motion and when the toggle is off. Today `reset.css` only follows the OS setting; the `data-motion` attribute fixes that.
+- **Fixed chrome (D19).** At 400% zoom the fixed header and the section pill would cover most of the viewport, which fails 1.4.10 and 2.4.11 (Focus Not Obscured).
 - **Checklist.** Keep `DESIGN_SYSTEM.md` §6 and add: still mode tested on its own, a launch with WebGL disabled, 320 px wide, and NVDA in both modes.
 
 ## 8. Testing
@@ -222,20 +250,27 @@ Each wing's frame is then (u, c, u × c).
 ## 9. Deployment
 
 - **Build.** `adapter-static`, `prerender = true`, SSR on, `strict: true`.
-- **Target (D11): Workers static assets.**
-  - A `wrangler.jsonc` points its assets directory at the build output, and deploys use `wrangler deploy` rather than `pages deploy`.
-  - Before launch, builds go to private preview URLs behind Cloudflare Access, so only Shane can open them.
-  - The exact config for both is checked against Cloudflare's current docs in Phase 2.
+- **Target (D11, D22): Workers static assets.**
+  - An assets-only `wrangler.jsonc` (no `main`) points `assets.directory` at `./build`. Deploys use `wrangler deploy` rather than `pages deploy`.
+  - Before launch, every green main deploys to the Worker's `workers.dev` URL, with Access set to "All traffic", so only Shane can open it.
+- **Shane's dashboard steps.**
+  - Turn on Zero Trust if it's off.
+  - Make a token from the "Edit Cloudflare Workers" template and replace `CLOUDFLARE_API_TOKEN`. The Pages-era token almost certainly lacks Workers Scripts: Edit.
+  - After the first deploy, open the Worker's Access tab, choose "All traffic", and add a policy for his email.
 - **Workflow.**
-  - Replace the `pages deploy --project-name=blog` step with a Workers deploy.
+  - Fix Check first (see Facts). Deploy only runs after a green Check.
+  - Replace the `pages deploy --project-name=blog` step with a Workers deploy, and re-pin `cloudflare/wrangler-action` from v4.0.0 to v4.1.3.
   - Restore `on: workflow_run`.
   - Check out `ref: ${{ github.event.workflow_run.head_sha }}`. As written, it would deploy whatever is on main at deploy time, not the commit that passed Check.
-  - Pin `bun-version` instead of `latest`.
-- **Caching.** Add a `_headers` file with immutable caching for `/_app/immutable/*`, after confirming that Workers static assets honours it. Stills go through Vite, so they get hashed names too.
+  - Pin `bun-version` to the local version (1.3.14) instead of `latest`, in both workflows.
+  - Pin Node 24 with `setup-node` (D23).
+  - Run `svelte-kit sync` after `bun install --ignore-scripts` and before eslint.
+- **Caching.** Add `static/_headers` with immutable caching for `/_app/immutable/*`. Workers static assets honours `_headers`. Its default is `public, max-age=0, must-revalidate`, so use `! Cache-Control` to replace it. Stills go through Vite, so they get hashed names too.
 - **Cleanup.**
   - Delete the `process-images` script entry from `package.json`: `scripts/process-images.ts` doesn't exist.
-  - Move `@vitest/browser` out of `dependencies`. Nothing imports it or `vitest-browser-svelte`.
-- **CSP.** If one is added like solar-system's, include the hash of the inline `data-motion` script.
+  - Remove `@vitest/browser` and `vitest-browser-svelte`. Nothing imports either, and D12 rules out browser tests.
+  - Remove the `eslint.config.js` override for `src/lib/images.ts`, which doesn't exist.
+- **CSP: deferred to Phase 7.** A CSP in `_headers` can't work, because Kit's bootstrap script hash changes every build. A `<meta>` CSP would need the inline `data-motion` script's hash maintained by hand.
 
 ## 10. Teardown (Phase 2)
 
@@ -245,6 +280,12 @@ Teardown doesn't depend on the spike's result, since Liquid Light is out either 
 - Remove `.parallax-layer-*` and the `--scroll-offset` notes from `src/lib/styles/global.css`.
 - Remove `--surface-glass*`, `--cool-*` and `--warm-*` from `src/lib/styles/tokens.css`, along with the glass panels in the Hero, About and Contact sections.
 - `--cool-bright` is still doing real work: links, the hero CTA and the contact border. Swap it for a temporary neutral `--link` token that passes contrast until the new palette lands, and re-check `--focus-ring` at the same time.
+- Leftovers this list first missed:
+  - the cyan `--nav-*` tokens and `--focus-ring`, retuned to neutral (D21);
+  - `SectionNavItem`'s hard-coded cyan glow, and its text-shadow meant for reading over WebGL;
+  - the 1100–1490 px rail padding hack in `global.css` (D16 makes it unnecessary);
+  - `color-scheme: dark` in `reset.css`, which stays for now because the palette stays dark (D21);
+  - the "Liquid Light" header comments in the style files.
 - Rename `shaderStore` to `sectionStore` and update the nav, the tracker and their tests.
 - Delete the empty `src/routes/demo/+page.svelte`, which would otherwise prerender a blank `/demo`.
 - Replace the `ProjectsSection`/`ProjectCard` grid with one section per spread (D9).
@@ -257,7 +298,7 @@ Teardown doesn't depend on the spike's result, since Liquid Light is out either 
 All settled on 2026-11-26.
 
 - **D1. Rendering:** three.js directly, pinned to `0.187.0`. It reuses solar-system's factory, controller, sizer, mocks and disposal lessons. (Rejected: Threlte, WebGPURenderer.)
-- **D2. SvelteKit 3:** migrate in Phase 2, before new code. Run `sv migrate sveltekit-3`: config moves into `vite.config.ts`, `$lib` becomes `#lib` with file extensions, tsconfig extends `$app/tsconfig`, Svelte ≥ 5.57.1, Vite ≥ 8.0.12. Then use `adapter-static@4`.
+- **D2. SvelteKit 3:** migrate in Phase 2, before new code. Run `sv migrate sveltekit-3`: config moves into `vite.config.ts`, `$lib` becomes `#lib` with file extensions, tsconfig extends `$app/tsconfig`, Svelte ≥ 5.57.1, Vite ≥ 8.0.12. Then use `adapter-static@4`. The migration runs as one pass and doesn't switch adapters, so swapping adapter-auto for adapter-static is a manual step.
 - **D3. Shadows:** PCSS on every device to start with. The quality governor steps a device down to PCF when it misses its frame budget. That gives the best look on capable phones (the iPhone 14 Pro held 18 ms). The cost is that weaker phones stutter briefly before stepping down, so keep the governor's first window short (§6).
 - **D4. Desktop stage:** a bounded sticky stage. A fixed aspect-ratio box in its own column, with a transparent canvas over the CSS desk colour.
 - **D5. Phones:** a sticky book band at the top, with text scrolling under it and pages turning as on desktop. Below a named minimum viewport height (landscape phones, 400% zoom), it unsticks and shows only a still.
@@ -269,6 +310,38 @@ All settled on 2026-11-26.
 - **D11. Cloudflare:** Workers static assets, not Pages. Builds deploy to private preview URLs behind Cloudflare Access before launch.
 - **D12. Browser tests:** none in CI. Vitest plus the manual checklists (§7, §8). axe is run by hand.
 - **D13. Light:** fixed on every device and placed per spread, easing between poses as pages turn. Scroll is the only interaction, with no pointer lamp and no drift on phones. This replaced the pointer-driven lamp the same day.
+- **D14. Sections:**
+  - The ids are `hero`, `db-documenter`, `travel-blog`, `about` and `contact`, and the rail's first label is "Home".
+  - Each spread is a flat `h2` section, and project spreads carry a visible "Project" eyebrow.
+  - The ProjectCard's expand/collapse is dropped, so the full text always shows.
+- **D15. Stage aspect ratio: 3:2.** One constant drives the stage box, the phone band, the Phase 3 camera framing and the Phase 4 stills.
+- **D16. Desktop layout:**
+  - Text on the left (about 40%), the stage on the right (about 60%), and the section rail in its own gutter at the far right.
+  - The rail no longer overlaps the text.
+- **D17. Layout breakpoint: 1100 px**, shared by the columns and the rail. It's a literal in CSS and a TS constant where JS needs it, and a test checks that the two match.
+- **D18. Minimum viewport height: 480 px.** Below it, the stage unsticks and shows only a still (D5). It's an input to the stage state machine.
+- **D19. Nav chrome:**
+  - On narrow screens, the section pill becomes prev/next, the current label, and "n of N".
+  - Below the minimum height, the header goes static, the pill hides, and the motion toggle moves into the header.
+- **D20. Placeholder stills:** drawn in CSS or SVG, with no image request. The LCP path (preload and `fetchpriority`) is first tested in Phase 4.
+- **D21. Phase 2 palette:**
+  - It stays dark.
+  - Teardown adds a neutral `--link` and retunes `--focus-ring` and the `--nav-*` tokens to neutral.
+  - The real palette comes once the creative questions are settled.
+- **D22. Pre-launch deploys:**
+  - Every green main deploys to the Worker's `workers.dev` URL, with Access on "All traffic" until launch.
+  - There are no branch previews.
+  - The Worker is named `portfolio`, and it serves a plain 404.
+- **D23. CI runtime:** `setup-node` pinned to Node 24, with bun pinned to the local version. Bun runs Vite under Node when Node is on the PATH, so CI builds on Node and Shane's machine builds on Bun.
+- **D24. Size check:**
+  - It reads `build/index.html`, follows its modulepreload links and the bootstrap script's imports, and gzips each file.
+  - That measures what the browser actually fetches, without relying on Kit's internal manifest numbering.
+- **D25. Phase 2 extras:**
+  - Remove `@vitest/browser` and `vitest-browser-svelte`.
+  - Add the `three` `no-restricted-imports` rule now.
+  - MotionToggle gets a fixed "Animations" label with `aria-pressed`. Today it flips both, so it reads "Pause animations, pressed".
+  - `reset.css` uses `text-size-adjust: 100%`, not `none`.
+  - Set `version.pollInterval: 0`, and pin `typescript` to `~6.0.3`.
 
 ---
 
@@ -295,15 +368,23 @@ It was built on `main`, never committed, and discarded after the gate.
 
 ### Phase 2: Foundation and Still-Mode Book [L]
 
-- **Work:**
-  - SvelteKit 3 (D2) and adapter-static.
-  - The Workers deploy and private previews (D11).
-  - Teardown (§10).
-  - Registry, `sectionStore` and per-spread sections (D9).
-  - Sticky stage layout with placeholder stills (D4, D5).
-  - The inline `data-motion` script and the self-initialising motion store.
-  - The stage state machine and the CI size check (D10).
-- **Exit:** the whole site works end to end in still mode at 320 px, 200% and 400% zoom, and axe (run by hand) is clean. The reduced-motion version gets built first; live mode only ever adds to it.
+- **Work, in order.** Each step goes to one specialist agent, ends green (tests, check and lint, build), and is one commit.
+  1. Teardown (§10) and baseline fixes: prettier on `package.json` and `+layout.svelte`, the §9 cleanup, and the `DESIGN_SYSTEM.md` banner.
+  2. SvelteKit 3 (D2) and adapter-static, with `prerender = true` in the root `+layout.ts`.
+  3. The CI size check (D10, D24).
+  4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9).
+  5. Rename `shaderStore` to `sectionStore`.
+  6. Registry and per-spread sections (D9, D14). This has to be one commit, because prerendering fails the build on any `#id` link with no target.
+  7. The inline `data-motion` script and the self-initialising motion store.
+  8. The stage state machine.
+  9. `BookStage` with placeholder stills (D20).
+  10. Sticky stage layout, phone band, unstick rule and nav chrome (D4, D5, D15–D19).
+- **Still open, decided when their step starts:**
+  - Step 6: whether solar-system gets a registry entry before Phase 6 (the lean is no, with test fixtures covering two and three projects), and how the tracker picks the active section (the lean is the section containing the reading line; see §2).
+  - Step 7: whether `data-motion` holds the resolved mode, kept current by the store, or only the stored override (the lean is the resolved mode).
+  - Step 8: the state machine's shape (a snapshot function or a reducer), its file, whether `failed` lasts for the rest of the session, and whether it's wired in now with live mode switched off (the lean is a snapshot function at `src/lib/book/stage-state.ts`, wired in now).
+  - Step 10: the phone band's height (the lean is width ÷ aspect ratio, capped at about 40svh).
+- **Exit:** the whole site works end to end in still mode at 320 px, 200% and 400% zoom, and axe (run by hand) is clean. Also check on a real phone through the Access-protected URL. The reduced-motion version gets built first; live mode only ever adds to it.
 
 ### Phase 3: Engine [XL]
 
@@ -381,4 +462,5 @@ It was built on `main`, never committed, and discarded after the gate.
 - [@sveltejs/kit on npm](https://registry.npmjs.org/@sveltejs/kit), [@sveltejs/adapter-static on npm](https://registry.npmjs.org/@sveltejs/adapter-static/latest). SvelteKit docs via the Svelte MCP: adapter-static, page options, Cloudflare, migrating to v3, images.
 - [@pmndrs/vanilla (pcss)](https://socket.dev/npm/package/@pmndrs/vanilla)
 - [Cloudflare: migrate from Pages to Workers](https://developers.cloudflare.com/workers/static-assets/migrate-from-pages/), [Cloudflare: Pages and Workers converging](https://blog.cloudflare.com/pages-and-workers-are-converging-into-one-experience/)
+- Phase 2 planning: [migrating to SvelteKit 3](https://svelte.dev/docs/kit/migrating-to-sveltekit-3), [sv migrate](https://svelte.dev/docs/cli/sv-migrate), [Workers static assets headers](https://developers.cloudflare.com/workers/static-assets/headers/), [Workers versions and deployments](https://developers.cloudflare.com/workers/configuration/versions-and-deployments/), [Workers previews](https://developers.cloudflare.com/workers/configuration/previews/), [Cloudflare Access for Workers](https://developers.cloudflare.com/workers/configuration/cloudflare-access/), [API token templates](https://developers.cloudflare.com/fundamentals/api/reference/template/), [wrangler-action](https://github.com/cloudflare/wrangler-action)
 - [Chromium SwiftShader docs](https://chromium.googlesource.com/chromium/src/+/da170c2267b2201954efe1c8fa5d2d89ab09f7bf/docs/gpu/swiftshader.md)
