@@ -39,39 +39,12 @@ describe("+page.svelte", () => {
     }).not.toThrow();
   });
 
-  it("renders the hero section", () => {
+  it.each(SECTION_IDS)("renders the %s section", (sectionId) => {
     host = document.createElement("div");
     document.body.appendChild(host);
 
     instance = mount(Page, { target: host });
 
-    expect(host.querySelector(`#${SECTION_IDS[0]}`)).toBeTruthy();
-  });
-
-  it("renders the projects section", () => {
-    host = document.createElement("div");
-    document.body.appendChild(host);
-
-    instance = mount(Page, { target: host });
-
-    expect(host.querySelector(`#${SECTION_IDS[1]}`)).toBeTruthy();
-  });
-
-  it("renders the about section", () => {
-    host = document.createElement("div");
-    document.body.appendChild(host);
-
-    instance = mount(Page, { target: host });
-
-    expect(host.querySelector(`#${SECTION_IDS[2]}`)).toBeTruthy();
-  });
-
-  it("renders the contact section", () => {
-    host = document.createElement("div");
-    document.body.appendChild(host);
-
-    instance = mount(Page, { target: host });
-
-    expect(host.querySelector(`#${SECTION_IDS[3]}`)).toBeTruthy();
+    expect(host.querySelector(`#${sectionId}`)).toBeTruthy();
   });
 });

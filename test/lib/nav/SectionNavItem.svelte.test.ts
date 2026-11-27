@@ -1,10 +1,16 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { mount, unmount } from "svelte";
+import { mount, unmount, type ComponentProps } from "svelte";
 import SectionNavItem from "../../../src/lib/nav/SectionNavItem.svelte";
 import type { SectionId } from "../../../src/lib/stores/shader.svelte";
 
 const SECTION_ID: SectionId = "projects";
 const SECTION_LABEL = "Projects";
+
+type NavItemState = ComponentProps<typeof SectionNavItem>["state"];
+
+const DATA_STATE_ROWS = [{ state: "unvisited" }, { state: "visited" }, { state: "active" }] as const satisfies readonly {
+  state: NavItemState;
+}[];
 
 describe("SectionNavItem", () => {
   let host: HTMLDivElement;
@@ -34,34 +40,14 @@ describe("SectionNavItem", () => {
     expect(anchor?.getAttribute("href")).toBe(`#${SECTION_ID}`);
   });
 
-  it("sets data-state to unvisited when state is unvisited", () => {
+  it.each(DATA_STATE_ROWS)("sets data-state to $state when state is $state", ({ state }) => {
     host = document.createElement("div");
     document.body.appendChild(host);
 
-    instance = mount(SectionNavItem, { target: host, props: { id: SECTION_ID, label: SECTION_LABEL, state: "unvisited" } });
+    instance = mount(SectionNavItem, { target: host, props: { id: SECTION_ID, label: SECTION_LABEL, state } });
 
     const anchor = host.querySelector("a");
-    expect(anchor?.getAttribute("data-state")).toBe("unvisited");
-  });
-
-  it("sets data-state to visited when state is visited", () => {
-    host = document.createElement("div");
-    document.body.appendChild(host);
-
-    instance = mount(SectionNavItem, { target: host, props: { id: SECTION_ID, label: SECTION_LABEL, state: "visited" } });
-
-    const anchor = host.querySelector("a");
-    expect(anchor?.getAttribute("data-state")).toBe("visited");
-  });
-
-  it("sets data-state to active when state is active", () => {
-    host = document.createElement("div");
-    document.body.appendChild(host);
-
-    instance = mount(SectionNavItem, { target: host, props: { id: SECTION_ID, label: SECTION_LABEL, state: "active" } });
-
-    const anchor = host.querySelector("a");
-    expect(anchor?.getAttribute("data-state")).toBe("active");
+    expect(anchor?.getAttribute("data-state")).toBe(state);
   });
 
   it("sets aria-current to true when state is active", () => {
