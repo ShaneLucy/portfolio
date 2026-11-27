@@ -8,7 +8,7 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 - **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
 - **Every decision, D1–D25, is settled.** They're listed under [Decisions](#decisions). D14–D25 were settled when planning Phase 2.
-- **Phase 2 is under way. Steps 1, 1b, 1c and 2 are done.** The site is on SvelteKit 3.4.1 with adapter-static and full prerendering, and `bun audit` is clean. Its ordered steps, and the questions left for particular steps, are under Phase 2.
+- **Phase 2 is under way. Steps 1, 1b, 1c, 2 and 3 are done. Step 4 (the Workers deploy) is next.** The site is on SvelteKit 3.4.1 with adapter-static and full prerendering, and `bun audit` is clean. Its ordered steps, and the questions left for particular steps, are under Phase 2.
 
 ---
 
@@ -394,8 +394,12 @@ It was built on `main`, never committed, and discarded after the gate.
        - `tsconfig.json` lists `vitest.config.ts` in `include`, so `PROJECT_SERVICE` is plain `true`.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
      - The size check enforces only initial JS (≤ 150 kB gzip) for now. The deferred-chunk and texture budgets move to Phase 3, when there's something real to measure.
-     - The initial set starts from the bootstrap script's imports and follows static imports recursively, plus the modulepreload links. It keeps working if Kit's `output.linkHeaderPreload` moves the preloads into HTTP headers, and it fails if it finds no files.
+     - The initial set is the bootstrap script's imports plus the modulepreload links, with static imports followed recursively so that static dependencies that aren't preloaded still count.
+       - Kit's `app.js` loads the route files with dynamic `import()`, so only the preload links make them visible.
+       - The check fails if `index.html` has no preloads, for example if `output.linkHeaderPreload` is switched on, which would itself lose the preloads on a static host. It also fails if there's no bootstrap entry, or a referenced file is missing.
      - The lint rule also blocks static imports of the scene folder from outside `scene/**`, so the scene can only be loaded with `import()`. Type-only imports stay allowed, and scene tests and benches are exempt.
+       - It matches any `scene` path segment, on purpose, because a relative `./scene/…` can't be tied back to `book`.
+     - Done 2026-11-27. The entry point is `bun run size` (`scripts/check-size.ts`, with the logic in `scripts/initial-js-size.ts`), and it runs in CI after Build. Initial JS was 45.09 kB gzip across 10 files.
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9), including the existing Pages project (see Facts).
   5. Rename `shaderStore` to `sectionStore`.
   6. Registry and per-spread sections (D9, D14). This has to be one commit, because prerendering fails the build on any `#id` link with no target.
