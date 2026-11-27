@@ -12,6 +12,12 @@ const gitignorePath = path.resolve(import.meta.dirname, ".gitignore");
 
 const COGNITIVE_COMPLEXITY_LIMIT = 15;
 
+// Every block must share these settings: typescript-eslint builds one project service from
+// whichever file it lints first, so blocks that differ make lint results depend on file order.
+const PROJECT_SERVICE = {
+  allowDefaultProject: ["vitest.config.ts", "playwright.config.ts"]
+};
+
 export default defineConfig(
   includeIgnoreFile(gitignorePath),
   js.configs.recommended,
@@ -45,9 +51,7 @@ export default defineConfig(
     files: ["**/*.ts"],
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ["vitest.config.ts", "playwright.config.ts"]
-        }
+        projectService: PROJECT_SERVICE
       }
     },
     rules: {
@@ -58,7 +62,7 @@ export default defineConfig(
     files: ["**/*.svelte", "**/*.svelte.ts", "**/*.svelte.js"],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: PROJECT_SERVICE,
         extraFileExtensions: [".svelte"],
         parser: ts.parser,
         svelteConfig
