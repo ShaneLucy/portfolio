@@ -18,6 +18,16 @@ const COGNITIVE_COMPLEXITY_LIMIT = 15;
 // whichever file it lints first, so blocks that differ make lint results depend on file order.
 const PROJECT_SERVICE = true;
 
+// Keeps three.js out of the initial chunk (D25): only the scene folder may import it, and
+// everything else reaches the scene through a dynamic import(), which this rule doesn't flag.
+const SCENE_FOLDERS = ["src/lib/book/scene/**", "test/lib/book/scene/**"];
+const THREE_IMPORT_PATTERN = "^three(/|$)"; // "three" and "three/addons/...", "three/examples/jsm/..."
+// Matches "#lib/book/scene/x", "./scene/x" and "../book/scene/x" alike.
+const SCENE_IMPORT_PATTERN = "(^|/)scene(/|$)";
+const THREE_IMPORT_MESSAGE =
+  "three may only be imported inside src/lib/book/scene/**, which loads with a dynamic import() so three stays out of the initial chunk.";
+const SCENE_IMPORT_MESSAGE = "Load the scene with a dynamic import() so three stays out of the initial chunk.";
+
 export default defineConfig(
   includeIgnoreFile(gitignorePath),
   js.configs.recommended,
@@ -70,6 +80,21 @@ export default defineConfig(
     },
     rules: {
       "@typescript-eslint/no-unnecessary-type-assertion": "error" // S4325
+    }
+  },
+  {
+    files: ["**/*.ts", "**/*.js", "**/*.svelte"],
+    ignores: SCENE_FOLDERS,
+    rules: {
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            { regex: THREE_IMPORT_PATTERN, message: THREE_IMPORT_MESSAGE, allowTypeImports: true },
+            { regex: SCENE_IMPORT_PATTERN, message: SCENE_IMPORT_MESSAGE, allowTypeImports: true }
+          ]
+        }
+      ]
     }
   },
   {

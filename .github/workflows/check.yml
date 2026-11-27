@@ -44,6 +44,9 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Size check
+        run: bun run size
+
       # Last, so an external Sonar problem can never hide a broken build
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # v8
