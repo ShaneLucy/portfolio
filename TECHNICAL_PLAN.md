@@ -21,9 +21,13 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 **Checked again while planning Phase 2 (2026-11-26):**
 
-- **The baseline isn't green.**
-  - `prettier --check` fails on `package.json` and `src/routes/+layout.svelte`.
-  - GitHub's Check workflow is reported to have failed on every run since July 2026. The logs need a sign-in, so the failing step isn't confirmed. The format step runs first, so it's the likely cause.
+- **The baseline isn't green** (corrected 2026-11-27).
+  - Locally, `prettier --check` failed on `package.json` and `src/routes/+layout.svelte` (fixed in step 1). CI's format step passed on the same commit, so the local failures were most likely CRLF line endings: git's system config sets `core.autocrlf=true`, and the repo has no `.gitattributes`.
+  - Check fails at **Lint**, not Format. The logs need a sign-in, but the step results are public through the GitHub API.
+    - CI installs with `--ignore-scripts`, so `svelte-kit sync` never runs and `.svelte-kit/tsconfig.json` doesn't exist.
+    - Without it, the tsconfig includes `vitest.config.ts`, which clashes with that file's `allowDefaultProject` entry in `eslint.config.js`. This was reproduced locally by removing `.svelte-kit`.
+    - Even after a sync, Lint fails some of the time. `eslint.config.js` gives the `.ts` block `allowDefaultProject: ["vitest.config.ts", …]` and the `.svelte` block plain `projectService: true`. typescript-eslint builds one project service from whichever file it lints first, so when a `.svelte` or `.svelte.ts` file goes first, `vitest.config.ts` is "not found by the project service". This was reproduced by linting two files in each order.
+  - Nothing after Lint has ever run in CI. Locally, coverage passes, with branches at 80.35% against an 80% threshold. Sonar has never completed an analysis (gate status `NONE`).
   - Deploy only fires after a green Check, so Check must be fixed before any deploy.
 - **Versions.**
   - Kit 3.4.1 needs Svelte ≥ 5.57.1, Vite ≥ 8.0.12 and Node ≥ 22.17.
@@ -258,13 +262,13 @@ Each wing's frame is then (u, c, u × c).
   - Make a token from the "Edit Cloudflare Workers" template and replace `CLOUDFLARE_API_TOKEN`. The Pages-era token almost certainly lacks Workers Scripts: Edit.
   - After the first deploy, open the Worker's Access tab, choose "All traffic", and add a policy for his email.
 - **Workflow.**
-  - Fix Check first (see Facts). Deploy only runs after a green Check.
+  - Fix Check first (Phase 2 step 1b; see Facts). Deploy only runs after a green Check.
   - Replace the `pages deploy --project-name=blog` step with a Workers deploy, and re-pin `cloudflare/wrangler-action` from v4.0.0 to v4.1.3.
   - Restore `on: workflow_run`.
   - Check out `ref: ${{ github.event.workflow_run.head_sha }}`. As written, it would deploy whatever is on main at deploy time, not the commit that passed Check.
-  - Pin `bun-version` to the local version (1.3.14) instead of `latest`, in both workflows.
-  - Pin Node 24 with `setup-node` (D23).
-  - Run `svelte-kit sync` after `bun install --ignore-scripts` and before eslint.
+  - Pin `bun-version` to the local version (1.3.14) instead of `latest`, in both workflows. `check.yml` gets it in step 1b.
+  - Pin Node 24 with `setup-node` (D23), in both workflows. `check.yml` gets it in step 1b.
+  - Run `svelte-kit sync` after `bun install --ignore-scripts` and before eslint (`check.yml`, step 1b).
 - **Caching.** Add `static/_headers` with immutable caching for `/_app/immutable/*`. Workers static assets honours `_headers`. Its default is `public, max-age=0, must-revalidate`, so use `! Cache-Control` to replace it. Stills go through Vite, so they get hashed names too.
 - **Cleanup.**
   - Delete the `process-images` script entry from `package.json`: `scripts/process-images.ts` doesn't exist.
@@ -373,7 +377,10 @@ It was built on `main`, never committed, and discarded after the gate.
 
 - **Work, in order.** Each step goes to one specialist agent, ends green (tests, check and lint, build), and is one commit.
   1. Teardown (§10, except the rename and the sections, which are steps 5 and 6) and baseline fixes: prettier on `package.json` and `+layout.svelte`, the §9 cleanup, `text-size-adjust` (D25), and the `DESIGN_SYSTEM.md` banner.
+     - **Step 1b: fix Check**, as its own commit. In `check.yml`: `setup-node` pinned to 24, bun pinned to 1.3.14 (D23), and `svelte-kit sync` before eslint. In `eslint.config.js`: the same `projectService` settings for every block. Plus a `.gitattributes` that keeps line endings LF. It's pushed and green before step 2 starts, so a red Check after the migration is the migration's fault.
   2. SvelteKit 3 (D2) and adapter-static, with `prerender = true` in the root `+layout.ts`. Also the `typescript` pin and `version.pollInterval: 0` (D25).
+     - The new tsconfig `include` covers root files, so `vitest.config.ts` leaves `allowDefaultProject`.
+     - `src/lib/index.ts` is deleted, and only `#lib/*` is mapped, so there's no bare `#lib` barrel.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9).
   5. Rename `shaderStore` to `sectionStore`.
