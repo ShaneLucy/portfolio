@@ -393,6 +393,9 @@ It was built on `main`, never committed, and discarded after the gate.
        - ESLint gets the Svelte config through `@sveltejs/load-config`, which the migration added. It reads the `sveltekit()` options in `vite.config.ts`.
        - `tsconfig.json` lists `vitest.config.ts` in `include`, so `PROJECT_SERVICE` is plain `true`.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
+     - The size check enforces only initial JS (≤ 150 kB gzip) for now. The deferred-chunk and texture budgets move to Phase 3, when there's something real to measure.
+     - The initial set starts from the bootstrap script's imports and follows static imports recursively, plus the modulepreload links. It keeps working if Kit's `output.linkHeaderPreload` moves the preloads into HTTP headers, and it fails if it finds no files.
+     - The lint rule also blocks static imports of the scene folder from outside `scene/**`, so the scene can only be loaded with `import()`. Type-only imports stay allowed, and scene tests and benches are exempt.
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9), including the existing Pages project (see Facts).
   5. Rename `shaderStore` to `sectionStore`.
   6. Registry and per-spread sections (D9, D14). This has to be one commit, because prerendering fails the build on any `#id` link with no target.
@@ -416,6 +419,7 @@ It was built on `main`, never committed, and discarded after the gate.
   - Leaves, scroll map and springs.
   - Paper material, per-spread lamp poses, the chosen shadows and the quality governor.
   - Render on demand, the still-to-live swap and capture mode.
+  - The size check's deferred-chunk (≤ 200 kB gzip) and texture (≤ 250 kB) budgets (D10).
 - **Exit:** a blank-paged book with the right number of leaves turns under scroll, the cover swap is invisible, and budgets are met on desktop and on the reference phone.
 
 ### Phase 4: Stills Pipeline [S]
