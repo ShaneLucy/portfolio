@@ -8,7 +8,7 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 - **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
 - **Every decision, D1–D25, is settled.** They're listed under [Decisions](#decisions). D14–D25 were settled when planning Phase 2.
-- **Phase 2 is under way. Steps 1, 1b and 1c are done, and Check is green.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
+- **Phase 2 is under way. Steps 1, 1b, 1c and 2 are done.** The site is on SvelteKit 3.4.1 with adapter-static and full prerendering, and `bun audit` is clean. Its ordered steps, and the questions left for particular steps, are under Phase 2.
 
 ---
 
@@ -389,6 +389,9 @@ It was built on `main`, never committed, and discarded after the gate.
      - The new tsconfig `include` covers root files, so `vitest.config.ts` leaves `allowDefaultProject`.
      - `src/lib/index.ts` is deleted, and only `#lib/*` is mapped, so there's no bare `#lib` barrel.
      - The 5 advisories left after step 1c are fixed only in Kit 3: four in `@sveltejs/kit` itself, and `cookie` < 0.7, which Kit 2 pins at `^0.6.0`. `bun audit` should be clean after this step.
+     - Done 2026-11-27, and `bun audit` is clean.
+       - ESLint gets the Svelte config through `@sveltejs/load-config`, which the migration added. It reads the `sveltekit()` options in `vite.config.ts`.
+       - `tsconfig.json` lists `vitest.config.ts` in `include`, so `PROJECT_SERVICE` is plain `true`.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9), including the existing Pages project (see Facts).
   5. Rename `shaderStore` to `sectionStore`.
