@@ -27,7 +27,8 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
     - CI installs with `--ignore-scripts`, so `svelte-kit sync` never runs and `.svelte-kit/tsconfig.json` doesn't exist.
     - Without it, the tsconfig includes `vitest.config.ts`, which clashes with that file's `allowDefaultProject` entry in `eslint.config.js`. This was reproduced locally by removing `.svelte-kit`.
     - Even after a sync, Lint fails some of the time. `eslint.config.js` gives the `.ts` block `allowDefaultProject: ["vitest.config.ts", …]` and the `.svelte` block plain `projectService: true`. typescript-eslint builds one project service from whichever file it lints first, so when a `.svelte` or `.svelte.ts` file goes first, `vitest.config.ts` is "not found by the project service". This was reproduced by linting two files in each order.
-  - Nothing after Lint has ever run in CI. Locally, coverage passes, with branches at 80.35% against an 80% threshold. Sonar has never completed an analysis (gate status `NONE`).
+  - Nothing after Lint had run in CI since July. Locally, coverage passes, with branches at 80.35% against an 80% threshold.
+  - After step 1b, Lint, Type check and Unit tests pass in CI, and the SonarQube scan fails. The repo had no `SONAR_TOKEN` secret. Shane added one on 2026-11-27, and its first run is still unverified.
   - Deploy only fires after a green Check, so Check must be fixed before any deploy.
 - **Versions.**
   - Kit 3.4.1 needs Svelte ≥ 5.57.1, Vite ≥ 8.0.12 and Node ≥ 22.17.
@@ -378,9 +379,11 @@ It was built on `main`, never committed, and discarded after the gate.
 - **Work, in order.** Each step goes to one specialist agent, ends green (tests, check and lint, build), and is one commit.
   1. Teardown (§10, except the rename and the sections, which are steps 5 and 6) and baseline fixes: prettier on `package.json` and `+layout.svelte`, the §9 cleanup, `text-size-adjust` (D25), and the `DESIGN_SYSTEM.md` banner.
      - **Step 1b: fix Check**, as its own commit. In `check.yml`: `setup-node` pinned to 24, bun pinned to 1.3.14 (D23), and `svelte-kit sync` before eslint. In `eslint.config.js`: the same `projectService` settings for every block. Plus a `.gitattributes` that keeps line endings LF. It's pushed and green before step 2 starts, so a red Check after the migration is the migration's fault.
+     - **Step 1c: dependency CVEs**, as its own commit. `bun update` within the existing ranges, plus a regenerated `bun.lock` so transitive deps move too. `bun audit` went from 81 advisories to 5. sonarjs 4.2's new `parameterized-tests` rule turned two test groups into `it.each` tables.
   2. SvelteKit 3 (D2) and adapter-static, with `prerender = true` in the root `+layout.ts`. Also the `typescript` pin and `version.pollInterval: 0` (D25).
      - The new tsconfig `include` covers root files, so `vitest.config.ts` leaves `allowDefaultProject`.
      - `src/lib/index.ts` is deleted, and only `#lib/*` is mapped, so there's no bare `#lib` barrel.
+     - The 5 advisories left after step 1c are fixed only in Kit 3: four in `@sveltejs/kit` itself, and `cookie` < 0.7, which Kit 2 pins at `^0.6.0`. `bun audit` should be clean after this step.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9).
   5. Rename `shaderStore` to `sectionStore`.
