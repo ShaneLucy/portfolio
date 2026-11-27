@@ -8,7 +8,7 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 - **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
 - **Every decision, D1–D25, is settled.** They're listed under [Decisions](#decisions). D14–D25 were settled when planning Phase 2.
-- **Phase 2 is planned and not started.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
+- **Phase 2 is under way. Step 1 (teardown) is done.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
 
 ---
 
@@ -280,10 +280,12 @@ Teardown doesn't depend on the spike's result, since Liquid Light is out either 
 - Remove `.parallax-layer-*` and the `--scroll-offset` notes from `src/lib/styles/global.css`.
 - Remove `--surface-glass*`, `--cool-*` and `--warm-*` from `src/lib/styles/tokens.css`, along with the glass panels in the Hero, About and Contact sections.
 - `--cool-bright` is still doing real work: links, the hero CTA and the contact border. Swap it for a temporary neutral `--link` token that passes contrast until the new palette lands, and re-check `--focus-ring` at the same time.
+  - About's skill-category labels also use it, but they aren't links, so they take `--text-tertiary`.
+  - There's one link tone. The hero CTA's hover (`--cool-accent` today) changes only its underline.
 - Leftovers this list first missed:
   - the cyan `--nav-*` tokens and `--focus-ring`, retuned to neutral (D21);
   - `SectionNavItem`'s hard-coded cyan glow, and its text-shadow meant for reading over WebGL;
-  - the 1100–1490 px rail padding hack in `global.css` (D16 makes it unnecessary);
+  - the 1100–1490 px rail padding hack in `global.css` (D16 makes it unnecessary). It goes in step 1, so the rail overlaps the text at those widths until step 10;
   - `color-scheme: dark` in `reset.css`, which stays for now because the palette stays dark (D21);
   - the "Liquid Light" header comments in the style files.
 - Rename `shaderStore` to `sectionStore` and update the nav, the tracker and their tests.
@@ -342,6 +344,7 @@ All settled on 2026-11-26.
   - MotionToggle gets a fixed "Animations" label with `aria-pressed`. Today it flips both, so it reads "Pause animations, pressed".
   - `reset.css` uses `text-size-adjust: 100%`, not `none`.
   - Set `version.pollInterval: 0`, and pin `typescript` to `~6.0.3`.
+  - Each extra lands with the Phase 2 step that already touches the same files (placed 2026-11-27; see Phase 2).
 
 ---
 
@@ -369,13 +372,13 @@ It was built on `main`, never committed, and discarded after the gate.
 ### Phase 2: Foundation and Still-Mode Book [L]
 
 - **Work, in order.** Each step goes to one specialist agent, ends green (tests, check and lint, build), and is one commit.
-  1. Teardown (§10) and baseline fixes: prettier on `package.json` and `+layout.svelte`, the §9 cleanup, and the `DESIGN_SYSTEM.md` banner.
-  2. SvelteKit 3 (D2) and adapter-static, with `prerender = true` in the root `+layout.ts`.
-  3. The CI size check (D10, D24).
+  1. Teardown (§10, except the rename and the sections, which are steps 5 and 6) and baseline fixes: prettier on `package.json` and `+layout.svelte`, the §9 cleanup, `text-size-adjust` (D25), and the `DESIGN_SYSTEM.md` banner.
+  2. SvelteKit 3 (D2) and adapter-static, with `prerender = true` in the root `+layout.ts`. Also the `typescript` pin and `version.pollInterval: 0` (D25).
+  3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
   4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9).
   5. Rename `shaderStore` to `sectionStore`.
   6. Registry and per-spread sections (D9, D14). This has to be one commit, because prerendering fails the build on any `#id` link with no target.
-  7. The inline `data-motion` script and the self-initialising motion store.
+  7. The inline `data-motion` script and the self-initialising motion store, plus MotionToggle's label fix (D25).
   8. The stage state machine.
   9. `BookStage` with placeholder stills (D20).
   10. Sticky stage layout, phone band, unstick rule and nav chrome (D4, D5, D15–D19).
