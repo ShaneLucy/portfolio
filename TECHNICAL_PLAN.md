@@ -8,7 +8,7 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
 
 - **Phase 1 is done.** The V-fold spike was built, reviewed and discarded on 2026-11-26. Its results and lessons are under Phase 1.
 - **Every decision, D1–D25, is settled.** They're listed under [Decisions](#decisions). D14–D25 were settled when planning Phase 2.
-- **Phase 2 is under way. Step 1 (teardown) is done.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
+- **Phase 2 is under way. Steps 1, 1b and 1c are done, and Check is green.** Its ordered steps, and the questions left for particular steps, are under Phase 2.
 
 ---
 
@@ -28,7 +28,11 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
     - Without it, the tsconfig includes `vitest.config.ts`, which clashes with that file's `allowDefaultProject` entry in `eslint.config.js`. This was reproduced locally by removing `.svelte-kit`.
     - Even after a sync, Lint fails some of the time. `eslint.config.js` gives the `.ts` block `allowDefaultProject: ["vitest.config.ts", …]` and the `.svelte` block plain `projectService: true`. typescript-eslint builds one project service from whichever file it lints first, so when a `.svelte` or `.svelte.ts` file goes first, `vitest.config.ts` is "not found by the project service". This was reproduced by linting two files in each order.
   - Nothing after Lint had run in CI since July. Locally, coverage passes, with branches at 80.35% against an 80% threshold.
-  - After step 1b, Lint, Type check and Unit tests pass in CI, and the SonarQube scan fails. The repo had no `SONAR_TOKEN` secret. Shane added one on 2026-11-27, and its first run is still unverified.
+  - After step 1b, Sonar was the only failing step. Three things were wrong with it, all fixed on 2026-11-27:
+    - the repo had no `SONAR_TOKEN` secret;
+    - SonarCloud's Automatic Analysis was on, which blocks CI analysis (the scanner exits with code 3);
+    - with no `sonar.sources` or `sonar.tests`, tests counted as uncovered and duplicated production code, so coverage read 1–3%.
+  - Check has been green since `513689d`, with Build before Sonar.
   - Deploy only fires after a green Check, so Check must be fixed before any deploy.
 - **Versions.**
   - Kit 3.4.1 needs Svelte ≥ 5.57.1, Vite ≥ 8.0.12 and Node ≥ 22.17.
@@ -41,6 +45,7 @@ _Written 2026-11-26 from the tech-lead review. `CREATIVE_DIRECTION.md` is the so
   - The generated tsconfig lives in `node_modules/$app`, so CI needs `svelte-kit sync` before eslint.
 - **Prerendering checks anchors.** Prerendering fails the build on a same-page `#id` link with no matching id.
 - **Cloudflare.**
+  - A Cloudflare **Pages** project named `portfolio` is connected to this repo through Cloudflare's GitHub app. It builds on every push and fails. It's left alone until step 4 (Shane, 2026-11-27). Then: check whether any older deployment is live, and delete the project before the `portfolio` Worker is created.
   - Workers "preview URLs" are now called version URLs.
   - Branch previews (`wrangler preview`) are public by default.
   - A Worker's Access tab can protect "All traffic" (`workers.dev` and previews) or "Previews only". It needs Zero Trust turned on.
@@ -385,7 +390,7 @@ It was built on `main`, never committed, and discarded after the gate.
      - `src/lib/index.ts` is deleted, and only `#lib/*` is mapped, so there's no bare `#lib` barrel.
      - The 5 advisories left after step 1c are fixed only in Kit 3: four in `@sveltejs/kit` itself, and `cookie` < 0.7, which Kit 2 pins at `^0.6.0`. `bun audit` should be clean after this step.
   3. The CI size check (D10, D24) and the `three` `no-restricted-imports` rule (D25).
-  4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9).
+  4. The Workers deploy (D11, D22, D23), plus Shane's dashboard steps (§9), including the existing Pages project (see Facts).
   5. Rename `shaderStore` to `sectionStore`.
   6. Registry and per-spread sections (D9, D14). This has to be one commit, because prerendering fails the build on any `#id` link with no target.
   7. The inline `data-motion` script and the self-initialising motion store, plus MotionToggle's label fix (D25).
