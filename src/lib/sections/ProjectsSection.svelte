@@ -73,7 +73,7 @@
   }
 
   .card-link {
-    color: var(--cool-bright);
+    color: var(--link);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     padding-bottom: 1px;
@@ -81,6 +81,6 @@
   }
 
   .card-link:hover {
-    border-color: var(--cool-bright);
+    border-color: var(--link);
   }
 </style>

@@ -34,8 +34,7 @@
     flex-shrink: 0;
     transition:
       background-color 250ms ease-out,
-      transform 250ms ease-out,
-      box-shadow 300ms ease-out;
+      transform 250ms ease-out;
   }
 
   /* Unvisited */
@@ -54,7 +53,6 @@
   .nav-item[data-state="active"] .dot {
     background: var(--nav-dot-active);
     transform: scale(1);
-    box-shadow: 0 0 10px 4px oklch(72% 0.16 195deg / 45%);
   }
 
   /* Hover: scale up slightly for unvisited/visited */
@@ -70,9 +68,6 @@
     text-transform: uppercase;
     color: var(--text-secondary);
     white-space: nowrap;
-
-    /* Readable against any WebGL shader background */
-    text-shadow: 0 1px 4px oklch(0% 0 0deg / 60%);
     transition:
       color 200ms ease,
       opacity 200ms ease;
@@ -117,7 +112,6 @@
   @media (forced-colors: active) {
     .nav-item[data-state="active"] .dot {
       background: Highlight;
-      box-shadow: none;
     }
   }
 </style>

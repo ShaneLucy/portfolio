@@ -1,5 +1,5 @@
 /* ============================================================
-   GLOBAL STYLES — Liquid Light Portfolio
+   GLOBAL STYLES
    ============================================================ */
 
 @import url("@fontsource-variable/fraunces/wght.css");
@@ -86,35 +86,10 @@ section {
   position: relative;
 }
 
-/* Desktop: add extra right padding so content clears the fixed section nav rail */
-@media (1100px < width < 1490px) {
-  section > .container {
-    padding-right: 7.5rem;
-  }
-}
-
 /* ── Stacking Context ───────────────────────────────────────── */
 
-/* WebGL canvas: z-index 0 (added by ShaderCanvas in Phase 2)  */
-
-/* Content layers: z-index 1+                                   */
+/* Content layers: z-index 1+ */
 main {
   position: relative;
   z-index: 1;
-}
-
-/* ── Parallax Depth Layers ──────────────────────────────────── */
-
-/* --scroll-offset is only set by ParallaxController when motion is
-   enabled. When unset the fallback 0px means no translation —
-   no separate media query needed here. */
-
-/* Layer 1: ~0.96× scroll speed — decorative/background elements */
-.parallax-layer-1 {
-  transform: translateY(calc(var(--scroll-offset, 0px) * 0.08));
-}
-
-/* Layer 3: ~1.03× scroll speed — accent labels, floating tags */
-.parallax-layer-3 {
-  transform: translateY(calc(var(--scroll-offset, 0px) * -0.06));
 }

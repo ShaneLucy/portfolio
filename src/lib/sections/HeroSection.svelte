@@ -28,10 +28,6 @@
 
   .hero-content {
     max-width: 70rem;
-    background: var(--surface-glass);
-    backdrop-filter: blur(var(--surface-glass-blur));
-    border-radius: 1rem;
-    padding: var(--space-12);
   }
 
   .hero-headline {
@@ -51,17 +47,14 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    color: var(--cool-bright);
+    color: var(--link);
     text-decoration: none;
-    border-bottom: 1px solid var(--cool-bright);
+    border-bottom: 1px solid var(--link);
     padding-bottom: var(--space-1);
-    transition:
-      color var(--transition-fast),
-      border-color var(--transition-fast);
   }
 
+  /* Hover thickens the underline; a box-shadow takes no layout space, so nothing shifts */
   .hero-cta:hover {
-    color: var(--cool-accent);
-    border-color: var(--cool-accent);
+    box-shadow: 0 1px 0 0 var(--link);
   }
 </style>

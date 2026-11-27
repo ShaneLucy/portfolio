@@ -1,5 +1,5 @@
 /* ============================================================
-   DESIGN TOKENS — Liquid Light Portfolio
+   DESIGN TOKENS
    All colours in OKLCH. All sizes in rem / clamp().
    ============================================================ */
 
@@ -33,39 +33,28 @@
 
   /* ── Text ───────────────────────────────────────────────── */
 
-  /* Sections sit over the animated shader with no opaque background.
-     Secondary and tertiary are kept near-white so they remain legible
-     against the shader's bright peaks (oklch 85–88%). Visual hierarchy
-     is achieved through size, weight, and spacing — not lightness alone. */
+  /* Near-white on near-black, all well above 4.5:1 on every surface. The
+     three tiers are kept close in lightness so the dimmest (tertiary,
+     used for small labels) still clears AA with room to spare; hierarchy
+     comes from size, weight and spacing instead. */
   --text-primary: oklch(95% 0.008 270deg);
   --text-secondary: oklch(92% 0.008 270deg);
   --text-tertiary: oklch(82% 0.008 270deg);
 
-  /* ── Content Surface (glassmorphism backdrop for prose areas) */
-  --surface-glass: color-mix(in oklch, var(--surface-base) 65%, transparent);
-  --surface-glass-blur: 12px;
+  /* ── Links ──────────────────────────────────────────────── */
+
+  /* Temporary neutral until the real palette lands (D21). */
+  --link: oklch(85% 0 0deg);
 
   /* ── Focus ──────────────────────────────────────────────── */
-  --focus-ring: oklch(80% 0.18 195deg);
-
-  /* ── Cool Palette (aurora, deep water) ──────────────────── */
-  --cool-deep: oklch(22% 0.12 265deg);
-  --cool-mid: oklch(48% 0.18 295deg);
-  --cool-bright: oklch(72% 0.16 195deg);
-  --cool-accent: oklch(85% 0.12 185deg);
-
-  /* ── Warm Palette (bioluminescence, fire) ───────────────── */
-  --warm-deep: oklch(22% 0.12 35deg);
-  --warm-mid: oklch(55% 0.2 50deg);
-  --warm-bright: oklch(78% 0.18 70deg);
-  --warm-accent: oklch(88% 0.14 80deg);
+  --focus-ring: oklch(85% 0 0deg);
 
   /* ── Section Nav Indicator ──────────────────────────────── */
-  --nav-dot-unvisited: oklch(32% 0.04 195deg);
-  --nav-dot-visited: oklch(54% 0.1 195deg);
-  --nav-dot-active: oklch(72% 0.16 195deg);
-  --nav-track-unvisited: oklch(28% 0.03 195deg / 60%);
-  --nav-track-visited: oklch(52% 0.09 195deg / 75%);
+  --nav-dot-unvisited: oklch(35% 0 0deg);
+  --nav-dot-visited: oklch(60% 0 0deg);
+  --nav-dot-active: oklch(90% 0 0deg);
+  --nav-track-unvisited: oklch(35% 0 0deg / 60%);
+  --nav-track-visited: oklch(60% 0 0deg / 75%);
 
   /* ── Grid ───────────────────────────────────────────────── */
   --grid-columns: 12;

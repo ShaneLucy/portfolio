@@ -2,6 +2,8 @@
 
 _Created: 2026-06-16 — companion to CREATIVE_DIRECTION.md_
 
+> **Out of date.** The visual sections of this document describe Liquid Light, the WebGL shader direction, which the pop-up book direction replaced on 2026-11-26. That covers §2 Colour System (cool and warm palettes, section mapping), §3 Shader State Model, §4 Spatial & Layout System (parallax layers), and the shader and parallax phases in §7. `CREATIVE_DIRECTION.md` and `TECHNICAL_PLAN.md` are current. This document will be rewritten in Phase 7.
+
 ---
 
 ## 1. Typography

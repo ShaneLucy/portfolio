@@ -32,10 +32,6 @@
 
   .contact-inner {
     max-width: 48rem;
-    background: var(--surface-glass);
-    backdrop-filter: blur(var(--surface-glass-blur));
-    border-radius: 1rem;
-    padding: var(--space-12);
   }
 
   .section-heading {
@@ -71,7 +67,7 @@
   }
 
   .contact-link:hover {
-    border-color: var(--cool-bright);
-    color: var(--cool-bright);
+    border-color: var(--link);
+    color: var(--link);
   }
 </style>

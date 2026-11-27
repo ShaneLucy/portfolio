@@ -53,10 +53,6 @@
     grid-template-columns: 1fr 1fr;
     gap: var(--space-16);
     align-items: start;
-    background: var(--surface-glass);
-    backdrop-filter: blur(var(--surface-glass-blur));
-    border-radius: 1rem;
-    padding: var(--space-12);
   }
 
   @media (width <= 768px) {
@@ -106,7 +102,7 @@
   }
 
   .skill-category {
-    color: var(--cool-bright);
+    color: var(--text-tertiary);
   }
 
   .skill-group span:last-child {
