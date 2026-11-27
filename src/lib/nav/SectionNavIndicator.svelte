@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { shaderStore } from "$lib/stores/shader.svelte";
-  import { SECTION_ORDER } from "$lib/nav/sections.config";
+  import { shaderStore } from "#lib/stores/shader.svelte.ts";
+  import { SECTION_ORDER } from "#lib/nav/sections.config.ts";
   import SectionNavItem from "./SectionNavItem.svelte";
   import SectionNavControls from "./SectionNavControls.svelte";
 

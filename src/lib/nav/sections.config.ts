@@ -1,4 +1,4 @@
-import type { SectionId } from "$lib/stores/shader.svelte";
+import type { SectionId } from "#lib/stores/shader.svelte.ts";
 
 export interface SectionEntry {
   id: SectionId;

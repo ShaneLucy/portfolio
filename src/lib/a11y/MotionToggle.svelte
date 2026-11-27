@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { motionStore } from "$lib/stores/motion.svelte";
+  import { motionStore } from "#lib/stores/motion.svelte.ts";
 
   onMount(() => {
     motionStore.init();

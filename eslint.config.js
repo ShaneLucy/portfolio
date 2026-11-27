@@ -6,7 +6,9 @@ import sonarjs from "eslint-plugin-sonarjs";
 import { defineConfig, includeIgnoreFile } from "eslint/config";
 import globals from "globals";
 import ts from "typescript-eslint";
-import svelteConfig from "./svelte.config.js";
+import { loadConfig } from "@sveltejs/load-config";
+
+const svelteConfig = (await loadConfig("./", { traverse: false }))?.config;
 
 const gitignorePath = path.resolve(import.meta.dirname, ".gitignore");
 
@@ -14,9 +16,7 @@ const COGNITIVE_COMPLEXITY_LIMIT = 15;
 
 // Every block must share these settings: typescript-eslint builds one project service from
 // whichever file it lints first, so blocks that differ make lint results depend on file order.
-const PROJECT_SERVICE = {
-  allowDefaultProject: ["vitest.config.ts", "playwright.config.ts"]
-};
+const PROJECT_SERVICE = true;
 
 export default defineConfig(
   includeIgnoreFile(gitignorePath),

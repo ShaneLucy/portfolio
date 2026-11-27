@@ -2,7 +2,7 @@
   import type { Snippet } from "svelte";
   import { slide } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
-  import { motionStore } from "$lib/stores/motion.svelte";
+  import { motionStore } from "#lib/stores/motion.svelte.ts";
 
   type Project = {
     id: string;

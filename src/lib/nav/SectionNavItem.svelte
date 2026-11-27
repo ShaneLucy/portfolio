@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SectionId } from "$lib/stores/shader.svelte";
+  import type { SectionId } from "#lib/stores/shader.svelte.ts";
 
   interface Props {
     id: SectionId;

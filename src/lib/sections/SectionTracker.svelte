@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { SvelteSet } from "svelte/reactivity";
-  import { shaderStore } from "$lib/stores/shader.svelte";
-  import { SECTION_ORDER } from "$lib/nav/sections.config";
+  import { shaderStore } from "#lib/stores/shader.svelte.ts";
+  import { SECTION_ORDER } from "#lib/nav/sections.config.ts";
 
   onMount(() => {
     // Maintain the full set so stale entries from a batch don't override the correct one.
