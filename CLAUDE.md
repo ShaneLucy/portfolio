@@ -8,6 +8,15 @@
 
 **Never write absolute paths** in any file, comment, or output. Always use relative paths. This applies to imports, configuration, documentation, and all other contexts.
 
+## Git: Claude commits here, Shane pushes
+
+This overrides the global "I stage and commit" rule, for this project only.
+
+- **Commit each finished step.** Once a step passes the verification gate and its diff has been reviewed, stage and commit it, then report the hash and message. One commit per step.
+- **Subagents never commit.** The main session commits after reviewing their work.
+- **Messages** are one short line in the style of the recent log, with no body and no `Co-Authored-By` trailer.
+- **Never push.** Pushing runs CI, and later deploys, so Shane does it. Say when a commit needs pushing, for example to prove Check is green.
+
 ---
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
